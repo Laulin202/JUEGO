@@ -3,8 +3,9 @@
 
 #include "Entity.h"
 
-class Enemy : Entity{
-    private:
+
+class Enemy : public Entity{
+    protected:
         //Item drop;
     public:
 };
