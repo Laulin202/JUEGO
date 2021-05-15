@@ -2,7 +2,7 @@
 #define BOSS_H
 #include "Enemy.h"
 
-class Boss : Enemy{
+class Boss : public Enemy{
     private:
         int effectPoints;
     public:
