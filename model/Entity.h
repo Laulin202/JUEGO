@@ -2,6 +2,8 @@
 #define ENTITY_H
 
 #include "Spell.h"
+#include <../SFML/Graphics.hpp>
+#include <../SFML/Audio.hpp>
 
 
 #include <string>
@@ -11,7 +13,7 @@ using std::vector;
 
 class Entity
 {
-    private:
+    protected:
         string name;
         int healthPoints;
         int attackPoints;
