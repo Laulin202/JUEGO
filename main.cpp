@@ -1,23 +1,19 @@
-#include "Game.h"
-//using namespace sf;
+#include <SFML/Graphics.hpp>
+#include <string>
+#include <iostream>
+#include "juego.h"
+
+using std::cout;
+using std::cin;
+using std::string;
+
 
 int main()
 {
-    //Init Game engine
-    Game game;
 
-    //Game loop
-    while( game.running() )
-    {
-        //Update
-        game.update();
+    Juego* pruebaJuego;
+    pruebaJuego = new Juego(800, 600, "Programa de prueba");
 
-        //Render
-        game.render();
-
-
-    }
-
-    //End of application
     return 0;
 }
+
