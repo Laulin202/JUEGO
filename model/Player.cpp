@@ -35,3 +35,11 @@ bool Player::checkDead( )
     }
     return false;
 }
+
+bool Player::checkGameOver( )
+{
+    if( this->hearts <= 0 ){
+        return true;
+    }
+    return false;
+}

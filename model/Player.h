@@ -20,6 +20,7 @@ class Player : public Entity{
         void updateHealthPoints( int newHealthPoints );
         void updateAttackPoints( int newAttackPoints );
         bool checkDead( );
+        bool checkGameOver( );
 };
 
 #endif
