@@ -21,11 +21,5 @@ class Juego{
         void dibujarPantalla();
         //Lopp para mostrar permanentemente la ventana
         void gameLoop();
-        //inicializar textura
-        //nose
-        //bool spriteTime(Time elapsed1);
-
-        
-
 
 };

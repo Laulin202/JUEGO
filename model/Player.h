@@ -26,6 +26,7 @@ class Player : public Entity{
         bool checkGameOver( );
         bool spritesTime(Time elapsed1);
         void playerMovement(int i);
+        void playerUpdatePosition(sf::Vector2f pos);
 };
 
 #endif

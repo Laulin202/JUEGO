@@ -38,6 +38,7 @@ void Player::dibujarPlayerPantalla(RenderWindow* ventanaJuego){
     int i;
     i = 20;
         while( i < 23){
+            cout << i << endl;
             ventanaJuego->clear(sf::Color::Black);
             timeElapsed = clock.getElapsedTime();
             if (spritesTime( timeElapsed )){
@@ -51,7 +52,7 @@ void Player::dibujarPlayerPantalla(RenderWindow* ventanaJuego){
 }
 
 bool Player::spritesTime(Time elapsed1){
-    if( elapsed1.asSeconds() >= 0.2f ){
+    if( elapsed1.asSeconds() >= 0.1f ){
         return true;
     }
     return false;
@@ -85,23 +86,26 @@ bool Player::checkGameOver( )
 
 
 void Player::playerMovement( int i){
-    
+    sf::Vector2f position;
     if (Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            cout << "Entre i" << endl;
             // left key is pressed: move our character
-            spritesPlayer[i].move(-50.f, 0.f);
+            spritesPlayer[i].move(-10.f, 0.f);
     } 
     else if(Keyboard::isKeyPressed(Keyboard::Right)){
-            cout << "Entre r " << endl;
-            spritesPlayer[i].move(50.f, 0.f);
+            spritesPlayer[i].move(10.f, 0.f);
     } 
     else if(Keyboard::isKeyPressed(Keyboard::Up)){
-            cout << "Entre u " << endl;
-            spritesPlayer[i].move(0.f, -50.f);
+            spritesPlayer[i].move(0.f, -10.f);
     }
     else if(Keyboard::isKeyPressed(Keyboard::Down)){
-            cout << "Entre d" << endl;
-            spritesPlayer[i].move(0.f, 50.f);
+            spritesPlayer[i].move(0.f, 10.f);
     }
-        
+    position = spritesPlayer[i].getPosition();
+    playerUpdatePosition(position);
+}
+
+void Player::playerUpdatePosition(sf::Vector2f pos){
+    for(int i = 0; i < 25; i++){
+        spritesPlayer[i].setPosition(pos);
+    }
 }
