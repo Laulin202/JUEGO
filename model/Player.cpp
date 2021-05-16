@@ -36,7 +36,7 @@ void Player::dibujarPlayerPantalla(RenderWindow* ventanaJuego){
     Clock clock;
     Time timeElapsed;
     int i;
-    i = 20;
+    i = 10;
         while( i < 23){
             ventanaJuego->clear(sf::Color::Black);
             timeElapsed = clock.getElapsedTime();
@@ -51,7 +51,7 @@ void Player::dibujarPlayerPantalla(RenderWindow* ventanaJuego){
 }
 
 bool Player::spritesTime(Time elapsed1){
-    if( elapsed1.asSeconds() >= 0.2f ){
+    if( elapsed1.asSeconds() >= 0.1f ){
         return true;
     }
     return false;
