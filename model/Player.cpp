@@ -51,7 +51,7 @@ void Player::dibujarPlayerPantalla(RenderWindow* ventanaJuego){
 }
 
 bool Player::spritesTime(Time elapsed1){
-    if( elapsed1.asSeconds() >= 0.2f ){
+    if( elapsed1.asSeconds() >= 0.1f ){
         return true;
     }
     return false;
