@@ -19,11 +19,11 @@
  }
 
 void Player::inicializarTexturaPlayer(){
-    texturesPlayer = new Texture[25];    //atributos de player
-    spritesPlayer = new Sprite[25];      //atributos de player
+    texturesPlayer = new Texture[12];    //atributos de player
+    spritesPlayer = new Sprite[12];      //atributos de player
 
-    for(int i = 0; i < 25; i++){
-        if (!texturesPlayer[i].loadFromFile(std::__cxx11::to_string(i)+".png"))
+    for(int i = 0; i < 12; i++){
+        if (!texturesPlayer[i].loadFromFile("src/images/player/" + std::__cxx11::to_string(i) + ".png"))
         {
             cout << "No textura";
         }
@@ -36,9 +36,8 @@ void Player::dibujarPlayerPantalla(RenderWindow* ventanaJuego){
     Clock clock;
     Time timeElapsed;
     int i;
-    i = 20;
-        while( i < 23){
-            cout << i << endl;
+    /*
+        while( i < 12){
             ventanaJuego->clear(sf::Color::Black);
             timeElapsed = clock.getElapsedTime();
             if (spritesTime( timeElapsed )){
@@ -49,6 +48,15 @@ void Player::dibujarPlayerPantalla(RenderWindow* ventanaJuego){
                 i++;
             }
         }
+    */
+    //asi inicia el jugador
+   i = playerMovement( ventanaJuego );
+   ventanaJuego->clear(sf::Color::Black);
+   ventanaJuego->draw(spritesPlayer[i]);
+   ventanaJuego->display();
+
+   
+
 }
 
 bool Player::spritesTime(Time elapsed1){
@@ -84,28 +92,45 @@ bool Player::checkGameOver( )
     return false;
 }
 
+int Player::playerMovement( RenderWindow* ventanaJuego ){
+    Vector2f position;
+    Clock clock;
+    Time timeElapsed;
+    int i;
 
-void Player::playerMovement( int i){
-    sf::Vector2f position;
-    if (Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            // left key is pressed: move our character
-            spritesPlayer[i].move(-10.f, 0.f);
+    while(Keyboard::isKeyPressed(Keyboard::Left)){
+            i = 3;
+            while(i < i + 3){
+                spritesPlayer[i].move(-10.f, 0.f);
+                if (spritesTime( timeElapsed )){
+                ventanaJuego->draw(spritesPlayer[i]);
+                ventanaJuego->display();
+                clock.restart();
+                position = spritesPlayer[i].getPosition();
+                playerUpdatePosition(position);
+                i++;
+                }
+            }
     } 
-    else if(Keyboard::isKeyPressed(Keyboard::Right)){
+    
+    if(Keyboard::isKeyPressed(Keyboard::Right)){
             spritesPlayer[i].move(10.f, 0.f);
     } 
-    else if(Keyboard::isKeyPressed(Keyboard::Up)){
+    if(Keyboard::isKeyPressed(Keyboard::Up)){
             spritesPlayer[i].move(0.f, -10.f);
     }
-    else if(Keyboard::isKeyPressed(Keyboard::Down)){
+    if(Keyboard::isKeyPressed(Keyboard::Down)){
             spritesPlayer[i].move(0.f, 10.f);
     }
-    position = spritesPlayer[i].getPosition();
-    playerUpdatePosition(position);
+    
+    /*position = spritesPlayer[i].getPosition();
+    playerUpdatePosition(position);*/
+
+    return i;
 }
 
-void Player::playerUpdatePosition(sf::Vector2f pos){
-    for(int i = 0; i < 25; i++){
+void Player::playerUpdatePosition(Vector2f pos){
+    for(int i = 0; i < 12; i++){
         spritesPlayer[i].setPosition(pos);
     }
 }

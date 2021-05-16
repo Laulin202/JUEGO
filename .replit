@@ -1,0 +1,2 @@
+language = "bash"
+run = "export LD_LIBRARY_PATH=src/lib/ && ./main"

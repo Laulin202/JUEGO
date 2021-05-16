@@ -19,13 +19,13 @@ class Player : public Entity{
     public:
         Player();
         void inicializarTexturaPlayer();
-        void dibujarPlayerPantalla( RenderWindow* ventanaJuego);
+        void dibujarPlayerPantalla( RenderWindow* ventanaJuego ); //pendiente mover a los privados
         void updateHealthPoints( int newHealthPoints );
         void updateAttackPoints( int newAttackPoints );
         bool checkDead( );
         bool checkGameOver( );
         bool spritesTime(Time elapsed1);
-        void playerMovement(int i);
+        int playerMovement( RenderWindow* ventanaJuego );
         void playerUpdatePosition(sf::Vector2f pos);
 };
 
