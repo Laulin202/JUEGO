@@ -12,7 +12,7 @@ int main()
 {
 
     Juego* pruebaJuego;
-    pruebaJuego = new Juego(800, 600, "Programa de prueba");
+    pruebaJuego = new Juego(Vector2u(800,600));
 
     return 0;
 }

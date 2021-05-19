@@ -1,7 +1,7 @@
 #include "Player.h"
 
- Player::Player()
- {
+Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vector2i frameActual)
+{
      /*
         Initialize the player
         Name : Hertz
@@ -15,56 +15,15 @@
      this->lvl = 1;
      this->xp = 0;
 
-     inicializarTexturaPlayer( );
- }
-
-void Player::inicializarTexturaPlayer(){
-    texturesPlayer = new Texture[12];    //atributos de player
-    spritesPlayer = new Sprite[12];      //atributos de player
-
-    for(int i = 0; i < 12; i++){
-        if (!texturesPlayer[i].loadFromFile("src/images/player/" + std::__cxx11::to_string(i) + ".png"))
-        {
-            cout << "No textura";
-        }
-        spritesPlayer[i].setTexture(texturesPlayer[i]);
-        spritesPlayer[i].setOrigin( sf::Vector2f(-350.f,-200.f));
-    }
+     //Fase prueba
+     setSprite(claseSprite, cantX, cantY, frameActual);
+     this->velCaminar = 2;
+     this->velCorrer = 64;
+     this->ventana = &ventana;
 }
 
-void Player::dibujarPlayerPantalla(RenderWindow* ventanaJuego){
-    Clock clock;
-    Time timeElapsed;
-    int i;
-    /*
-        while( i < 12){
-            ventanaJuego->clear(sf::Color::Black);
-            timeElapsed = clock.getElapsedTime();
-            if (spritesTime( timeElapsed )){
-                ventanaJuego->draw(spritesPlayer[i]);
-                playerMovement(i);
-                ventanaJuego->display();
-                clock.restart();
-                i++;
-            }
-        }
-    */
-    //asi inicia el jugador
-   i = playerMovement( ventanaJuego );
-   ventanaJuego->clear(sf::Color::Black);
-   ventanaJuego->draw(spritesPlayer[i]);
-   ventanaJuego->display();
 
-   
 
-}
-
-bool Player::spritesTime(Time elapsed1){
-    if( elapsed1.asSeconds() >= 0.1f ){
-        return true;
-    }
-    return false;
-}
 
 void Player::updateHealthPoints( int newHealthPoints )
 {
@@ -92,45 +51,111 @@ bool Player::checkGameOver( )
     return false;
 }
 
-int Player::playerMovement( RenderWindow* ventanaJuego ){
-    Vector2f position;
-    Clock clock;
-    Time timeElapsed;
-    int i;
+//permite actualizar fisicas del player para que no se teletrnsporte
+void Player::updateFisicaJ1(){ 
 
-    while(Keyboard::isKeyPressed(Keyboard::Left)){
-            i = 3;
-            while(i < i + 3){
-                spritesPlayer[i].move(-10.f, 0.f);
-                if (spritesTime( timeElapsed )){
-                ventanaJuego->draw(spritesPlayer[i]);
-                ventanaJuego->display();
-                clock.restart();
-                position = spritesPlayer[i].getPosition();
-                playerUpdatePosition(position);
-                i++;
-                }
-            }
-    } 
-    
-    if(Keyboard::isKeyPressed(Keyboard::Right)){
-            spritesPlayer[i].move(10.f, 0.f);
-    } 
-    if(Keyboard::isKeyPressed(Keyboard::Up)){
-            spritesPlayer[i].move(0.f, -10.f);
-    }
-    if(Keyboard::isKeyPressed(Keyboard::Down)){
-            spritesPlayer[i].move(0.f, 10.f);
-    }
-    
-    /*position = spritesPlayer[i].getPosition();
-    playerUpdatePosition(position);*/
-
-    return i;
-}
-
-void Player::playerUpdatePosition(Vector2f pos){
-    for(int i = 0; i < 12; i++){
-        spritesPlayer[i].setPosition(pos);
+    if(walking){
+        selecionarVelocidad();
+        setTraslation(velocidad);
     }
 }
+
+//Permite ajustar la velocidad dependiendo las direcciones que tengamos
+void Player::selecionarVelocidad(){
+    switch (direccionJ1)
+    {
+    case arriba:
+        velocidad = Vector2f( 0, -velCaminar); //estoy disminuyendo el valor en y, recordemos que velocidad es un vector
+        setFrameY(3);
+        break;
+    
+    case abajo:
+        velocidad = Vector2f( 0, velCaminar );
+        setFrameY(0);
+        break;
+    
+    case izquierda:
+        velocidad = Vector2f( -velCaminar,0 );
+        setFrameY(1);
+        break;
+
+    case derecha:
+        velocidad = Vector2f( velCaminar, 0 );
+        setFrameY(2);
+        break;
+
+    case arribaIzquierda:
+        velocidad = Vector2f( -velCaminar, -velCaminar );
+        setFrameY(3);
+        break;
+
+    case abajoIzquierda:
+        velocidad = Vector2f( -velCaminar, velCaminar );
+        setFrameY(0);
+        break;
+
+    case arribaDerecha:
+        velocidad = Vector2f( velCaminar, -velCaminar );
+        setFrameY(3);
+        break;
+
+    case abajoDerecha:
+        velocidad = Vector2f( velCaminar, velCaminar );
+        setFrameY(0);
+        break;
+    
+    default:
+        break;
+    }
+}
+
+void Player::procesarEventos(){
+
+
+    while(ventana->pollEvent(*keyboard->evento)){
+        keyboard->procesarEventos();
+    }
+    //0 izquierda, 2 arriba, 3 abajo, 1 derecha
+    walking = false; //el jugador no esta caminando
+
+    if( keyboard->teclasJugador[0]){
+
+        walking = true;
+        if( keyboard->teclasJugador[2]) {
+            setDireccion(arribaIzquierda);
+        }
+        else if( keyboard->teclasJugador[3] ){
+            setDireccion(abajoIzquierda);
+        }
+        else{
+            setDireccion(izquierda);
+        }
+    }
+    else if( keyboard->teclasJugador[1] ){
+        walking = true;
+
+        if( keyboard->teclasJugador[2] ){
+            setDireccion(arribaDerecha);
+        }
+        else if( keyboard->teclasJugador[3] ){
+            setDireccion(abajoDerecha);
+        }
+        else{
+            setDireccion(derecha);
+        }
+    }
+    else if( keyboard->teclasJugador[2]){
+        walking = true;
+        setDireccion(arriba);
+    }
+    else if( keyboard->teclasJugador[3]){
+        walking = true;
+        setDireccion(abajo);
+    }
+
+    //actualizo el jugador, recordemos que esta funcion llama a setTranlation evaluando si el personaje esta caminando o no
+
+    updateFisicaJ1(); 
+}
+
+

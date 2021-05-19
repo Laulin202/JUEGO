@@ -3,6 +3,7 @@
 
 #include "Spell.h"
 #include <SFML/Graphics.hpp>
+#include "SpriteA.h"
 
 
 #include <string>
@@ -17,7 +18,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-class Entity
+class Entity: public SpriteA
 {
     protected:
         string name;
@@ -26,6 +27,7 @@ class Entity
         vector <Spell> spells;
         int lvl;
     public:
+        Entity();
         void updateHealthPoints();
         void updateAttackPoints();
 };

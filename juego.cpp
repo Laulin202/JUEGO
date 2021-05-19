@@ -1,40 +1,53 @@
 #include "juego.h"
 
-Juego::Juego(int resolucion_x, int resolucion_y, string titulo){
+Juego::Juego(Vector2u resolucion){
+    ventana = new RenderWindow(VideoMode(resolucion.x, resolucion.y), "Videojuego Prueba  2D");
+    iniciar();
 
-    //Esta sera la ventana, aqui estamos definiendo su tamaño
-    ventanaJuego = new RenderWindow(VideoMode(resolucion_x, resolucion_y), titulo);
-    player1 = new Player();
-    
-    //despues de construir la ventana, la dibuja
+    //mientras que gameover no sea verdadero me haga el game loop
     gameLoop();
-   
 }
 
 
-
-void Juego::dibujarPantalla(){
-
-    this->ventanaJuego->clear();
-    player1->dibujarPlayerPantalla( ventanaJuego );
-    this->ventanaJuego->display();
-}
-
+//este mantiene la ventana mostrandose, procesando eventos y animando al personaje en caso de
 void Juego::gameLoop(){
-    sf::Event event;
 
-    while( this->ventanaJuego->isOpen()){
+    while(!gameOver){
 
-        //condicion de salida(queu cierre la ventana)- IMPORTANTE
-        while (this->ventanaJuego->pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                this->ventanaJuego->close();
+        *cronometro1 = reloj1->getElapsedTime(); //Tiempo transcurrido
+        if(cronometro1->asSeconds() > 1 / fps){ //un frame cada 0,016 milisegundos
+        
+
+            procesarLogica();
+
+            if(j1->walking){
+                j1->animarFrame();
+            }
+            else{  
+            }
+            renderizar();
+            reloj1->restart();
+            
         }
-        //Mientras la ventana este abierta, va a dibujar(mostrar) la pantalla
-        dibujarPantalla();
-
     }
 
 }
+
+void Juego::procesarLogica(){
+    j1->procesarEventos();
+}
+
+void Juego::renderizar(){
+    ventana->clear();
+    ventana->draw(j1->getSprite());
+    ventana->display();
+}
+
+void Juego::iniciar(){
+    j1 = new Player(*ventana,12, 4, 4, Vector2i(2,1));
+    fps = 60; // 60 Frames x Seconds
+    reloj1 = new Clock();
+    cronometro1 = new Time(); 
+
+}
+
