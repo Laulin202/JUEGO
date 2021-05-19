@@ -6,6 +6,7 @@
 #include <iostream>
 #include "model/Entity.h"
 #include "model/Player.h"
+#include "model/Enemy.h"
 
 using namespace sf; //para no tener que utilizar el sf
 using std::string;
@@ -19,6 +20,7 @@ class Juego{
         RenderWindow* ventana;
         bool gameOver = false;
         Player* j1;
+        Enemy* e1;
         Clock* reloj1;
         Time* cronometro1;
         int fps; //velocidad constante a la que quiero que haga el procesamiento del jugador
@@ -35,6 +37,7 @@ class Juego{
         void procesarEventos(); // Procesa logica del juego
         void procesarNetworking(); //Procesa, teclado, mouse etc
         void gameLoop();
+        bool enemyCollision( Vector2f playerPosition, Vector2f enemyPosition );
 };
 
 #endif
