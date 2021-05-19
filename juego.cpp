@@ -40,11 +40,13 @@ void Juego::procesarLogica(){
 void Juego::renderizar(){
     ventana->clear();
     ventana->draw(j1->getSprite());
+    ventana->draw(e1->getSprite());
     ventana->display();
 }
 
 void Juego::iniciar(){
     j1 = new Player(*ventana,12, 4, 4, Vector2i(2,1));
+    e1 = new Enemy(420, 1, 1, Vector2i(0,0));
     fps = 60; // 60 Frames x Seconds
     reloj1 = new Clock();
     cronometro1 = new Time(); 
