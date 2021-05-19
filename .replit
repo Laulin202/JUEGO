@@ -1,2 +1,2 @@
 language = "bash"
-run = "export LD_LIBRARY_PATH=src/lib/ && ./main"
+run = "make && export LD_LIBRARY_PATH=src/lib/ && ./main"

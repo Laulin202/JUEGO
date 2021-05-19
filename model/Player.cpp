@@ -17,7 +17,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
 
      //Fase prueba
      setSprite(claseSprite, cantX, cantY, frameActual);
-     this->velCaminar = 2;
+     this->velCaminar = 1;
      this->velCorrer = 64;
      this->ventana = &ventana;
 }
@@ -57,6 +57,12 @@ void Player::updateFisicaJ1(){
     if(walking){
         selecionarVelocidad();
         setTraslation(velocidad);
+    }
+
+    else{
+
+        setFrameX(0);
+
     }
 }
 
@@ -155,7 +161,9 @@ void Player::procesarEventos(){
 
     //actualizo el jugador, recordemos que esta funcion llama a setTranlation evaluando si el personaje esta caminando o no
 
-    updateFisicaJ1(); 
+    updateFisicaJ1();
+
+    // Si esta caminando selecciona la velocidad dependiend ode la direccion que quiere porque dependiendo de la posicion, la posicion en x y y debe cambiar y el frame tambien y entonces vos encontras un if que si esta caminando  
 }
 
 
