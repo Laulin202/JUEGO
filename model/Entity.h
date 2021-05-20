@@ -30,6 +30,7 @@ class Entity: public SpriteA
         Entity();
         void updateHealthPoints();
         void updateAttackPoints();
+        FloatRect getHitBox(){ return hitBox; }
 };
 
 #endif

@@ -44,6 +44,7 @@ void Juego::procesarLogica(){
 
 void Juego::renderizar(){
     ventana->clear();
+    ventana->draw(*map);
     ventana->draw(j1->getSprite());
     ventana->draw(e1->getSprite());
     ventana->display();
@@ -51,7 +52,10 @@ void Juego::renderizar(){
 
 void Juego::iniciar(){
     j1 = new Player(*ventana,12, 4, 4, Vector2i(2,1));
-    e1 = new Enemy(420, 1, 1, Vector2i(0,0));
+    e1 = new Enemy(420, 1, 1, Vector2i(0,0), Vector2f(-50,-50));
+    tileset = new Texture();
+    tileset->loadFromFile("src/images/tileset/tileset.png");
+    map = new TileMap(tileset, 80, 60, 48.0f, 40.0f);
     fps = 60; // 60 Frames x Seconds
     reloj1 = new Clock();
     cronometro1 = new Time(); 
@@ -59,14 +63,15 @@ void Juego::iniciar(){
 }
 
 
-bool Juego::enemyCollision( Vector2f playerPosition, Vector2f enemyPosition )
-{
-  float xDif = abs(playerPosition.x - enemyPosition.x);
-  float yDif = abs(playerPosition.y - enemyPosition.y);
+bool Juego::enemyCollision( Vector2f playerPosition, Vector2f enemyPosition ){
+    //float midX = (e1->getBox().getPosition().x)/2;
+    //float midY = (e1->getBox().getPosition().y)/2;
+    float xDif = abs(playerPosition.x - enemyPosition.x);
+    float yDif = abs(playerPosition.y - enemyPosition.y);
 
-  if( xDif <= ATTACK_DISTANCE && yDif <= ATTACK_DISTANCE ){
-    return true;
-  }
-  return false;
+    if( xDif <= ATTACK_DISTANCE && yDif <= ATTACK_DISTANCE ){
+        return true;
+    }
+    return false;
 }
 

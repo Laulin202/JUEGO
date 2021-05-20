@@ -47,7 +47,7 @@ class Player : public Entity{
 
 
         void setPos(Vector2f posicion){ posicionJugador = posicion; spritesPlayer->setPosition(posicionJugador); } //SpriteJugador va a buscar a SpritePlayer, y ese sera el que se actualice con la nueva posicicon
-        void setTraslation( Vector2f traslation ){ posicionJugador += traslation; spritesPlayer->setPosition(posicionJugador); } //el setPosition del sprite necesita un vector2
+        void setTraslation( Vector2f traslation ){ posicionJugador += traslation; spritesPlayer->setPosition(posicionJugador); hitBox = spritesPlayer->getGlobalBounds(); } //el setPosition del sprite necesita un vector2
         void setVelocidad( Vector2f vel ){ velocidad = vel; }
 
         //propias

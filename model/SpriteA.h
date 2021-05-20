@@ -29,12 +29,13 @@ class SpriteA{
         int spriteActual;
         Vector2i numFrame; //Frame actual del personaje
         Vector2f frameSize; // guardarael tamaño de cada frame
+        FloatRect hitBox;
 
 
 
         //Funciones
         SpriteA();
-        void setSprite(int claseSprite, int cantX, int cantY, Vector2i frameActual);
+        void setSprite(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos = Vector2f(-100, -100));
         void selectFrame(); //carga el frame actual
         void setFrameX(int frame); //Modifica el frame de x actual a otro
         void setFrameY(int frame); //Modifica el frame de y actual a otro
