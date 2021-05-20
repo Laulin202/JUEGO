@@ -40,7 +40,7 @@ class SpriteA{
         void setFrameX(int frame); //Modifica el frame de x actual a otro
         void setFrameY(int frame); //Modifica el frame de y actual a otro
         void animarFrame();
-        Vector2f SpriteA::getFrameSize(){ return this->frameSize; }
+        Vector2f getFrameSize(){ return this->frameSize; }
 };
 
 

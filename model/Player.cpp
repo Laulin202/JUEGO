@@ -17,7 +17,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
 
      //Fase prueba
      setSprite(claseSprite, cantX, cantY, frameActual);
-     this->velCaminar = 1;
+     this->velCaminar = 25;
      this->velCorrer = 64;
      this->ventana = &ventana;
 }

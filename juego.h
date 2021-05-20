@@ -37,7 +37,6 @@ class Juego{
         void procesarEventos(); // Procesa logica del juego
         void procesarNetworking(); //Procesa, teclado, mouse etc
         void gameLoop();
-        bool enemyCollision( Vector2f playerPosition, Vector2f enemyPosition );
 };
 
 #endif
