@@ -37,9 +37,6 @@ void Juego::gameLoop(){
 
 void Juego::procesarLogica(){
     j1->procesarEventos();
-    if( enemyCollision( j1->getPos(), e1->getPos() )){
-      std::cout << "Colizion magica UwU\n";
-    }
 }
 
 void Juego::renderizar(){
@@ -63,19 +60,4 @@ void Juego::iniciar(){
 }
 
 
-bool Juego::enemyCollision( Vector2f playerPosition, Vector2f enemyPosition ){
-    Vector2f frameSize = e1->getFrameSize();
-    //float midX = (e1->getBox().getPosition().x)/2;
-    //float midY = (e1->getBox().getPosition().y)/2;
-    float xDif = abs(playerPosition.x + enemyPosition.x + frameSize.x/2);
-    float yDif = abs(playerPosition.y + enemyPosition.y + frameSize.y/2);
-    cout << " x:" << enemyPosition.x << " y:" << enemyPosition.y << "\n";
-    cout << " x:" << playerPosition.x << " y:" << playerPosition.y << "\n";
-    cout << "Frame size/2: " << frameSize.x/2 << " y " << frameSize.y/2 << "\n";
-    cout << "Diff: " << xDif << "," << yDif << "\n";
-    if( xDif <= ATTACK_DISTANCE && yDif <= ATTACK_DISTANCE ){
-        return true;
-    }
-    return false;
-}
 
