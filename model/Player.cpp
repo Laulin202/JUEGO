@@ -20,6 +20,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->velCaminar = 1;
      this->velCorrer = 64;
      this->ventana = &ventana;
+     spritesPlayer->setColor( Color::Blue );
 }
 
 
