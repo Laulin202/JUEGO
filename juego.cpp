@@ -64,10 +64,11 @@ void Juego::iniciar(){
 
 
 bool Juego::enemyCollision( Vector2f playerPosition, Vector2f enemyPosition ){
+    Vector2f frameSize = e1->getFrameSize();
     //float midX = (e1->getBox().getPosition().x)/2;
     //float midY = (e1->getBox().getPosition().y)/2;
-    float xDif = abs(playerPosition.x - enemyPosition.x);
-    float yDif = abs(playerPosition.y - enemyPosition.y);
+    float xDif = abs(playerPosition.x - enemyPosition.x - (frameSize.x/2) );
+    float yDif = abs(playerPosition.y - enemyPosition.y - /frameSize.y/2);
 
     if( xDif <= ATTACK_DISTANCE && yDif <= ATTACK_DISTANCE ){
         return true;

@@ -55,3 +55,4 @@ void SpriteA::setFrameY(int frame){
     selectFrame();
     
 }
+
