@@ -11,9 +11,9 @@ Enemy::Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector
      */
      this->posicionEnemigo = pos;
      this->name = "El Diavlo";
-     this->healthPoints = 420;
-     this->attackPoints = 666;
-     this->lvl = 44;
+     this->healthPoints = 9;
+     this->attackPoints = 1;
+     this->lvl = 1;
 
      //Fase prueba UwU
      setSprite(claseSprite, cantX, cantY, frameActual, pos);

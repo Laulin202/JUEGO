@@ -30,7 +30,7 @@ class Player : public Entity{
         RenderWindow* ventana;   //Basicamente el jugador con la ventana podra mostrarse sin depender estrictamente de que lo llamen en juego
 
         //FASE PRUEBA
-        Spell hechizo1;
+        vector<Spell> hechizos;
 
 
 
@@ -66,7 +66,10 @@ class Player : public Entity{
         void setDireccion(direcciones direccionJ1){ this->direccionJ1 = direccionJ1;}
 
         //prueba
-        Spell getSpell(){ return hechizo1; }
+        Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; }
+        int getHealthPoints(){ return this->healthPoints; }
+        void setHealthPoints( int newHealthPoints ){ this->healthPoints = newHealthPoints; }
+        int getAttackDamage(){ return this->attackPoints; }
         
 };
 

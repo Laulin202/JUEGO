@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include "Boss.h"
 #include "Spell.h"
+#include <time.h>
+#include <stdlib.h>
 
 //Fase prueba
 #include <iostream>
@@ -53,7 +55,7 @@ class Combat
 
     public:
         Combat();
-        Combat( RenderWindow& ventana, Player& player );
+        Combat( RenderWindow& ventana, Player& player, Enemy& enemy );
 
         bool isOver( ){ return enCombate; }
         bool whoWon();
@@ -72,6 +74,12 @@ class Combat
         void iniciarComponentesCombate();
         void dibujarMensaje();
 
+        void useAttackSpell( Spell &hechizoUsado );
+        void useSpecialAttackSpell( Spell &hechizoUsado );
+        void attackPlayer();
+        bool checkVictory();
+        bool checkDefeat();
+        bool tryEscape();
 };
 
 

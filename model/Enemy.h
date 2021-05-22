@@ -13,6 +13,9 @@ class Enemy : public Entity{
       Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del enemiwo
       Vector2f getPos(){ return posicionEnemigo; } //Me va a devolver la posicion del enemiwowo
       FloatRect getBox(){ return spritesPlayer->getGlobalBounds(); } //Me va a devolver el cuadrado del enemiwowowo
+      void setHealthPoints( int newHP ){ this->healthPoints = newHP; }
+      int getHealthPoints( ){ return this->healthPoints; }
+      int getAttackDamage( ){ return this->attackPoints; }
 };
 
 #endif

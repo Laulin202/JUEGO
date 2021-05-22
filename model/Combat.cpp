@@ -6,9 +6,11 @@ Combat::Combat(){
 
 }
 
-Combat::Combat(RenderWindow& ventana, Player& player){
+Combat::Combat(RenderWindow& ventana, Player& player, Enemy& enemy){
+    this->turn = 0;
     this->ventana = &ventana;
     this->player = &player;
+    this->enemy = &enemy;
 }
 
 
@@ -127,6 +129,12 @@ void Combat::procesarEventosCombate(){
                             if(boton.getId() == "Escapar"){
                                 estadosBotones = estadosB::escapar;
                                 cout << "Entre a ESCAPAR!" << endl;
+                                if( tryEscape() ){
+                                  cout << "Ezakapacion\n";
+                                  exit(3);
+                                }else{
+                                  cout << "Pa donde vas UwU?\n";
+                                }
                             } 
                             if(boton.getId() == "Menu"){
                                 estadosBotones = estadosB::menu;
@@ -136,23 +144,40 @@ void Combat::procesarEventosCombate(){
                                 estadosBotones = estadosB::menu;
                                 cout << "Estoy usando habilidad 1!" << endl;
                                 useSpell = true;
-                                hechizoUsado = player->getSpell();
+                                hechizoUsado = player->getSpell( 0 );
+                                //cout << hechizoUsado.getName() << "\n";
+                                useAttackSpell( hechizoUsado );
                                 cout << "Sali" << endl;
                                 
                             }
                             if(boton.getId() == "Habilidad 2"){
                                 estadosBotones = estadosB::menu;
                                 cout << "Estoy usando habilidad 2!" << endl;
+                                useSpell = true;
+                                hechizoUsado = player->getSpell( 1 );
+                                //cout << hechizoUsado.getName() << "\n";
+                                useAttackSpell( hechizoUsado );
+                                cout << "Sali" << endl;
                                 
                             }
                             if(boton.getId() == "Habilidad 3"){
                                 estadosBotones = estadosB::menu;
                                 cout << "Estoy usando habilidad 3!" << endl;
+                                useSpell = true;
+                                hechizoUsado = player->getSpell( 2 );
+                                //cout << hechizoUsado.getName() << "\n";
+                                useAttackSpell( hechizoUsado );
+                                cout << "Sali" << endl;
                                 
                             }
                             if(boton.getId() == "Habilidad 4"){
                                 estadosBotones = estadosB::menu;
                                 cout << "Estoy usando habilidad 4!" << endl;
+                                useSpell = true;
+                                hechizoUsado = player->getSpell( 3 );
+                                //cout << hechizoUsado.getName() << "\n";
+                                useAttackSpell( hechizoUsado );
+                                cout << "Sali" << endl;
                                 
                             }
                         }
@@ -168,8 +193,96 @@ void Combat::procesarEventosCombate(){
     
 }
 
+//Function tryEscape
+//checks if is posible to escape
+bool Combat::tryEscape()
+{
+  srand( time( NULL ) );
+  int esc = rand() % 10;
+  if( esc % 2 == 0 ){
+    return true;
+  }
+  return false;
+}
+
+//Function useAttackSpell
+//hechizoUsado is the spell to be used
+//enemy is the enemy to be attacked
+void Combat::useAttackSpell( Spell &hechizoUsado )
+{ 
+  int enemyHealth = this->enemy->getHealthPoints();
+  int spellDamage = hechizoUsado.getDamage();
+  enemyHealth = enemyHealth - spellDamage;
+  cout << spellDamage << "!\n";
+  this->enemy->setHealthPoints( enemyHealth );
+  this->turn++;
+  return;
+}
+
+//Function for 4th ability
+//cum de Yummi attack
+//Works with randoms (that's why is special)
+void Combat::useSpecialAttackSpell( Spell &hechizoUsado ){
+  srand( time(NULL) );
+  int enemyHealth = this->enemy->getHealthPoints();
+  int spellDamage = rand() % this->player->getAttackDamage()*5;
+  enemyHealth = enemyHealth - spellDamage;
+  cout << spellDamage << "!\n";
+  this->enemy->setHealthPoints( enemyHealth );
+  this->turn++;
+  return;
+}
+
+//Function attackPlayer
+//attacks the player
+void Combat::attackPlayer()
+{
+  srand( time( NULL ) );
+  int enemyAttackDamage = this->enemy->getAttackDamage();
+  int randomDamage = (rand() % enemyAttackDamage) + (int)enemyAttackDamage + 2 / 2;
+  int playerHealth = this->player->getHealthPoints();
+  cout << "El enemigo te hace " << randomDamage << " de dahno!\n";
+  this->player->setHealthPoints( playerHealth - randomDamage );
+  this->turn++;
+  return;
+}
+
+//Function checkVictory
+//Checks if the enemy is dead
+bool Combat::checkVictory()
+{
+  if( this->enemy->getHealthPoints() <= 0 ){
+    return true;
+  }
+  return false;
+}
+
+//Function checkDefeat
+//Checks if the players is dead
+bool Combat::checkDefeat()
+{
+  if( this->player->getHealthPoints() <= 0 ){
+    return true;
+  }
+  return false;
+}
+
 void Combat::procesarLogicaCombate(){
     procesarEventosCombate();
+    //Here we attack the player on even turns
+      if( turn % 2 != 0 ){
+        attackPlayer();
+      }
+      //If enemies health is 0 or less then is victory
+      if( checkVictory() ){
+        cout << "Victoria\n";
+        exit(1);
+      }
+      //If players health is 0 or less then is defeat
+      else if( checkDefeat() ){
+        cout << "Derrota\n";
+        exit(2);
+      }
     //falta mas logica
 }
 
@@ -232,7 +345,7 @@ void Combat::iniciarComponentesCombate(){
     iniciarRectangulos();
     evento1 = new Event();
     opcion = 1;
-
+    
     fontMensaje = new Font();
 
     fontMensaje->loadFromFile("src/fonts/arial.ttf");

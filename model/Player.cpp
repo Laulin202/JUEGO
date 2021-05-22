@@ -10,10 +10,11 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
         Level 1 / Xp 0
      */
      this->name = "Hertz";
-     this->healthPoints = 10;
+     this->healthPoints = 20;
      this->attackPoints = 3;
      this->lvl = 1;
      this->xp = 0;
+     this->mana = 3;
 
      
      setSprite(claseSprite, cantX, cantY, frameActual);
@@ -23,7 +24,10 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      spritesPlayer->setColor( Color::Red );
 
      //prueba 
-     this->hechizo1 = Spell("Tu madre en tanga", "TE PEGA TU MAMA EN TANGA", 20, 20);
+     this->hechizos.push_back( Spell( "Ataque basico!", "", this->attackPoints, 0 ) );
+     this->hechizos.push_back( Spell( "Bola de fuego", "Lanza una bola de fuego", (2 * this->lvl), this->lvl ) );
+     this->hechizos.push_back( Spell( "Impak-trueno", "Pikazhu time", (4 * this->lvl), this->mana ) );
+     this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 0 ) ); 
      
 }
 

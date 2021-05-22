@@ -23,6 +23,7 @@ class Spell{
         Spell();
         Spell( String name, String description, int damage, int manaCost);
         int getDamage(){ return damage; }
+        int getManaCost(){ return manaCost; }
         String getName(){ return name; }
         void useSpell();
 };

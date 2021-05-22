@@ -77,7 +77,7 @@ void Juego::iniciar(){
     
 
     //Fase prueba
-    combatePlayer = new Combat( *ventana, *j1) ;
+    combatePlayer = new Combat( *ventana, *j1, *e1 ) ;
     combatePlayer->iniciarComponentesCombate();
 }
 
