@@ -3,20 +3,32 @@ CONTROLLER := controller
 MODEL := model
 debug := -ggdb3
 
-all: Main link 
-link: SpriteA Teclado Entity Player Juego   
-	g++ -o main SpriteA.o Teclado.o Entity.o Player.o juego.o main.o -L src/lib -l sfml-graphics -l sfml-window -l sfml-system 
+all: link clean
+link: SpriteA Teclado TileMap Tile Entity Player Enemy Boton Spell Combate  JuegoMain
+	g++ -o main SpriteA.o Teclado.o TileMap.o Tile.o Entity.o Player.o Enemy.o Button.o Spell.o Combat.o juego.o main.o -L src/lib -l sfml-graphics -l sfml-window -l sfml-system 
 Player:${MODEL}/Player.cpp ${MODEL}/Player.h
 	g++ -I src/include -c ${debug} ${MODEL}/Player.cpp
+Enemy:${MODEL}/Enemy.cpp ${MODEL}/Enemy.h
+	g++ -I src/include -c ${debug} ${MODEL}/Enemy.cpp
 Entity:${MODEL}/Entity.cpp ${MODEL}/Entity.h
 	g++ -I src/include -c ${debug} ${MODEL}/Entity.cpp
 SpriteA:${MODEL}/SpriteA.cpp ${MODEL}/SpriteA.h
 	g++ -I src/include -c ${debug} ${MODEL}/SpriteA.cpp
 Teclado:${MODEL}/Teclado.cpp ${MODEL}/Teclado.h
 	g++ -I src/include -c ${debug} ${MODEL}/Teclado.cpp
-Juego: juego.cpp juego.h
-	g++ -I src/include -c ${debug} juego.cpp
-Main: main.cpp juego.h
-	g++ -I src/include -c ${debug} main.cpp	
- 
+TileMap:${MODEL}/TileMap.cpp ${MODEL}/TileMap.h
+	g++ -I src/include -c ${debug} ${MODEL}/TileMap.cpp
+Tile:${MODEL}/Tile.cpp ${MODEL}/Tile.h
+	g++ -I src/include -c ${debug} ${MODEL}/Tile.cpp
+Boton:${MODEL}/Button.cpp ${MODEL}/Button.h
+	g++ -I src/include -c ${debug} ${MODEL}/Button.cpp 
+Combate:${MODEL}/Combat.cpp ${MODEL}/Combat.h
+	g++ -I src/include -c ${debug} ${MODEL}/Combat.cpp 
+Spell:${MODEL}/Spell.cpp ${MODEL}/Spell.h
+	g++ -I src/include -c ${debug} ${MODEL}/Spell.cpp
+JuegoMain: juego.cpp main.cpp juego.h
+	g++ -I src/include -c ${debug} juego.cpp main.cpp	
+clean: #comando para borrar los .o
+	@echo "Limpio los archivos intermedios de las carpetas ..."+ ${MODEL} + ${VIEW}
+	rm -f *.o
 

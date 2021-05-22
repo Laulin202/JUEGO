@@ -15,12 +15,16 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->lvl = 1;
      this->xp = 0;
 
-     //Fase prueba
+     
      setSprite(claseSprite, cantX, cantY, frameActual);
-     this->velCaminar = 1;
+     this->velCaminar = 25;
      this->velCorrer = 64;
      this->ventana = &ventana;
-     spritesPlayer->setColor( Color::Blue );
+     spritesPlayer->setColor( Color::Red );
+
+     //prueba 
+     this->hechizo1 = Spell("Tu madre en tanga", "TE PEGA TU MAMA EN TANGA", 20, 20);
+     
 }
 
 

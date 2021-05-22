@@ -6,11 +6,24 @@
 #include <iostream>
 #include "model/Entity.h"
 #include "model/Player.h"
+#include "model/Enemy.h"
+#include "model/TileMap.h"
+
+//Fase prueba
+#include "model/Button.h"
+#include "model/Combat.h"
+#include <list>
 
 using namespace sf; //para no tener que utilizar el sf
 using std::string;
 using std::cout;
 using std::cin;
+using std::endl;
+using std::list;
+
+
+//FASE PRUEBA
+
 
 class Juego{
 
@@ -18,14 +31,16 @@ class Juego{
         
         RenderWindow* ventana;
         bool gameOver = false;
+        TileMap* map;
+        Texture* tileset;
         Player* j1;
+        Enemy* e1;
         Clock* reloj1;
         Time* cronometro1;
         int fps; //velocidad constante a la que quiero que haga el procesamiento del jugador
-        
-    
-    
-    
+
+        // Fase prueba 
+        Combat* combatePlayer;
     
     public:
         Juego(Vector2u resolucion);
@@ -35,6 +50,12 @@ class Juego{
         void procesarEventos(); // Procesa logica del juego
         void procesarNetworking(); //Procesa, teclado, mouse etc
         void gameLoop();
+        
+        //fASE PRUEBA
+        
+        void procesarLogicaCombate(); //TODO: Actualizar.
+
+
 };
 
 #endif
