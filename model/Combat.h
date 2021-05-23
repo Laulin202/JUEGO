@@ -48,8 +48,11 @@ class Combat
         
         Font* fontMensaje;
         Text mensaje;
+        
         bool useSpell = false;
         Spell hechizoUsado;
+
+        
 
 
 
@@ -72,7 +75,8 @@ class Combat
         void dibujarInventario(); //1
         void dibujarMenuHabilidades(); //1
         void iniciarComponentesCombate();
-        void dibujarMensaje();
+        void dibujarMensaje( int personaje );
+        void dibujarMensajeEnemigo();
 
         void useAttackSpell( Spell &hechizoUsado );
         void useSpecialAttackSpell( Spell &hechizoUsado );

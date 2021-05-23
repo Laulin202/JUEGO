@@ -8,6 +8,7 @@ class Enemy : public Entity{
     protected:
         //Item drop;
         Vector2f posicionEnemigo;
+        int damageInCombat;
     public:
       Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f pos );
       Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del enemiwo
@@ -16,6 +17,9 @@ class Enemy : public Entity{
       void setHealthPoints( int newHP ){ this->healthPoints = newHP; }
       int getHealthPoints( ){ return this->healthPoints; }
       int getAttackDamage( ){ return this->attackPoints; }
+      void setDamageinCombat(int damageInCombat){ this->damageInCombat = damageInCombat;}
+      int getDamageinCombat(){ return this->damageInCombat; }
+
 };
 
 #endif

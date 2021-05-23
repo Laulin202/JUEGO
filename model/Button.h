@@ -3,10 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
 
-
-using std::string;
+using namespace std;
 using namespace sf;
+using std::string;
+
+
 
 enum button_states{ BTN_IDLE = 0, BTN_PRESSED, BTN_HOVER };
 
@@ -17,15 +20,18 @@ class Button
         RectangleShape rect; //El rectangulo (Boton)
         String id;
 
-        sf::Texture * texture;
-        sf::Sprite * sprite;
+        Texture* textureButton;
+        Sprite * sprite;
+        int numBoton;
+
     public:
         Button();
-        Button(String id, RectangleShape rect){ this->id = id; this->rect = rect;}
+        Button(String id, RectangleShape rect, int numBoton);
         RectangleShape getRect(){ return rect;}
         String getId(){ return id; }
 
         bool checkPressed( sf::Vector2i * mousePosition );
+        void cargarTextura();
 };
 
 #endif
