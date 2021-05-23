@@ -83,8 +83,11 @@ void Combat::renderPanelOpciones()
             if (useSpell)
             {
                 dibujarMensaje(JUGADOR);
+                turnoJugador = false;
             }
-            dibujarMenuPrincipal();
+            else{
+                dibujarMenuPrincipal();
+            }
         }
         else if (estadosBotones == estadosB::atacar)
         {
@@ -96,7 +99,8 @@ void Combat::renderPanelOpciones()
         }
     }
     else{
-        cout << "Entre al else" << endl;
+        dibujarMensaje(ENEMIGO);
+        turnoJugador = true;
     }
 }
 
@@ -240,8 +244,6 @@ void Combat::useAttackSpell(Spell &hechizoUsado)
     cout << spellDamage << "!\n";
     this->enemy->setHealthPoints(enemyHealth);
     this->turn++;
-
-    turnoJugador = false;
     return;
 }
 
@@ -271,7 +273,6 @@ void Combat::attackPlayer()
     this->player->setHealthPoints(playerHealth - enemy->getDamageinCombat());
     this->turn++;
     cout << "El enemigo te ataco, perdiste " << enemy->getDamageinCombat() << " de vida. " << endl;
-    turnoJugador = true;
     return;
 }
 
@@ -388,7 +389,10 @@ void Combat::iniciarComponentesCombate()
 
     //creamos los mensajes para el jugador
     fontMensaje = new Font();
-    fontMensaje->loadFromFile("src/fonts/arial.ttf");
+    if(!fontMensaje->loadFromFile("src/fonts/arial.ttf")){
+        cout << "Error al cargar la fuente!" << endl;
+        exit(1);
+    }
     mensaje.setFont(*fontMensaje);
     mensaje.setPosition(Vector2f(150, 500));
     mensaje.setCharacterSize(20);
@@ -408,10 +412,9 @@ void Combat::dibujarMensaje(int personaje)
         mensaje.setString(" Haz usado  " + hechizoUsado.getName() + ", hiciste un dahno de: " + to_string(hechizoUsado.getDamage()) + " pts. ");
         useSpell = false;
         break;
-        /*case ENEMIGO:
-            mensaje.setString(" EL ENEMIGO TE HA ECHO DAÑO  ");
-            turnoEnemigo  = false;
-            break; */
+    case ENEMIGO:
+        mensaje.setString(" El enemigo te ha hecho daño, perdiste " + to_string( enemy->getDamageinCombat() ) + " de vida.");
+        break; 
     default:
         break;
     }
