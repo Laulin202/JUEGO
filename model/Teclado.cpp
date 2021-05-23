@@ -1,5 +1,10 @@
 #include "Teclado.h"
 
+const int DERECHA = 1;
+const int IZQUIERDA = 0; 
+const int ARRIBA = 2;
+const int ABAJO =3;
+
 Teclado::Teclado(){
     evento = new Event;
 }
@@ -22,31 +27,32 @@ void Teclado::procesarEventos(){
         //PRESIONAR TECLA
         //
         //
+        
         case Event::KeyPressed: //Procesamiento del teclado
             if(Keyboard::isKeyPressed(Keyboard::Left)){
             
-                    teclasJugador[0] = true; //habilito tecla izquierda
-                    //j1->setFrameY(1);
+                    teclasJugador[IZQUIERDA] = true; //habilito tecla izquierda
+                    
 
             }
             else if(Keyboard::isKeyPressed(Keyboard::Right)){
                     
-                    teclasJugador[1] = true;
-                    //j1->setFrameY(2);
+                    teclasJugador[DERECHA] = true;
+                    
 
             }
             else if(Keyboard::isKeyPressed(Keyboard::Up)){
 
-                    teclasJugador[2] = true;
+                    teclasJugador[ARRIBA] = true;
 
-                    //j1->setFrameY(3);  
+                    
                 
             }
             else if(Keyboard::isKeyPressed(Keyboard::Down)){
  
-                    teclasJugador[3] = true;
+                    teclasJugador[ABAJO] = true;
 
-                    //j1->setFrameY(0);
+                    
 
                 
                 
@@ -60,27 +66,27 @@ void Teclado::procesarEventos(){
         case Event::KeyReleased: //Procesamiento de soltar tecla
             
             if( evento->key.code == Keyboard::Left){
-                    teclasJugador[0] = false; //desactivo tecla izquierda
+                    teclasJugador[IZQUIERDA] = false; //desactivo tecla izquierda
                 
             }
             else if(evento->key.code == Keyboard::Right){
  
-                    teclasJugador[1] = false;
-                    //j1->setFrameX(0); 
+                    teclasJugador[DERECHA] = false;
+                    
 
             }
             else if(evento->key.code == Keyboard::Up){
     
-                    teclasJugador[2] = false;
-                    //j1->setFrameX(0);
+                    teclasJugador[ARRIBA] = false;
+                    
 
                 
                 
             }
             else if(evento->key.code == Keyboard::Down){
 
-                    teclasJugador[3] = false;
-                    //j1->setFrameX(0);
+                    teclasJugador[ABAJO] = false;
+                    
                 
                 
             }

@@ -18,10 +18,8 @@ using std::endl;
 
 class SpriteA{
     protected:
-        
-    public:
 
-        //Atributos
+    //Atributos
         int cantFramesX;
         int cantFramesY;
         Texture* texturesPlayer;
@@ -31,6 +29,10 @@ class SpriteA{
         Vector2f frameSize; // guardarael tamaño de cada frame
         FloatRect hitBox;
 
+        
+    public:
+
+        
 
 
         //Funciones

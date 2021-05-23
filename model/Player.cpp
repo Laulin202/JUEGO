@@ -1,5 +1,11 @@
 #include "Player.h"
 
+//0 izquierda, 2 arriba, 3 abajo, 1 derecha
+const int DERECHA = 1;
+const int IZQUIERDA = 0; 
+const int ARRIBA = 2;
+const int ABAJO =3;
+
 Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vector2i frameActual)
 {
      /*
@@ -21,7 +27,6 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->velCaminar = 25;
      this->velCorrer = 64;
      this->ventana = &ventana;
-     spritesPlayer->setColor( Color::Red );
 
      //prueba 
      this->hechizos.push_back( Spell( "Ataque basico!", "", this->attackPoints, 0 ) );
@@ -60,7 +65,7 @@ bool Player::checkGameOver( )
     return false;
 }
 
-//permite actualizar fisicas del player para que no se teletrnsporte
+//permite actualizar fisicas del player para que no se teletransporte
 void Player::updateFisicaJ1(){ 
 
     if(walking){
@@ -74,6 +79,8 @@ void Player::updateFisicaJ1(){
 
     }
 }
+
+//0 izquierda, 2 arriba, 3 abajo, 1 derecha
 
 //Permite ajustar la velocidad dependiendo las direcciones que tengamos
 void Player::selecionarVelocidad(){
@@ -133,37 +140,37 @@ void Player::procesarEventos(){
     //0 izquierda, 2 arriba, 3 abajo, 1 derecha
     walking = false; //el jugador no esta caminando
 
-    if( keyboard->teclasJugador[0]){
+    if( keyboard->teclasJugador[IZQUIERDA]){
 
         walking = true;
-        if( keyboard->teclasJugador[2]) {
+        if( keyboard->teclasJugador[ARRIBA]) {
             setDireccion(arribaIzquierda);
         }
-        else if( keyboard->teclasJugador[3] ){
+        else if( keyboard->teclasJugador[ABAJO] ){
             setDireccion(abajoIzquierda);
         }
         else{
             setDireccion(izquierda);
         }
     }
-    else if( keyboard->teclasJugador[1] ){
+    else if( keyboard->teclasJugador[DERECHA] ){
         walking = true;
 
-        if( keyboard->teclasJugador[2] ){
+        if( keyboard->teclasJugador[ARRIBA] ){
             setDireccion(arribaDerecha);
         }
-        else if( keyboard->teclasJugador[3] ){
+        else if( keyboard->teclasJugador[ABAJO] ){
             setDireccion(abajoDerecha);
         }
         else{
             setDireccion(derecha);
         }
     }
-    else if( keyboard->teclasJugador[2]){
+    else if( keyboard->teclasJugador[ARRIBA]){
         walking = true;
         setDireccion(arriba);
     }
-    else if( keyboard->teclasJugador[3]){
+    else if( keyboard->teclasJugador[ABAJO]){
         walking = true;
         setDireccion(abajo);
     }
