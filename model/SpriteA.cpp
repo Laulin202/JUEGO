@@ -21,8 +21,8 @@ void SpriteA::setSprite(int claseSprite, int cantX, int cantY, Vector2i frameAct
     frameSize = Vector2f(texturesPlayer->getSize().x/ cantX,texturesPlayer->getSize().y / cantY ); //obtengo la dimension o tamaño de cada frame o casilla del personaje en png
     numFrame = frameActual; //Frame actual de la imagen de todos los movimientos
     selectFrame();
-    spritesPlayer->setOrigin(originPos);
-    hitBox = spritesPlayer->getGlobalBounds();
+    createHitBox( originPos );
+    createRectangle( originPos );
 }
 
 //Me permite cambiar el rectagulo para que agarre el frame
@@ -47,12 +47,26 @@ void SpriteA::animarFrame(){
 void SpriteA::setFrameX(int frame){
     numFrame.x = frame;
     selectFrame();
-
 }
 
 void SpriteA::setFrameY(int frame){
     numFrame.y = frame;
-    selectFrame();
-    
+    selectFrame();   
+}
+
+void SpriteA::createHitBox( Vector2f originPos ){
+    hitBox = spritesPlayer->getGlobalBounds();
+    spritesPlayer->setOrigin(Vector2f(hitBox.width/2, hitBox.height/2));
+    spritesPlayer->setPosition(originPos);
+    hitBox = spritesPlayer->getGlobalBounds();
+}
+
+void SpriteA::createRectangle( Vector2f originPos ){
+    rectangle = new RectangleShape(Vector2f(hitBox.width,hitBox.height));
+    rectangle->setOrigin(Vector2f(hitBox.width/2, hitBox.height/2));
+    rectangle->setOutlineColor(Color::Red);
+    rectangle->setOutlineThickness(1.f);
+    rectangle->setFillColor(Color::Transparent);
+    rectangle->setPosition(originPos);
 }
 

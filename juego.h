@@ -20,7 +20,11 @@ class Juego{
         
         RenderWindow* ventana;
         bool gameOver = false;
+        bool paused = false;
+        View view;
         TileMap* map;
+        FloatRect mapBox;
+        vector<FloatRect> tilesArray;
         Texture* tileset;
         Player* j1;
         Enemy* e1;
@@ -32,10 +36,17 @@ class Juego{
     public:
         Juego(Vector2u resolucion);
         void iniciar(); //Inicializacion de variables y diferentes aspectos importantes
+        void iniciarView();
+        void pause();
+        void unpause();
+        void loadMap();
         void renderizar(); //Dibujando en pantalla los elementos del juego
         void procesarLogica(); // Procesa Logica del juego
         void procesarEventos(); // Procesa logica del juego
         void procesarNetworking(); //Procesa, teclado, mouse etc
+        void updateCollision();
+        bool updateTileCollision();
+        void updateView();
         void gameLoop();
 };
 

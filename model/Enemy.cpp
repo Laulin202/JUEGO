@@ -17,5 +17,4 @@ Enemy::Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector
 
      //Fase prueba UwU
      setSprite(claseSprite, cantX, cantY, frameActual, pos);
-
 }

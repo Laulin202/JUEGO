@@ -31,6 +31,7 @@ class Entity: public SpriteA
         void updateHealthPoints();
         void updateAttackPoints();
         FloatRect getHitBox(){ return hitBox; }
+        RectangleShape getRectangle(){ return *rectangle; };
 };
 
 #endif
