@@ -35,35 +35,24 @@ void Juego::gameLoop(){
             if(!paused){ //unpaused update
                 if( !combatePlayer->isOver() ){
 
+                    procesarNetworking();
+
                     procesarLogica();
 
-                    if(j1->walking){
-                        j1->animarFrame();
-                    }
-                    else{  
-                    }
-                    if(!enemies.empty()){
-                        for(int i = 0; i < enemies.size(); i++){
-                            if(j1->getHitBox().intersects(enemies[i].getHitBox())){
-                                combatePlayer = new Combat( *ventana, *j1, enemies[i] );
-                                combatePlayer->iniciarComponentesCombate();
-                                combatePlayer->startCombat();
-                                view.setCenter( combatView );
-                                enemieInCombat = i;
-                            }
-                        }
-                    }
                     ventana->setView(view);
                     renderizar();
                     reloj1->restart();
                 }
-                else{ //paused update
+                else{ 
                     combatePlayer->procesarLogicaCombate();
                     combatePlayer->renderizarCombate();
                     if( !combatePlayer->isOver() ){
                         enemies.erase(enemies.begin() + enemieInCombat);
                     }
                 }
+            }else{ //paused update
+                pMenu.update();
+                pMenu.render( *ventana );
             }
         }
     }
@@ -71,13 +60,32 @@ void Juego::gameLoop(){
 
 void Juego::procesarLogica(){
     j1->procesarEventos();
-    updateCollision();
+    updateBorderCollision();
     if(updateTileCollision()){
         j1->checkCollisionDirection();
     }
     updateView();
+    if(j1->walking){
+        j1->animarFrame();
+    }
+    if(!enemies.empty()){
+        for(int i = 0; i < enemies.size(); i++){
+            if(j1->getHitBox().intersects(enemies[i].getHitBox())){
+                combatePlayer = new Combat( *ventana, *j1, enemies[i] );
+                combatePlayer->iniciarComponentesCombate();
+                combatePlayer->startCombat();
+                view.setCenter( combatView );
+                enemieInCombat = i;
+            }
+        }
+    }
 }
 
+void Juego::procesarNetworking(){
+    if(Keyboard::isKeyPressed(Keyboard::Escape)){
+        pause();
+    }
+}
 void Juego::renderizar(){
     ventana->clear();
     ventana->draw(*map);
@@ -93,14 +101,14 @@ void Juego::renderizar(){
 }
 
 void Juego::pause(){
-
+    paused = true;
 }
 
 void Juego::unpause(){
-
+    paused = false;
 }
 
-void Juego::updateCollision(){
+void Juego::updateBorderCollision(){
     // Left Collision
     if(j1->getHitBox().left < mapBox.left){
         j1->setCLeft(true);

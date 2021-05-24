@@ -3,18 +3,20 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <vector>
+#include <map>
 #include "PauseMenu.h"
 #include "Button.h"
 
 class PauseMenu{
     private:
         RectangleShape background;
-        vector<Button> pauseButtons;
+        RectangleShape container;
+        map<string, Button*> buttons;
     public:
-        PauseMenu(RenderWindow& window);
+        PauseMenu();
+        PauseMenu( RenderWindow& window );
         void update();
-        void render( RenderTarget& target);
+        void render( RenderTarget& window);
 };
 
 #endif

@@ -12,6 +12,7 @@
 //Fase prueba
 #include "model/Button.h"
 #include "model/Combat.h"
+#include "model/PauseMenu.h"
 #include <list>
 
 using namespace sf; //para no tener que utilizar el sf
@@ -30,6 +31,7 @@ class Juego{
     private:
         
         RenderWindow* ventana;
+        PauseMenu pMenu;
         bool gameOver = false;
         bool paused = false;
         View view;
@@ -61,7 +63,7 @@ class Juego{
         void procesarLogica(); // Procesa Logica del juego
         void procesarEventos(); // Procesa logica del juego
         void procesarNetworking(); //Procesa, teclado, mouse etc
-        void updateCollision();
+        void updateBorderCollision();
         bool updateTileCollision();
         void updateView();
         void gameLoop();

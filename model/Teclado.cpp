@@ -47,9 +47,7 @@ void Teclado::procesarEventos(){
                     teclasJugador[3] = true;
 
                     //j1->setFrameY(0);
-
-                
-                
+                             
             }
             break;
 
