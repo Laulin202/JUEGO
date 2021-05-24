@@ -9,10 +9,21 @@
 #include "model/Enemy.h"
 #include "model/TileMap.h"
 
+//Fase prueba
+#include "model/Button.h"
+#include "model/Combat.h"
+#include <list>
+
 using namespace sf; //para no tener que utilizar el sf
 using std::string;
 using std::cout;
 using std::cin;
+using std::endl;
+using std::list;
+
+
+//FASE PRUEBA
+
 
 class Juego{
 
@@ -31,7 +42,9 @@ class Juego{
         Clock* reloj1;
         Time* cronometro1;
         int fps; //velocidad constante a la que quiero que haga el procesamiento del jugador
-        
+
+        // Fase prueba 
+        Combat* combatePlayer;
     
     public:
         Juego(Vector2u resolucion);
@@ -48,6 +61,12 @@ class Juego{
         bool updateTileCollision();
         void updateView();
         void gameLoop();
+        
+        //fASE PRUEBA
+        
+        void procesarLogicaCombate(); //TODO: Actualizar.
+
+
 };
 
 #endif

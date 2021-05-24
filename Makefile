@@ -4,8 +4,8 @@ MODEL := model
 debug := -ggdb3
 
 all: link clean
-link: SpriteA Teclado TileMap Tile Entity Player Enemy JuegoMain
-	g++ -o main SpriteA.o Teclado.o TileMap.o Tile.o Entity.o Player.o Enemy.o juego.o main.o -L src/lib -l sfml-graphics -l sfml-window -l sfml-system 
+link: SpriteA Teclado TileMap Tile Entity Player Enemy Boton Spell Combate  JuegoMain Inventory
+	g++ -o main SpriteA.o Teclado.o TileMap.o Tile.o Entity.o Player.o Enemy.o Button.o Spell.o Combat.o Inventory.o juego.o main.o -L src/lib -l sfml-graphics -l sfml-window -l sfml-system 
 Player:${MODEL}/Player.cpp ${MODEL}/Player.h
 	g++ -I src/include -c ${debug} ${MODEL}/Player.cpp
 Enemy:${MODEL}/Enemy.cpp ${MODEL}/Enemy.h
@@ -20,6 +20,14 @@ TileMap:${MODEL}/TileMap.cpp ${MODEL}/TileMap.h
 	g++ -I src/include -c ${debug} ${MODEL}/TileMap.cpp
 Tile:${MODEL}/Tile.cpp ${MODEL}/Tile.h
 	g++ -I src/include -c ${debug} ${MODEL}/Tile.cpp
+Boton:${MODEL}/Button.cpp ${MODEL}/Button.h
+	g++ -I src/include -c ${debug} ${MODEL}/Button.cpp 
+Combate:${MODEL}/Combat.cpp ${MODEL}/Combat.h
+	g++ -I src/include -c ${debug} ${MODEL}/Combat.cpp
+Inventory:${MODEL}/Inventory.cpp ${MODEL}/Inventory.h
+	g++ -I src/include -c ${debug} ${MODEL}/Inventory.cpp
+Spell:${MODEL}/Spell.cpp ${MODEL}/Spell.h
+	g++ -I src/include -c ${debug} ${MODEL}/Spell.cpp
 JuegoMain: juego.cpp main.cpp juego.h
 	g++ -I src/include -c ${debug} juego.cpp main.cpp	
 clean: #comando para borrar los .o

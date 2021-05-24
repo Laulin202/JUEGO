@@ -2,15 +2,29 @@
 #define SPELL_H
 
 
+#include <SFML/Graphics.hpp>
+
+
+#include <iostream>
 #include <string>
 using std::string;
+using namespace sf;
+using std::cout;
+using std::cin;
+using std::endl;
 
 class Spell{
     private:
-        string name;
-        string description;
+        String name;
+        String description;
+        int damage;
         int manaCost;
     public:
+        Spell();
+        Spell( String name, String description, int damage, int manaCost);
+        int getDamage(){ return damage; }
+        int getManaCost(){ return manaCost; }
+        String getName(){ return name; }
         void useSpell();
 };
 

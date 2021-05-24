@@ -2,6 +2,9 @@
 #define PLAYER_H
 #include "Entity.h"
 #include "Teclado.h"
+#include "Spell.h"
+//fase prueba
+
 
 
 #include <map>
@@ -26,8 +29,10 @@ class Player : public Entity{
         direcciones direccionJ1 = abajo; //direccion a la que mira el player
         Teclado* keyboard = Teclado::getTeclado();  //este onjeto me permite manejar en su mayoria lo que suceda con el teclado
         RenderWindow* ventana;   //Basicamente el jugador con la ventana podra mostrarse sin depender estrictamente de que lo llamen en juego
-
         bool cTop = false, cBot = false, cLeft = false, cRight = false;
+
+        //FASE PRUEBA
+        vector<Spell> hechizos;
 
     public:
         Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos = Vector2f(500, 500) );
@@ -41,7 +46,7 @@ class Player : public Entity{
         bool checkGameOver( );
         
 
-        //Fase prueba
+        
         Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del jugador 
         Vector2f getPos(){ return posicionJugador; } //Me va a devolver la posicion del jugador
         void updateFisicaJ1();  //Actualiza el movimiento "fisicas" del jugador
@@ -66,6 +71,12 @@ class Player : public Entity{
         void setCBot(bool value){ cBot = value;}
         void setCLeft(bool value){ cLeft = value;}
         void setCRight(bool value){ cRight = value;}
+
+        //prueba
+        Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; }
+        int getHealthPoints(){ return this->healthPoints; }
+        void setHealthPoints( int newHealthPoints ){ this->healthPoints = newHealthPoints; }
+        int getAttackDamage(){ return this->attackPoints; }
         
 };
 
