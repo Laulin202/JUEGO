@@ -39,9 +39,12 @@ class Juego{
         Texture* tileset;
         Player* j1;
         Enemy* e1;
+        vector<Enemy> enemies;
         Clock* reloj1;
         Time* cronometro1;
         int fps; //velocidad constante a la que quiero que haga el procesamiento del jugador
+        int enemieInCombat;
+        Vector2f combatView;
 
         // Fase prueba 
         Combat* combatePlayer;
@@ -50,6 +53,7 @@ class Juego{
         Juego(Vector2u resolucion);
         void iniciar(); //Inicializacion de variables y diferentes aspectos importantes
         void iniciarView();
+        void initializeEnemies();
         void pause();
         void unpause();
         void loadMap();

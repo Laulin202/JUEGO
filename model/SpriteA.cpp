@@ -21,13 +21,8 @@ void SpriteA::setSprite(int claseSprite, int cantX, int cantY, Vector2i frameAct
     frameSize = Vector2f(texturesPlayer->getSize().x/ cantX,texturesPlayer->getSize().y / cantY ); //obtengo la dimension o tamaño de cada frame o casilla del personaje en png
     numFrame = frameActual; //Frame actual de la imagen de todos los movimientos
     selectFrame();
-<<<<<<< HEAD
     createHitBox( originPos );
     createRectangle( originPos );
-=======
-    spritesPlayer->setOrigin(originPos); //despues de definir al rectangulo del sprite, defino su nuevo origen al iniciar la partida.
-    hitBox = spritesPlayer->getGlobalBounds(); //VMe permite objetener la hitbox del sprite 
->>>>>>> fec3b5153acc322237e4fa7cdde4cf7e0c5fa9ab
 }
 
 //Me permite cambiar el rectagulo para que agarre el frame correspondiente

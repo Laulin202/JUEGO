@@ -17,6 +17,7 @@ Juego::Juego(Vector2u resolucion){
     ventana = new RenderWindow(VideoMode(resolucion.x, resolucion.y), "Videojuego Prueba  2D");
     iniciar();
     iniciarView();
+    initializeEnemies();
 
     //Me permitira entrar a un Loop hasta que no termine el juego 
     gameLoop();
@@ -41,9 +42,16 @@ void Juego::gameLoop(){
                     }
                     else{  
                     }
-                    if(j1->getHitBox().intersects(e1->getHitBox())){
-                        combatePlayer->procesarLogicaCombate();
-                        combatePlayer->renderizarCombate();
+                    if(!enemies.empty()){
+                        for(int i = 0; i < enemies.size(); i++){
+                            if(j1->getHitBox().intersects(enemies[i].getHitBox())){
+                                combatePlayer = new Combat( *ventana, *j1, enemies[i] );
+                                combatePlayer->iniciarComponentesCombate();
+                                combatePlayer->startCombat();
+                                view.setCenter( combatView );
+                                enemieInCombat = i;
+                            }
+                        }
                     }
                     ventana->setView(view);
                     renderizar();
@@ -52,6 +60,9 @@ void Juego::gameLoop(){
                 else{ //paused update
                     combatePlayer->procesarLogicaCombate();
                     combatePlayer->renderizarCombate();
+                    if( !combatePlayer->isOver() ){
+                        enemies.erase(enemies.begin() + enemieInCombat);
+                    }
                 }
             }
         }
@@ -70,10 +81,14 @@ void Juego::procesarLogica(){
 void Juego::renderizar(){
     ventana->clear();
     ventana->draw(*map);
+    if(!enemies.empty()){
+        for(int i = 0; i < enemies.size(); i++){
+            ventana->draw(enemies[i].getSprite());
+            ventana->draw(enemies[i].getRectangle());
+        }
+    }
     ventana->draw(j1->getSprite());
-    ventana->draw(e1->getSprite());
     ventana->draw(j1->getRectangle());
-    ventana->draw(e1->getRectangle());
     ventana->display();
 }
 
@@ -120,15 +135,13 @@ void Juego::updateView(){
 
 void Juego::iniciar(){
     j1 = new Player(*ventana,12, 4, 4, Vector2i(2,1), Vector2f(ventana->getSize().x, ventana->getSize().y));
-    e1 = new Enemy(420, 1, 1, Vector2i(0,0), Vector2f(300, 300));
     loadMap();
     fps = 60; // 60 Frames x Seconds
     reloj1 = new Clock();
     cronometro1 = new Time();
+    combatePlayer = new Combat();
 
     //Fase prueba
-    combatePlayer = new Combat( *ventana, *j1, *e1 ) ;
-    combatePlayer->iniciarComponentesCombate();
 }
 
 void Juego::loadMap(){ // se carga el mapa
@@ -142,6 +155,12 @@ void Juego::loadMap(){ // se carga el mapa
 void Juego::iniciarView(){
     view.setSize( Vector2f( ventana->getSize().x, ventana->getSize().y ) );
     view.setCenter( Vector2f( ventana->getSize().x/2.f, ventana->getSize().y/2.f ) );
+    combatView = Vector2f( ventana->getSize().x/2.f, ventana->getSize().y/2.f );
+}
+
+void Juego::initializeEnemies(){
+    Enemy e1(420, 1, 1, Vector2i(0,0), Vector2f(300, 300));
+    enemies.push_back(e1);
 }
 // FUNCIONES FASE PRUEBA, FALTA PASARLOS A UNA CLASE COMBATE Y AJUSTARLOS AHI
 
