@@ -1,12 +1,14 @@
 #include "Player.h"
 
+
 //0 izquierda, 2 arriba, 3 abajo, 1 derecha
 const int DERECHA = 1;
 const int IZQUIERDA = 0; 
 const int ARRIBA = 2;
 const int ABAJO =3;
 
-Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vector2i frameActual)
+
+Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos)
 {
      /*
         Initialize the player
@@ -21,10 +23,16 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->lvl = 1;
      this->xp = 0;
      this->mana = 3;
+     //Fase prueba
 
-     
-     setSprite(claseSprite, cantX, cantY, frameActual);
-     this->velCaminar = 25;
+    this->nextPosition.left = getHitBox().left;
+    this->nextPosition.top = getHitBox().top;
+    this->nextPosition.width = getHitBox().width;
+    this->nextPosition.height = getHitBox().height;
+
+     this->posicionJugador = originPos;
+     setSprite(claseSprite, cantX, cantY, frameActual, originPos);
+     this->velCaminar = 2;
      this->velCorrer = 64;
      this->ventana = &ventana;
 
@@ -35,9 +43,6 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 0 ) ); 
      
 }
-
-
-
 
 void Player::updateHealthPoints( int newHealthPoints )
 {
@@ -65,7 +70,26 @@ bool Player::checkGameOver( )
     return false;
 }
 
+
 //permite actualizar fisicas del player para que no se teletransporte
+void Player::checkCollisionDirection(){
+    switch( direccionJ1 ){
+        case arriba:
+            setCTop(true);
+            break;
+        case abajo:
+            setCBot(true);
+            break;
+        case izquierda:
+            setCLeft(true);
+            break;
+        case derecha:
+            setCRight(true);
+            break;
+    }
+}
+
+//permite actualizar fisicas del player para que no se teletrnsporte
 void Player::updateFisicaJ1(){ 
 
     if(walking){
@@ -140,8 +164,8 @@ void Player::procesarEventos(){
     //0 izquierda, 2 arriba, 3 abajo, 1 derecha
     walking = false; //el jugador no esta caminando
 
-    if( keyboard->teclasJugador[IZQUIERDA]){
-
+    if( keyboard->teclasJugador[IZQUIERDA] && !cLeft){
+        cRight = false;
         walking = true;
         if( keyboard->teclasJugador[ARRIBA]) {
             setDireccion(arribaIzquierda);
@@ -153,7 +177,8 @@ void Player::procesarEventos(){
             setDireccion(izquierda);
         }
     }
-    else if( keyboard->teclasJugador[DERECHA] ){
+    else if( keyboard->teclasJugador[DERECHA] && !cRight ){
+        cLeft = false;
         walking = true;
 
         if( keyboard->teclasJugador[ARRIBA] ){
@@ -166,11 +191,13 @@ void Player::procesarEventos(){
             setDireccion(derecha);
         }
     }
-    else if( keyboard->teclasJugador[ARRIBA]){
+    else if( keyboard->teclasJugador[ARRIBA] && !cTop){
+        cBot = false;
         walking = true;
         setDireccion(arriba);
     }
-    else if( keyboard->teclasJugador[ABAJO]){
+    else if( keyboard->teclasJugador[ABAJO] && !cBot){
+        cTop = false;
         walking = true;
         setDireccion(abajo);
     }

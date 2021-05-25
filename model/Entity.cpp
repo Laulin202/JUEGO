@@ -3,3 +3,7 @@
 Entity::Entity( ){
     
 }
+
+Entity::~Entity( ){
+
+}

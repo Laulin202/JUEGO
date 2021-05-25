@@ -37,7 +37,7 @@ class Combat
         //FASE PRUEBA
 
         list<Button> listaOpciones; //prueba
-        bool enCombate = true;
+        bool enCombate = false;
         bool turnoJugador = true;
         Texture* texturaBackground;
         Sprite* spriteCombate;
@@ -52,15 +52,12 @@ class Combat
         bool useSpell = false;
         Spell hechizoUsado;
 
-        
-
-
-
     public:
         Combat();
         Combat( RenderWindow& ventana, Player& player, Enemy& enemy );
 
         bool isOver( ){ return enCombate; }
+        void startCombat(){ enCombate = true; };
         bool whoWon();
 
 

@@ -11,6 +11,7 @@ class Enemy : public Entity{
         int damageInCombat;
     public:
       Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f pos );
+      ~Enemy();
       Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del enemiwo
       Vector2f getPos(){ return posicionEnemigo; } //Me va a devolver la posicion del enemiwowo
       FloatRect getBox(){ return spritesPlayer->getGlobalBounds(); } //Me va a devolver el cuadrado del enemiwowowo

@@ -28,9 +28,11 @@ class Entity: public SpriteA
         int lvl;
     public:
         Entity();
+        ~Entity();
         void updateHealthPoints();
         void updateAttackPoints();
         FloatRect getHitBox(){ return hitBox; }
+        RectangleShape getRectangle(){ return *rectangle; };
 };
 
 #endif

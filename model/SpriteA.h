@@ -26,8 +26,9 @@ class SpriteA{
         Sprite* spritesPlayer; //importante
         int spriteActual;
         Vector2i numFrame; //Frame actual del personaje
-        Vector2f frameSize; // guardarael tamaño de cada frame
+        Vector2f frameSize; // guardara el tamaño de cada frame
         FloatRect hitBox;
+        RectangleShape* rectangle;
 
         
     public:
@@ -37,10 +38,12 @@ class SpriteA{
 
         //Funciones
         SpriteA();
-        void setSprite(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos = Vector2f(-100, -100));
+        void setSprite(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos = Vector2f(500, 500));
         void selectFrame(); //carga el frame actual
         void setFrameX(int frame); //Modifica el frame de x actual a otro
         void setFrameY(int frame); //Modifica el frame de y actual a otro
+        void createHitBox(Vector2f originPos);
+        void createRectangle(Vector2f originPos);
         void animarFrame();
         Vector2f getFrameSize(){ return this->frameSize; }
 };
