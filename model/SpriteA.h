@@ -30,6 +30,17 @@ class SpriteA{
         FloatRect hitBox;
         RectangleShape* rectangle;
 
+
+        //Apartado combate
+
+        int cantFramesCombatX;
+        int cantFramesCombatY;
+        Texture* texturePlayerCombat;
+        Sprite* spritePlayerCombat;
+        Vector2i numFrameCombat;
+        Vector2f frameSizeCombat;
+        RectangleShape* rectangleCombat;
+
         
     public:
 
@@ -39,13 +50,18 @@ class SpriteA{
         //Funciones
         SpriteA();
         void setSprite(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos = Vector2f(500, 500));
-        void selectFrame(); //carga el frame actual
+        void selectFrame(int opcion); //carga el frame actual
         void setFrameX(int frame); //Modifica el frame de x actual a otro
         void setFrameY(int frame); //Modifica el frame de y actual a otro
         void createHitBox(Vector2f originPos);
         void createRectangle(Vector2f originPos);
-        void animarFrame();
+        void animarFrame(int opcion);
         Vector2f getFrameSize(){ return this->frameSize; }
+
+        //Funciones
+        void setSpriteCombate(int claseSprite, int cantX, int cantY, Vector2i frameActual);
+        void setPosSpriteCombate( Vector2f pos ){ this->spritePlayerCombat->setPosition(pos); }
+        void setScaleSpriteCombate( Vector2f scale){ this->spritePlayerCombat->setScale(scale); }
 };
 
 

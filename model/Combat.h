@@ -73,7 +73,7 @@ class Combat
         void dibujarMenuHabilidades(); //1
         void iniciarComponentesCombate();
         void dibujarMensaje( int personaje );
-        void dibujarMensajeEnemigo();
+        void dibujarMensaje( int personaje, int opcion);
 
         void useAttackSpell( Spell &hechizoUsado );
         void useSpecialAttackSpell( Spell &hechizoUsado );
@@ -81,6 +81,8 @@ class Combat
         bool checkVictory();
         bool checkDefeat();
         bool tryEscape();
+
+        void renderPlayer();
 };
 
 

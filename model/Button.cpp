@@ -8,6 +8,7 @@ Button::Button(String id, RectangleShape rect, int numBoton){
     this->id = id; 
     this->rect = rect; 
     this->numBoton = numBoton;
+    if(numBoton <= 8)
         cargarTextura();
     
 }

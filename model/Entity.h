@@ -33,6 +33,7 @@ class Entity: public SpriteA
         void updateAttackPoints();
         FloatRect getHitBox(){ return hitBox; }
         RectangleShape getRectangle(){ return *rectangle; };
+        
 };
 
 #endif

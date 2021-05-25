@@ -66,7 +66,7 @@ void Juego::procesarLogica(){
     }
     updateView();
     if(j1->walking){
-        j1->animarFrame();
+        j1->animarFrame(1);
     }
     if(!enemies.empty()){
         for(int i = 0; i < enemies.size(); i++){

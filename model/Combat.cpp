@@ -3,6 +3,12 @@
 const int JUGADOR = 20;
 const int ENEMIGO = 30;
 
+const int ESCAPO = 21;
+const int NO_ESCAPO = 22;
+
+const float POSX_CASILLA1 = 595;
+const float POSY_CASILLA1 = 465;
+
 Combat::Combat()
 {
 }
@@ -17,7 +23,7 @@ Combat::Combat(RenderWindow &ventana, Player &player, Enemy &enemy)
 
 void Combat::iniciarRectangulos()
 {
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 13; i++) 
     {
 
         String id = "";
@@ -66,6 +72,31 @@ void Combat::iniciarRectangulos()
             r->setPosition(350, 500);
             id = "Habilidad 4";
             break;
+        case 8:
+            r->setPosition(585, 455);
+            r->setSize(Vector2f( 150,130));
+            id = " Cuadro Inventario";
+            break;
+        case 9:
+            r->setPosition(POSX_CASILLA1, POSY_CASILLA1);
+            r->setSize(Vector2f( 60, 50 ));
+            id = "Casilla 1";
+            break;
+        case 10:
+            r->setPosition(POSX_CASILLA1 + 72, POSY_CASILLA1);
+            r->setSize(Vector2f( 60, 50 ));
+            id = "Casilla 2";
+            break;
+        case 11:
+            r->setPosition( POSX_CASILLA1, POSY_CASILLA1 + 63 );
+            r->setSize(Vector2f( 60, 50 ));
+            id = "Casilla 3";
+            break;
+        case 12:
+            r->setPosition( POSX_CASILLA1 + 72, POSY_CASILLA1 + 63 );
+            r->setSize(Vector2f( 60, 50 ));
+            id = "Casilla 4";
+            break;
         default:
             break;
         }
@@ -97,6 +128,18 @@ void Combat::renderPanelOpciones()
         {
             dibujarInventario();
         }
+        else if( estadosBotones == estadosB::escapar){
+            if(!tryEscape()){
+                dibujarMensaje(JUGADOR, NO_ESCAPO);
+                turnoJugador = false;
+                estadosBotones = menu;  
+            }
+            else{
+                cout << "bye bye" << endl;
+                dibujarMensaje(JUGADOR, ESCAPO);
+                enCombate = false;
+            }
+        }
     }
     else{
         dibujarMensaje(ENEMIGO);
@@ -109,6 +152,7 @@ void Combat::renderizarCombate()
 
     ventana->clear();
     ventana->draw(*spriteCombate);
+    renderPlayer();
     renderPanelOpciones();
     ventana->display();
 }
@@ -145,19 +189,10 @@ void Combat::procesarEventosCombate()
                             estadosBotones = estadosB::inventario;
                             cout << "Entre a INVENTARIO!" << endl;
                         }
-                        if (boton.getId() == "Escapar")
-                        {
+                        if (boton.getId() == "Escapar"){
+                    
                             estadosBotones = estadosB::escapar;
                             cout << "Entre a ESCAPAR!" << endl;
-                            if (tryEscape())
-                            {
-                                cout << "Ezakapacion\n";
-                                exit(3);
-                            }
-                            else
-                            {
-                                cout << "Pa donde vas UwU?\n";
-                            }
                         }
                         if (boton.getId() == "Menu")
                         {
@@ -228,9 +263,9 @@ bool Combat::tryEscape()
     int esc = rand() % 10;
     if (esc % 2 == 0)
     {
-        return true;
+        return false; //true
     }
-    return false;
+    return false; 
 }
 
 //Function useAttackSpell
@@ -339,9 +374,28 @@ void Combat::dibujarInventario()
     int i = 0;
     for (list<Button>::iterator botonIt = listaOpciones.begin(); botonIt != listaOpciones.end(); botonIt++)
     {
-        if (i == 3)
+
+        switch (i)
         {
+        case 3:
             ventana->draw(botonIt->getRect());
+            break;
+        case 8:
+            ventana->draw(botonIt->getRect());
+            break;
+        case 9:
+            ventana->draw(botonIt->getRect());
+            break;
+        case 10:
+            ventana->draw(botonIt->getRect());
+            break;
+        case 11:
+            ventana->draw(botonIt->getRect());
+            break;
+        case 12:
+            ventana->draw(botonIt->getRect());
+            break;
+        default:
             break;
         }
         i++;
@@ -397,23 +451,25 @@ void Combat::iniciarComponentesCombate()
     mensaje.setPosition(Vector2f(150, 500));
     mensaje.setCharacterSize(20);
 
-    //creamos el mensaje del enemigo
+
+    player->setPosSpriteCombate(Vector2f(110,180));
+    player->setScaleSpriteCombate(Vector2f(2.5,2.5));
 
 }
 
-void Combat::dibujarMensaje(int personaje)
+void Combat::dibujarMensaje(int personaje, int opcion)
 {
     Clock *reloj;
     Time *cronometro;
 
-    switch (personaje)
+    switch (opcion)
     {
-    case JUGADOR:
-        mensaje.setString(" Haz usado  " + hechizoUsado.getName() + ", hiciste un dahno de: " + to_string(hechizoUsado.getDamage()) + " pts. ");
-        useSpell = false;
+    case NO_ESCAPO:
+        mensaje.setString(" El enemigo te intimido, no lograste escapar ");
+        this->turn++;
         break;
-    case ENEMIGO:
-        mensaje.setString(" El enemigo te ha hecho daño, perdiste " + to_string( enemy->getDamageinCombat() ) + " de vida.");
+    case ESCAPO:
+        mensaje.setString(" Escape exitoso.");
         break; 
     default:
         break;
@@ -430,3 +486,39 @@ void Combat::dibujarMensaje(int personaje)
     }
 }
 
+void Combat::dibujarMensaje(int personaje){
+    Clock *reloj;
+    Time *cronometro;
+    switch (personaje)
+        {
+        case JUGADOR:
+            mensaje.setString(" Haz usado  " + hechizoUsado.getName() + ", hiciste un dahno de: " + to_string(hechizoUsado.getDamage()) + " pts. ");
+            useSpell = false;
+            break;
+        case ENEMIGO:
+            mensaje.setString(" El enemigo te ha hecho daño, perdiste " + to_string( enemy->getDamageinCombat() ) + " de vida.");
+            break; 
+        default:
+            break;
+        }
+
+    mensaje.setFillColor(Color::Black);
+    reloj = new Clock();
+    cronometro = new Time();
+    //Tiempo transcurrido
+    while (reloj->getElapsedTime().asSeconds() < 3.f)
+    { //Evaluar un cronometro de segundos
+        ventana->draw(mensaje);
+        ventana->display();
+    }
+
+}
+
+void Combat::renderPlayer(){
+
+    Clock* reloj;
+    Time* tiempo;
+    
+    player->animarFrame(2);
+    ventana->draw(player->getSpriteCombat());
+}

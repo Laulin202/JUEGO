@@ -48,10 +48,16 @@ class Player : public Entity{
 
         
         Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del jugador 
+
+        Sprite getSpriteCombat(){ return *spritePlayerCombat; }
+
+
         Vector2f getPos(){ return posicionJugador; } //Me va a devolver la posicion del jugador
         void updateFisicaJ1();  //Actualiza el movimiento "fisicas" del jugador
         void selecionarVelocidad();
         void procesarEventos();
+
+        
 
 
         void setPos(Vector2f posicion){ posicionJugador = posicion; spritesPlayer->setPosition(posicionJugador); } //SpriteJugador va a buscar a SpritePlayer, y ese sera el que se actualice con la nueva posicicon

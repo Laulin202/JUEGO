@@ -32,7 +32,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
 
      this->posicionJugador = originPos;
      setSprite(claseSprite, cantX, cantY, frameActual, originPos);
-     this->velCaminar = 2;
+     this->velCaminar = 10;
      this->velCorrer = 64;
      this->ventana = &ventana;
 
@@ -41,6 +41,9 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->hechizos.push_back( Spell( "Bola de fuego", "Lanza una bola de fuego", (2 * this->lvl), this->lvl ) );
      this->hechizos.push_back( Spell( "Impak-trueno", "Pikazhu time", (4 * this->lvl), this->mana ) );
      this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 0 ) ); 
+
+     //Prueba combate
+     setSpriteCombate(133, 6, 1, Vector2i(0,0));
      
 }
 
