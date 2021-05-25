@@ -211,7 +211,8 @@ void Combat::procesarEventosCombate()
                             
                         }
                         if (boton.getId() == "Habilidad 2")
-                        {
+                        {   
+                          if( player->getMana() >= player->getSpell(1).getManaCost() ){
                             estadosBotones = estadosB::menu;
                             cout << "Estoy usando habilidad 2!" << endl;
                             useSpell = true;
@@ -219,31 +220,44 @@ void Combat::procesarEventosCombate()
                             //cout << hechizoUsado.getName() << "\n";
                             useAttackSpell(hechizoUsado);
                             cout << "Sali" << endl;
-
+                          }else
+                          {
+                            cout << "No me alcanza el mana UwU!" << endl;
+                          }
                         }
                         if (boton.getId() == "Habilidad 3")
-                        {
-                            estadosBotones = estadosB::menu;
-                            cout << "Estoy usando habilidad 3!" << endl;
-                            useSpell = true;
-                            hechizoUsado = player->getSpell(2);
-                            //cout << hechizoUsado.getName() << "\n";
-                            useAttackSpell(hechizoUsado);
-
-                            
+                        { 
+                            if( player->getMana() >= player->getSpell(2).getManaCost() )
+                            {
+                              estadosBotones = estadosB::menu;
+                              cout << "Estoy usando habilidad 3!" << endl;
+                              useSpell = true;
+                              hechizoUsado = player->getSpell(2);
+                              //cout << hechizoUsado.getName() << "\n";
+                              useAttackSpell(hechizoUsado);
+                            }else
+                            {
+                              cout << "No me clanza el mana! :C" << endl;
+                            }
                         }
                         if (boton.getId() == "Habilidad 4")
                         {
-                            estadosBotones = estadosB::menu;
-                            cout << "Estoy usando habilidad 4!" << endl;
-                            useSpell = true;
-                            hechizoUsado = player->getSpell(3);
-                            //cout << hechizoUsado.getName() << "\n";
-                            useAttackSpell(hechizoUsado);
-                            cout << "Sali" << endl;
-
-                        
+                            if( player->getMana() >= player->getSpell(3).getManaCost() )
+                            {
+                              estadosBotones = estadosB::menu;
+                              cout << "Estoy usando habilidad 4!" << endl;
+                              useSpell = true;
+                              hechizoUsado = player->getSpell(3);
+                              //cout << hechizoUsado.getName() << "\n";
+                              useAttackSpell(hechizoUsado);
+                              cout << "Sali" << endl;
+                            }else
+                            {
+                              cout << "Mana cost: " << player->getSpell(3).getManaCost() << endl;
+                              cout << "Yummi no te quiere dar de su cum" << endl;
+                            }
                         }
+                        
                     }
                 }
             }
@@ -279,6 +293,7 @@ void Combat::useAttackSpell(Spell &hechizoUsado)
     cout << spellDamage << "!\n";
     this->enemy->setHealthPoints(enemyHealth);
     this->turn++;
+    this->player->setMana( player->getMana() - hechizoUsado.getManaCost() );
     return;
 }
 

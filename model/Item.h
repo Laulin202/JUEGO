@@ -2,13 +2,23 @@
 #define ITEM_H
 
 #include <string>
+#include <SFML/Graphics.hpp>
+#include <iostream>
 using std::string;
+using namespace sf;
 
 class Item
 {
     protected:
-        string name;
-        string description;
+        String name;
+        String description;
+        bool isPotion;
+
+    public:
+
+        bool getIsPotion(){ return this->isPotion; }
+        String getName(){ return this->name; }
+
 };
 
 #endif
