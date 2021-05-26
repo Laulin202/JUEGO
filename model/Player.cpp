@@ -20,7 +20,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->name = "Hertz";
      this->maxHealthPoints = 100;
      this->healthPoints = maxHealthPoints;
-     this->attackPoints = 20;
+     this->attackPoints = 10;
      this->lvl = 1;
      this->xp = 0;
      this->mana = 10;

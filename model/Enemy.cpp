@@ -20,6 +20,7 @@ Enemy::Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector
 
      //Fase prueba UwU
      setSprite(claseSprite, cantX, cantY, frameActual, pos);
+     setSpriteCombate(470,8,1,Vector2i(0,0));
 }
 
 Enemy::~Enemy(){

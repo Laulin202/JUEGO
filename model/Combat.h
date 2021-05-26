@@ -64,14 +64,14 @@ class Combat
 
         //Fase Prueba
         //TODO: Acomodar y Actualizar: 
-        void iniciarRectangulos();   //1
-        void renderPanelOpciones(); //1
-        void renderizarCombate(); //1
-        void procesarLogicaCombate(); //1
-        void procesarEventosCombate(); //1
-        void dibujarMenuPrincipal(); //1
-        void dibujarInventario(); //1
-        void dibujarMenuHabilidades(); //1
+        void iniciarRectangulos();   
+        void renderPanelOpciones(); 
+        void renderizarCombate(); 
+        void procesarLogicaCombate(); 
+        void procesarEventosCombate(); 
+        void dibujarMenuPrincipal(); 
+        void dibujarInventario(); 
+        void dibujarMenuHabilidades(); 
         void iniciarComponentesCombate();
         void dibujarMensaje( int personaje );
         void dibujarMensaje( int personaje, int opcion);
@@ -84,6 +84,7 @@ class Combat
         bool tryEscape();
 
         void renderPlayer();
+        void renderEnemy();
 };
 
 
