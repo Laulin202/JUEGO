@@ -230,5 +230,31 @@ void Player::deleteItem(int op){
     inventory.removeItemByPosition(op);
 }
 
+void Player::renderAttributes(){
+    RectangleShape corazon;
+    RectangleShape mana;
+    Texture* textureCorazon;
+    Texture* textureMana;
+
+    corazon.setSize(Vector2f(40,40));
+    corazon.setPosition(Vector2f(150,150));
+    mana.setSize(Vector2f(40,40));
+    mana.setPosition(Vector2f(30,20));
+
+    textureCorazon = new Texture();
+    textureMana = new Texture();
+
+    textureCorazon->loadFromFile("src/images/textureCombate/Corazon.png");
+    textureMana->loadFromFile("src/images/textureCombate/Mana.png");
+
+    
+
+
+
+
+
+
+}
+
 
 

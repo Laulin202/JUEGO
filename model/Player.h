@@ -100,6 +100,8 @@ class Player : public Entity{
         Item getPotion(int op){ return inventory.getItemByPosition(op); }
         void deleteItem(int op);
 
+        void renderAttributes();
+
         
 };
 

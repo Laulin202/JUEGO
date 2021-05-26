@@ -555,9 +555,7 @@ void Combat::dibujarMensaje(int personaje){
 
 void Combat::renderPlayer(){
 
-    Clock* reloj;
-    Time* tiempo;
-    
+    //player->renderAttributes();
     player->animarFrame(2);
     ventana->draw(player->getSpriteCombat());
 }
