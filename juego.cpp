@@ -27,32 +27,31 @@ Juego::Juego(Vector2u resolucion){
 // mantiene la ventana mostrandose, procesando eventos y animando
 void Juego::gameLoop(){
 
-    while(!gameOver){
+    while( gameState != gameOver ){
 
         *cronometro1 = reloj1->getElapsedTime(); //Tiempo transcurrido
         if(cronometro1->asSeconds() > 1 / fps){ //un frame cada 0,016 milisegundos
-    
-            if(!paused){ //unpaused update
-                if( !combatePlayer->isOver() ){
-
-                    procesarNetworking();
+            
+            if( !combatePlayer->isOver() ){
+                if( gameState != paused ){ //unpaused update
 
                     procesarLogica();
 
                     ventana->setView(view);
-                    renderizar();
-                    reloj1->restart();
+                    
+                    procesarNetworking();
+                
+                }else{ //paused update
+                    gameState = updateState(pMenu->update());
                 }
-                else{ 
-                    combatePlayer->procesarLogicaCombate();
-                    combatePlayer->renderizarCombate();
-                    if( !combatePlayer->isOver() ){
-                        enemies.erase(enemies.begin() + enemieInCombat);
-                    }
+                renderizar();
+                reloj1->restart();
+            }else{ 
+                combatePlayer->procesarLogicaCombate();
+                combatePlayer->renderizarCombate();
+                if( !combatePlayer->isOver() ){
+                    enemies.erase(enemies.begin() + enemieInCombat);
                 }
-            }else{ //paused update
-                pMenu.update();
-                pMenu.render( *ventana );
             }
         }
     }
@@ -70,6 +69,7 @@ void Juego::procesarLogica(){
     }
     if(!enemies.empty()){
         for(int i = 0; i < enemies.size(); i++){
+            enemies[i].animarFrame(1);
             if(j1->getHitBox().intersects(enemies[i].getHitBox())){
                 combatePlayer = new Combat( *ventana, *j1, enemies[i] );
                 combatePlayer->iniciarComponentesCombate();
@@ -86,6 +86,7 @@ void Juego::procesarNetworking(){
         pause();
     }
 }
+
 void Juego::renderizar(){
     ventana->clear();
     ventana->draw(*map);
@@ -97,15 +98,24 @@ void Juego::renderizar(){
     }
     ventana->draw(j1->getSprite());
     ventana->draw(j1->getRectangle());
+    if(gameState == paused){
+        pMenu->render( ventana );
+    }
     ventana->display();
 }
 
 void Juego::pause(){
-    paused = true;
+    gameState = paused;
+    pMenu = new PauseMenu( view, font );
 }
 
-void Juego::unpause(){
-    paused = false;
+game_states Juego::updateState( int state ){
+    if(state == 2){
+        return unpaused;
+    }else if(state == 0){
+        return gameOver;
+    }
+    return paused;
 }
 
 void Juego::updateBorderCollision(){
@@ -148,9 +158,9 @@ void Juego::iniciar(){
     reloj1 = new Clock();
     cronometro1 = new Time();
     combatePlayer = new Combat();
-
-    
-
+    if(!font.loadFromFile("src/fonts/arial.ttf")){
+        cout << "No se pudo cargar la fuente \n";
+    }
     //Fase prueba
 }
 
@@ -169,7 +179,7 @@ void Juego::iniciarView(){
 }
 
 void Juego::initializeEnemies(){
-    Enemy e1(420, 1, 1, Vector2i(0,0), Vector2f(300, 300), "Tetokoahi", "Tencuero tres mil");
+    Enemy e1(470, 8, 1, Vector2i(0,0), Vector2f(300, 300), "Tetokoahi", "Tencuero tres mil");
     enemies.push_back(e1);
 }
 // FUNCIONES FASE PRUEBA, FALTA PASARLOS A UNA CLASE COMBATE Y AJUSTARLOS AHI
