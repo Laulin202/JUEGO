@@ -303,11 +303,24 @@ bool Combat::tryEscape()
 //hechizoUsado is the spell to be used
 //enemy is the enemy to be attacked
 void Combat::useAttackSpell(Spell &hechizoUsado)
-{
-    int enemyHealth = this->enemy->getHealthPoints();
-    int spellDamage = hechizoUsado.getDamage();
-    enemyHealth = enemyHealth - spellDamage;
-    cout << spellDamage << "!\n";
+{ 
+    srand( time(NULL) );
+    string spellName = hechizoUsado.getName();
+    int enemyHealth = this->enemy->getHealthPoints();//Enemy health
+    int spellDamage = hechizoUsado.getDamage(); //Spell damage of player
+    int critNum = rand() % 10;
+    bool didCrit = false;
+    //Checks for crit;
+    if( critNum >= 7 ){
+      spellDamage *= 2;
+      didCrit = true;
+    }
+    if( didCrit ){
+      cout << spellName << " Critico! : " << spellDamage << "!" << endl;
+      enemyHealth = enemyHealth - (spellDamage*2);//Enemy health after receiving damage
+    }else{
+      cout << spellName << ": " << spellDamage << "!" << endl;
+    }
     this->enemy->setHealthPoints(enemyHealth);
     this->turn++;
     this->player->setMana( player->getMana() - hechizoUsado.getManaCost() );
@@ -319,11 +332,27 @@ void Combat::useAttackSpell(Spell &hechizoUsado)
 //Works with randoms (that's why is special)
 void Combat::useSpecialAttackSpell(Spell &hechizoUsado)
 {
-    srand(time(NULL));
+    srand( time(NULL) );
+    string spellName = hechizoUsado.getName();
+    int maxEnemyHealth = this->enemy->getMaxHealthPoints();
+    int minDamageToEnemy = maxEnemyHealth * 0.1;
+    int spellDamage = rand() % hechizoUsado.getDamage() + minDamageToEnemy; //% health damage
     int enemyHealth = this->enemy->getHealthPoints();
-    int spellDamage = rand() % this->player->getAttackDamage() * 5;
+
+    int critNum = rand() % 10;
+    bool didCrit = false;
+    //Checks for crit;
+    if( critNum >= 5 ){
+      spellDamage *= 2;
+      didCrit = true;
+    }
+    //Chick message
+    if( didCrit ){
+      cout << spellName << " Critico! : " << spellDamage << "!" << endl;
+    }else{
+      cout << spellName << ": " << spellDamage << "!" << endl;
+    }
     enemyHealth = enemyHealth - spellDamage;
-    cout << spellDamage << "!\n";
     this->enemy->setHealthPoints(enemyHealth);
     this->turn++;
     return;
@@ -334,12 +363,38 @@ void Combat::useSpecialAttackSpell(Spell &hechizoUsado)
 void Combat::attackPlayer()
 {
     srand(time(NULL));
-    int enemyAttackDamage = this->enemy->getAttackDamage();
-    int playerHealth = this->player->getHealthPoints();
-    enemy->setDamageinCombat(rand() % enemyAttackDamage + (int)enemyAttackDamage + 2 / 2);
+    string enemySpell; //Enemy spell name
+    int enemyAttackDamage = this->enemy->getAttackDamage(); //Enemy damage
+    int playerHealth = this->player->getHealthPoints(); //Player health
+    int selectAttack = rand() % 10; //random between 0-9
+    int minDamageToPlayer = (int)this->player->getMaxHealthPoints() * 0.05; //Minimum damage the enemy can make
+    int minDamageToPlayerHalf = (int)(minDamageToPlayer/2);
+    cout << "Damages: " << minDamageToPlayer << " and " << minDamageToPlayerHalf << endl;
+    if( selectAttack % 2 ==  0 ){
+      enemySpell = this->enemy->getSpell1(); //First spell name of enemy
+      enemy->setDamageinCombat(rand() % enemyAttackDamage + minDamageToPlayer);
+    }else{
+      enemySpell = this->enemy->getSpell2(); //Second spell name of enemy
+      enemy->setDamageinCombat(rand() % enemyAttackDamage + minDamageToPlayer + minDamageToPlayerHalf );
+    }
+
+    //Check if is crit
+    int critNum = rand() % 10;
+    bool didCrit = false;
+    if( critNum >= 7 ){
+      enemy->setDamageinCombat( enemy->getDamageinCombat() * 2 );
+      didCrit = true;
+    }
+
+    cout << "Enemy attack damage = " << enemyAttackDamage << endl;
     this->player->setHealthPoints(playerHealth - enemy->getDamageinCombat());
     this->turn++;
-    cout << "El enemigo te ataco, perdiste " << enemy->getDamageinCombat() << " de vida. " << endl;
+    if( didCrit ){
+      cout << "El enemigo usa: " << enemySpell << " es Critico!, perdiste " << enemy->getDamageinCombat() << " de vida. " << endl;
+    }else{
+      cout << "El enemigo usa: " << enemySpell << " perdiste " << enemy->getDamageinCombat() << " de vida. " << endl;
+    }
+    
     return;
 }
 
@@ -486,6 +541,8 @@ void Combat::iniciarComponentesCombate()
 
     player->setPosSpriteCombate(Vector2f(110,180));
     player->setScaleSpriteCombate(Vector2f(2.5,2.5));
+    player->loadAttributesCombat();
+    
 
 }
 
@@ -555,7 +612,7 @@ void Combat::dibujarMensaje(int personaje){
 
 void Combat::renderPlayer(){
 
-    //player->renderAttributes();
+    player->renderAttributes();
     player->animarFrame(2);
     ventana->draw(player->getSpriteCombat());
 }

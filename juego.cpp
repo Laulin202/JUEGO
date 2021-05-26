@@ -169,7 +169,7 @@ void Juego::iniciarView(){
 }
 
 void Juego::initializeEnemies(){
-    Enemy e1(420, 1, 1, Vector2i(0,0), Vector2f(300, 300));
+    Enemy e1(420, 1, 1, Vector2i(0,0), Vector2f(300, 300), "Tetokoahi", "Tencuero tres mil");
     enemies.push_back(e1);
 }
 // FUNCIONES FASE PRUEBA, FALTA PASARLOS A UNA CLASE COMBATE Y AJUSTARLOS AHI

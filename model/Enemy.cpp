@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f pos)
+Enemy::Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f pos, string spell1, string spell2)
 {
      /*
         Initialize the player
@@ -11,9 +11,12 @@ Enemy::Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector
      */
      this->posicionEnemigo = pos;
      this->name = "El Diavlo";
-     this->healthPoints = 9;
-     this->attackPoints = 1;
+     this->maxHealthPoints = 50;
+     this->healthPoints = maxHealthPoints;
+     this->attackPoints = 10;
      this->lvl = 1;
+     this->spell1 = spell1;
+     this->spell2 = spell2;
 
      //Fase prueba UwU
      setSprite(claseSprite, cantX, cantY, frameActual, pos);

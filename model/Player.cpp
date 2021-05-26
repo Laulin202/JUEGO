@@ -18,11 +18,12 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
         Level 1 / Xp 0
      */
      this->name = "Hertz";
-     this->healthPoints = 20;
-     this->attackPoints = 3;
+     this->maxHealthPoints = 100;
+     this->healthPoints = maxHealthPoints;
+     this->attackPoints = 20;
      this->lvl = 1;
      this->xp = 0;
-     this->mana = 3;
+     this->mana = 10;
      //Fase prueba
 
     this->nextPosition.left = getHitBox().left;
@@ -38,9 +39,9 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
 
      //prueba 
     this->hechizos.push_back( Spell( "Ataque basico!", "", this->attackPoints, 0 ) );
-    this->hechizos.push_back( Spell( "Bola de fuego", "Lanza una bola de fuego", (2 * this->lvl), this->lvl ) );
-    this->hechizos.push_back( Spell( "Impak-trueno", "Pikazhu time", (4 * this->lvl), this->mana ) );
-    this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 0 ) ); 
+    this->hechizos.push_back( Spell( "Bola de fuego", "Lanza una bola de fuego", (10 * this->lvl), this->lvl ) );
+    this->hechizos.push_back( Spell( "Impak-trueno", "Pikazhu time", (15 * this->lvl), (int)this->mana/2 ) );
+    this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 1 ) ); 
 
      //Prueba combate - Pendiente actualizar
     setSpriteCombate(133, 6, 1, Vector2i(0,0));
@@ -230,16 +231,29 @@ void Player::deleteItem(int op){
     inventory.removeItemByPosition(op);
 }
 
-void Player::renderAttributes(){
-    RectangleShape corazon;
-    RectangleShape mana;
-    Texture* textureCorazon;
-    Texture* textureMana;
 
-    corazon.setSize(Vector2f(40,40));
-    corazon.setPosition(Vector2f(150,150));
-    mana.setSize(Vector2f(40,40));
-    mana.setPosition(Vector2f(30,20));
+void Player::loadAttributesCombat(){
+
+
+    //Se inicializa todo lo relociano al mensaje
+
+    fontMensaje = new Font();
+    if(!fontMensaje->loadFromFile("src/fonts/Lomanos.ttf")){
+        cout << "Error al cargar la fuente!" << endl;
+        exit(1);
+    }
+
+    mensajeVida.setFont(*fontMensaje);
+    mensajeVida.setPosition(Vector2f(70,20));
+    mensajeMana.setFont(*fontMensaje);
+    mensajeMana.setPosition(Vector2f(70,60));
+
+    //Se inicializa todo lo relacionado a las img de su vida y mana
+
+    corazonImg.setSize(Vector2f(40,40));
+    corazonImg.setPosition(Vector2f(30,20));
+    manaImg.setSize(Vector2f(40,40));
+    manaImg.setPosition(Vector2f(30,60));
 
     textureCorazon = new Texture();
     textureMana = new Texture();
@@ -247,14 +261,25 @@ void Player::renderAttributes(){
     textureCorazon->loadFromFile("src/images/textureCombate/Corazon.png");
     textureMana->loadFromFile("src/images/textureCombate/Mana.png");
 
-    
-
-
-
-
-
+    corazonImg.setTexture(textureCorazon);
+    manaImg.setTexture(textureMana);
 
 }
+
+void Player::renderAttributes(){
+
+    mensajeVida.setString( " " + to_string(getHealthPoints()));
+    mensajeMana.setString( " "+ to_string( getMana()));
+
+
+    ventana->draw(corazonImg);
+    ventana->draw(manaImg);
+    ventana->draw(mensajeVida);
+    ventana->draw(mensajeMana);
+    
+}
+
+
 
 
 
