@@ -22,6 +22,7 @@ class Entity: public SpriteA
 {
     protected:
         string name;
+        int maxHealthPoints;
         int healthPoints;
         int attackPoints;
         vector <Spell> spells;
@@ -33,6 +34,7 @@ class Entity: public SpriteA
         void updateAttackPoints();
         FloatRect getHitBox(){ return hitBox; }
         RectangleShape getRectangle(){ return *rectangle; };
+        int getMaxHealthPoints(){ return this->maxHealthPoints; }
         
 };
 

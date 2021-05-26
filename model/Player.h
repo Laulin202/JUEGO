@@ -20,7 +20,6 @@ enum direcciones{ arriba , arribaIzquierda, arribaDerecha, abajo, abajoIzquierda
 
 class Player : public Entity{
     private:
-        int maxHealthPoints;
         int maxMana;
         int hearts;
         Vector2f posicionJugador; //Es la posicion del jugador, no del sprite
@@ -90,7 +89,6 @@ class Player : public Entity{
         void setHealthPoints( int newHealthPoints ){ this->healthPoints = newHealthPoints; }
         void setMana( int newMana ){ this->mana = newMana; }
         int getAttackDamage(){ return this->attackPoints; }
-        int getMaxHealthPoints(){ return this->maxHealthPoints; }
         int getMaxMana(){ return this->maxMana; }
         int getHealthPoints(){ return this->healthPoints; }
         int getMana(){ return this->mana; }
