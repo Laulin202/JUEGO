@@ -6,6 +6,7 @@
 
 #include "Item.h"
 #include "Inventory.h"
+#include "Potion.h"
 
 
 //fase prueba
@@ -20,6 +21,10 @@ enum direcciones{ arriba , arribaIzquierda, arribaDerecha, abajo, abajoIzquierda
 
 class Player : public Entity{
     private:
+        //For potion effects
+        int increaseAttackPoints; //For basic attacks
+        int increaseMagicAttackPoints; //For spells
+
         int maxMana;
         int hearts;
         Vector2f posicionJugador; //Es la posicion del jugador, no del sprite
@@ -40,6 +45,17 @@ class Player : public Entity{
         //FASE PRUEBA
         vector<Spell> hechizos;
 
+
+
+        //FASE PRUEBA PENDIENTE REVISAR
+        RectangleShape corazonImg;
+        RectangleShape manaImg;
+        Texture* textureCorazon;
+        Texture* textureMana;
+        Font* fontMensaje;
+        Text mensajeVida;
+        Text mensajeMana;
+
     public:
         Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos = Vector2f(500, 500) );
 
@@ -54,8 +70,6 @@ class Player : public Entity{
 
         
         Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del jugador 
-
-        Sprite getSpriteCombat(){ return *spritePlayerCombat; }
 
 
         Vector2f getPos(){ return posicionJugador; } //Me va a devolver la posicion del jugador
@@ -84,6 +98,11 @@ class Player : public Entity{
         void setCLeft(bool value){ cLeft = value;}
         void setCRight(bool value){ cRight = value;}
 
+        //Setters for combat potions / Increase damage / Restore health - mana
+        void restoreHealthPoints( int health );
+        void restoreMana( int mana );
+        void setIncreaseAttackPoints( int increaseAttackPoints ){ this->increaseAttackPoints = increaseAttackPoints; }
+        void setIncreaseMagicAttackPoints( int increaseMagicAttackPoints ){ this->increaseMagicAttackPoints = increaseMagicAttackPoints; }
         //prueba
         Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; }
         void setHealthPoints( int newHealthPoints ){ this->healthPoints = newHealthPoints; }
@@ -95,8 +114,13 @@ class Player : public Entity{
 
 
         void addItem( Item* item );
-        Item getPotion(int op){ return inventory.getItemByPosition(op); }
+        Potion& getPotion(int op);
         void deleteItem(int op);
+
+
+        //FASE PRUEBA, PENDIENTE REVISAR
+        void renderAttributes();
+        void loadAttributesCombat();
 
         
 };

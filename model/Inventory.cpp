@@ -141,7 +141,7 @@ int Inventory::getNumberItems(){
 
 }
 
-Item Inventory::getItemByPosition(int itemPosition){
+Item* Inventory::getItemByPosition(int itemPosition){
 
     // Se retorna el item dada una posición.
 

@@ -154,7 +154,7 @@ void Juego::updateView(){
 void Juego::iniciar(){
     j1 = new Player(*ventana,12, 4, 4, Vector2i(2,1), Vector2f(ventana->getSize().x, ventana->getSize().y));
     loadMap();
-    fps = 60; // 60 Frames x Seconds
+    fps = 5; // 60 Frames x Seconds
     reloj1 = new Clock();
     cronometro1 = new Time();
     combatePlayer = new Combat();
