@@ -2,13 +2,14 @@
 #define JUEGO_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 #include <string>
 #include <iostream>
 #include "model/Entity.h"
 #include "model/Player.h"
 #include "model/Enemy.h"
 #include "model/TileMap.h"
-#include "model/Item.h"
 
 //Fase prueba
 #include "model/Button.h"
@@ -25,16 +26,16 @@ using std::list;
 
 
 //FASE PRUEBA
-
+enum game_states{ gameOver = 0, paused = 1, unpaused = 2 };
 
 class Juego{
 
     private:
         
         RenderWindow* ventana;
-        PauseMenu pMenu;
-        bool gameOver = false;
-        bool paused = false;
+        PauseMenu* pMenu;
+        game_states gameState = unpaused;
+        Font font;
         View view;
         TileMap* map;
         FloatRect mapBox;
@@ -59,8 +60,10 @@ class Juego{
         void initializeEnemies();
         void pause();
         void unpause();
+        game_states updateState( int state );
         void loadMap();
         void renderizar(); //Dibujando en pantalla los elementos del juego
+        void renderizarPauseMenu();
         void procesarLogica(); // Procesa Logica del juego
         void procesarEventos(); // Procesa logica del juego
         void procesarNetworking(); //Procesa, teclado, mouse etc

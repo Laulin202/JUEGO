@@ -22,7 +22,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->increaseAttackPoints = 0;
      this->increaseMagicAttackPoints = 0;
      this->healthPoints = maxHealthPoints;
-     this->attackPoints = 20;
+     this->attackPoints = 10;
      this->lvl = 1;
      this->xp = 0;
      this->mana = 10;
@@ -249,10 +249,63 @@ void Player::restoreMana( int mana ){
   }
 }
 
+<<<<<<< HEAD
 Potion& Player::getPotion(int op){
   Potion *potion = dynamic_cast<Potion*>( inventory.getItemByPosition(op) );
   if( potion != 0 ){
     return *potion;
   } 
 }
+=======
+void Player::loadAttributesCombat(){
+
+
+    //Se inicializa todo lo relociano al mensaje
+
+    fontMensaje = new Font();
+    if(!fontMensaje->loadFromFile("src/fonts/Lomanos.ttf")){
+        cout << "Error al cargar la fuente!" << endl;
+        exit(1);
+    }
+
+    mensajeVida.setFont(*fontMensaje);
+    mensajeVida.setPosition(Vector2f(70,20));
+    mensajeMana.setFont(*fontMensaje);
+    mensajeMana.setPosition(Vector2f(70,60));
+
+    //Se inicializa todo lo relacionado a las img de su vida y mana
+
+    corazonImg.setSize(Vector2f(40,40));
+    corazonImg.setPosition(Vector2f(30,20));
+    manaImg.setSize(Vector2f(40,40));
+    manaImg.setPosition(Vector2f(30,60));
+
+    textureCorazon = new Texture();
+    textureMana = new Texture();
+
+    textureCorazon->loadFromFile("src/images/textureCombate/Corazon.png");
+    textureMana->loadFromFile("src/images/textureCombate/Mana.png");
+
+    corazonImg.setTexture(textureCorazon);
+    manaImg.setTexture(textureMana);
+
+}
+
+void Player::renderAttributes(){
+
+    mensajeVida.setString( " " + to_string(getHealthPoints()));
+    mensajeMana.setString( " "+ to_string( getMana()));
+
+
+    ventana->draw(corazonImg);
+    ventana->draw(manaImg);
+    ventana->draw(mensajeVida);
+    ventana->draw(mensajeMana);
+    
+}
+
+
+
+
+>>>>>>> 5d2009d66a1e40297eb24ce915d1a58cb7e67a9f
 

@@ -4,19 +4,24 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <map>
-#include "PauseMenu.h"
 #include "Button.h"
+
+using namespace sf;
+using std::map;
 
 class PauseMenu{
     private:
         RectangleShape background;
         RectangleShape container;
         map<string, Button*> buttons;
+        Text menuText;
+        Text resumeText;
+        Text quitText;
     public:
-        PauseMenu();
-        PauseMenu( RenderWindow& window );
-        void update();
-        void render( RenderTarget& window);
+        PauseMenu( View& window, Font& font );
+        void addButton( string key, int numBoton, string text, float position, float xRect, float yRect );
+        int update();
+        void render( RenderWindow* window);
 };
 
 #endif

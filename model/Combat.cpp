@@ -162,6 +162,7 @@ void Combat::renderizarCombate()
     ventana->clear();
     ventana->draw(*spriteCombate);
     renderPlayer();
+    renderEnemy();
     renderPanelOpciones();
     ventana->display();
 }
@@ -544,7 +545,7 @@ void Combat::iniciarComponentesCombate()
     evento1 = new Event();
     opcion = 1;
 
-    //creamos los mensajes para el jugador
+    //CARGAMOS LA FUENTE DE LOS MENSAJES QUE SE USARAN EN COMBATE
     fontMensaje = new Font();
     if(!fontMensaje->loadFromFile("src/fonts/arial.ttf")){
         cout << "Error al cargar la fuente!" << endl;
@@ -557,6 +558,13 @@ void Combat::iniciarComponentesCombate()
 
     player->setPosSpriteCombate(Vector2f(110,180));
     player->setScaleSpriteCombate(Vector2f(2.5,2.5));
+    player->loadAttributesCombat();
+
+
+    enemy->setPosSpriteCombate(Vector2f(390,170));
+    enemy->setScaleSpriteCombate(Vector2f(3,3));
+
+    
 
 }
 
@@ -626,9 +634,12 @@ void Combat::dibujarMensaje(int personaje){
 
 void Combat::renderPlayer(){
 
-    Clock* reloj;
-    Time* tiempo;
-    
+    player->renderAttributes();
     player->animarFrame(2);
     ventana->draw(player->getSpriteCombat());
+}
+
+void Combat::renderEnemy(){
+    enemy->animarFrame(2);
+    ventana->draw(enemy->getSpriteCombat());
 }

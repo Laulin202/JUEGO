@@ -45,6 +45,17 @@ class Player : public Entity{
         //FASE PRUEBA
         vector<Spell> hechizos;
 
+
+
+        //FASE PRUEBA PENDIENTE REVISAR
+        RectangleShape corazonImg;
+        RectangleShape manaImg;
+        Texture* textureCorazon;
+        Texture* textureMana;
+        Font* fontMensaje;
+        Text mensajeVida;
+        Text mensajeMana;
+
     public:
         Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos = Vector2f(500, 500) );
 
@@ -59,8 +70,6 @@ class Player : public Entity{
 
         
         Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del jugador 
-
-        Sprite getSpriteCombat(){ return *spritePlayerCombat; }
 
 
         Vector2f getPos(){ return posicionJugador; } //Me va a devolver la posicion del jugador
@@ -107,6 +116,11 @@ class Player : public Entity{
         void addItem( Item* item );
         Potion& getPotion(int op);
         void deleteItem(int op);
+
+
+        //FASE PRUEBA, PENDIENTE REVISAR
+        void renderAttributes();
+        void loadAttributesCombat();
 
         
 };
