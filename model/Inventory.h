@@ -4,7 +4,14 @@
 #include "Item.h"
 #include <vector>
 #include <string.h>
+#include <iostream>
+
+using std::string;
 using std::vector;
+using std::cout;
+using std::cin;
+using std::endl;
+
 
 class Inventory{
 
@@ -27,6 +34,11 @@ private:
     int numberPotions;
 
 public:
+
+    Inventory();
+
+    virtual ~Inventory();
+    
 
     /* Añade items al inventario general y al inventario de pociones, esto antes revisando el item dado corresponda a una poción. Revisar los comentarios dentro de la función para más detalles.*/
 
@@ -51,9 +63,7 @@ public:
 
     /* Constructor y destructor*/ 
 
-    Inventory();
 
-    virtual ~Inventory();
 
 };
 

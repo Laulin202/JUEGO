@@ -1,5 +1,25 @@
 #include "Inventory.h"
 
+
+Inventory::Inventory(){
+
+    // Se inicializa el número de items en 0 y los tamaños de los vectores a usarse.
+
+    //inventoryVector.resize(10);
+
+    //inventoryPotionVector.resize(4);
+
+    numberItems = 0;
+    numberPotions = 0;
+
+    cout << "Entre Constructor" << endl;
+
+}
+
+Inventory::~Inventory(){
+
+}
+
 void Inventory::addItem(Item itemToBeAdded){
 
     // Se verifica que el número de items no supere el máximo permitido.
@@ -8,23 +28,28 @@ void Inventory::addItem(Item itemToBeAdded){
 
         // Se verifica que el item seleccionado sea una poción, dado el caso de que no lo sea se prosigue con otro proceso.
 
-        if(itemToBeAdded.getIsPotion() == true){
+        if(itemToBeAdded.getIsPotion()){
 
             // Se verifica que el número de items del tipo poción no supere el máximo permitido.
 
             if(this->getNumberPotions() < 4){
 
                 // Se añade la poción a la última posición de ambos vectores.
+              
 
                 inventoryPotionVector.push_back(itemToBeAdded);
 
                 inventoryVector.push_back(itemToBeAdded);
 
+                
+
                 // Se agrega un elemento del contador de items de ambos vectores.
 
-                this->numberItems+1;
+                this->numberItems++;
 
-                this->numberPotions+1;
+                this->numberPotions++;
+
+                
 
             }
 
@@ -44,7 +69,7 @@ void Inventory::addItem(Item itemToBeAdded){
 
             // Se agrega un elemento al contador de items del vector.
 
-            this->numberItems+1;
+            this->numberItems++;
 
         }
 
@@ -82,9 +107,11 @@ void Inventory::removeItemByPosition(int itemPosition){
 
                     // Se resta 1 al contador de elementos de ambos vectores.
 
-                    this->numberItems-1;
+                    this->numberItems--;
 
-                    this->numberPotions-1;
+                    this->numberPotions--;
+
+                    cout << "Holi" << endl;
 
                 } 
 
@@ -98,7 +125,7 @@ void Inventory::removeItemByPosition(int itemPosition){
 
             inventoryVector.erase((inventoryVector.begin() + itemPosition));
 
-            this->numberItems-1;
+            this->numberItems--;
 
         }
 
@@ -123,19 +150,3 @@ Item Inventory::getItemByPosition(int itemPosition){
 }
 
 
-
-Inventory::Inventory(){
-
-    // Se inicializa el número de items en 0 y los tamaños de los vectores a usarse.
-
-    inventoryVector.resize(10);
-
-    inventoryPotionVector.resize(4);
-
-    numberItems = 0;
-
-}
-
-Inventory::~Inventory(){
-
-}

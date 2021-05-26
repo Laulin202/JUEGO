@@ -50,6 +50,7 @@ class Combat
         Text mensaje;
         
         bool useSpell = false;
+        bool usePotion = false;
         Spell hechizoUsado;
 
     public:

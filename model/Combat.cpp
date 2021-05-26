@@ -21,8 +21,9 @@ Combat::Combat(RenderWindow &ventana, Player &player, Enemy &enemy)
     this->enemy = &enemy;
 }
 
-void Combat::iniciarRectangulos()
+void Combat::iniciarRectangulos() 
 {
+    cout << "Hola" << endl;
     for (int i = 0; i < 13; i++) 
     {
 
@@ -80,21 +81,25 @@ void Combat::iniciarRectangulos()
         case 9:
             r->setPosition(POSX_CASILLA1, POSY_CASILLA1);
             r->setSize(Vector2f( 60, 50 ));
+            r->setTexture(player->getPotion(0).getTexture());
             id = "Casilla 1";
             break;
         case 10:
             r->setPosition(POSX_CASILLA1 + 72, POSY_CASILLA1);
             r->setSize(Vector2f( 60, 50 ));
+            r->setFillColor(Color::Transparent);
             id = "Casilla 2";
             break;
         case 11:
             r->setPosition( POSX_CASILLA1, POSY_CASILLA1 + 63 );
             r->setSize(Vector2f( 60, 50 ));
+            r->setFillColor(Color::Transparent);
             id = "Casilla 3";
             break;
         case 12:
             r->setPosition( POSX_CASILLA1 + 72, POSY_CASILLA1 + 63 );
             r->setSize(Vector2f( 60, 50 ));
+            r->setFillColor(Color::Transparent);
             id = "Casilla 4";
             break;
         default:
@@ -113,6 +118,10 @@ void Combat::renderPanelOpciones()
         {
             if (useSpell)
             {
+                dibujarMensaje(JUGADOR);
+                turnoJugador = false;
+            }
+            else if(usePotion){
                 dibujarMensaje(JUGADOR);
                 turnoJugador = false;
             }
@@ -135,7 +144,7 @@ void Combat::renderPanelOpciones()
                 estadosBotones = menu;  
             }
             else{
-                cout << "bye bye" << endl;
+                cout << "bye bye " << endl;
                 dibujarMensaje(JUGADOR, ESCAPO);
                 enCombate = false;
             }
@@ -205,7 +214,6 @@ void Combat::procesarEventosCombate()
                             cout << "Estoy usando habilidad 1!" << endl;
                             useSpell = true;
                             hechizoUsado = player->getSpell(0);
-                            //cout << hechizoUsado.getName() << "\n";
                             useAttackSpell(hechizoUsado);
 
                             
@@ -217,7 +225,6 @@ void Combat::procesarEventosCombate()
                             cout << "Estoy usando habilidad 2!" << endl;
                             useSpell = true;
                             hechizoUsado = player->getSpell(1);
-                            //cout << hechizoUsado.getName() << "\n";
                             useAttackSpell(hechizoUsado);
                             cout << "Sali" << endl;
                           }else
@@ -233,7 +240,7 @@ void Combat::procesarEventosCombate()
                               cout << "Estoy usando habilidad 3!" << endl;
                               useSpell = true;
                               hechizoUsado = player->getSpell(2);
-                              //cout << hechizoUsado.getName() << "\n";
+                              
                               useAttackSpell(hechizoUsado);
                             }else
                             {
@@ -248,7 +255,6 @@ void Combat::procesarEventosCombate()
                               cout << "Estoy usando habilidad 4!" << endl;
                               useSpell = true;
                               hechizoUsado = player->getSpell(3);
-                              //cout << hechizoUsado.getName() << "\n";
                               useAttackSpell(hechizoUsado);
                               cout << "Sali" << endl;
                             }else
@@ -256,6 +262,17 @@ void Combat::procesarEventosCombate()
                               cout << "Mana cost: " << player->getSpell(3).getManaCost() << endl;
                               cout << "Yummi no te quiere dar de su cum" << endl;
                             }
+                        }
+                        if (boton.getId() == "Casilla 1"){
+                            String path;
+                            path = "src/images/textureItems/Predefinido.png";
+                            estadosBotones = estadosB::menu;
+                            player->deleteItem(0);
+                            player->getPotion(0).getTexture()->loadFromFile(path);
+                            cout << "Usaste posion 1 " << endl;
+                            usePotion = true;
+                            
+                            
                         }
                         
                     }
@@ -507,8 +524,15 @@ void Combat::dibujarMensaje(int personaje){
     switch (personaje)
         {
         case JUGADOR:
-            mensaje.setString(" Haz usado  " + hechizoUsado.getName() + ", hiciste un dahno de: " + to_string(hechizoUsado.getDamage()) + " pts. ");
-            useSpell = false;
+            if(useSpell){
+                mensaje.setString(" Haz usado  " + hechizoUsado.getName() + ", hiciste un dahno de: " + to_string(hechizoUsado.getDamage()) + " pts. ");
+                useSpell = false;
+            }
+            else if(usePotion){
+                mensaje.setString(" Haz usado una pocion ");
+                this->turn++;
+                usePotion = false;
+            }
             break;
         case ENEMIGO:
             mensaje.setString(" El enemigo te ha hecho daño, perdiste " + to_string( enemy->getDamageinCombat() ) + " de vida.");

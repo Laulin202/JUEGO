@@ -20,3 +20,8 @@ void Button::cargarTextura(){
     textureButton->loadFromFile(path);
     rect.setTexture(textureButton);
 }
+
+void Button::reiniciarTextura(){
+    rect.setTexture(NULL);
+    cout << "Entre" << endl;
+}

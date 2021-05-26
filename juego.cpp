@@ -149,6 +149,8 @@ void Juego::iniciar(){
     cronometro1 = new Time();
     combatePlayer = new Combat();
 
+    
+
     //Fase prueba
 }
 

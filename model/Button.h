@@ -21,6 +21,8 @@ class Button
         String id;
 
         Texture* textureButton;
+        Texture* textureLimpio;
+        
         Sprite * sprite;
         int numBoton;
 
@@ -32,6 +34,8 @@ class Button
 
         bool checkPressed( sf::Vector2i * mousePosition );
         void cargarTextura();
+        void cargarTexturaCasilla();
+        void reiniciarTextura();
 };
 
 #endif

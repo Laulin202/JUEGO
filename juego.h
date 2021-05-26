@@ -8,6 +8,7 @@
 #include "model/Player.h"
 #include "model/Enemy.h"
 #include "model/TileMap.h"
+#include "model/Item.h"
 
 //Fase prueba
 #include "model/Button.h"

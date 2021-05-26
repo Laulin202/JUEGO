@@ -6,18 +6,28 @@
 #include <iostream>
 using std::string;
 using namespace sf;
+using namespace std;
 
 class Item
 {
     protected:
-        String name;
+
+        Texture* textureItem;
+        string name;
         String description;
         bool isPotion;
 
     public:
-
+        //prueba
+        Item();
+        Item( bool isPotion, int numTexture );
+        void setItem(int numTexture);
+        void setPotion(int numTexture);
         bool getIsPotion(){ return this->isPotion; }
-        String getName(){ return this->name; }
+        string getName(){ return this->name; }
+        Texture* getTexture(){ return textureItem; }
+
+       
 
 };
 

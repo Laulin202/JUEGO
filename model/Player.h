@@ -3,6 +3,11 @@
 #include "Entity.h"
 #include "Teclado.h"
 #include "Spell.h"
+
+#include "Item.h"
+#include "Inventory.h"
+
+
 //fase prueba
 
 
@@ -20,7 +25,7 @@ class Player : public Entity{
         int hearts;
         Vector2f posicionJugador; //Es la posicion del jugador, no del sprite
         FloatRect nextPosition;
-        //vector<Item> inventory;
+        Inventory inventory;
         //map<string, Equipment> equipment;
         int mana;
         int xp;
@@ -89,6 +94,12 @@ class Player : public Entity{
         int getMaxMana(){ return this->maxMana; }
         int getHealthPoints(){ return this->healthPoints; }
         int getMana(){ return this->mana; }
+
+
+        void addItem( Item* item );
+        Item getPotion(int op){ return inventory.getItemByPosition(op); }
+        void deleteItem(int op);
+
         
 };
 

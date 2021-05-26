@@ -30,20 +30,28 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
     this->nextPosition.width = getHitBox().width;
     this->nextPosition.height = getHitBox().height;
 
-     this->posicionJugador = originPos;
-     setSprite(claseSprite, cantX, cantY, frameActual, originPos);
-     this->velCaminar = 10;
-     this->velCorrer = 64;
-     this->ventana = &ventana;
+    this->posicionJugador = originPos;
+    setSprite(claseSprite, cantX, cantY, frameActual, originPos);
+    this->velCaminar = 10;
+    this->velCorrer = 64;
+    this->ventana = &ventana;
 
      //prueba 
-     this->hechizos.push_back( Spell( "Ataque basico!", "", this->attackPoints, 0 ) );
-     this->hechizos.push_back( Spell( "Bola de fuego", "Lanza una bola de fuego", (2 * this->lvl), this->lvl ) );
-     this->hechizos.push_back( Spell( "Impak-trueno", "Pikazhu time", (4 * this->lvl), this->mana ) );
-     this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 0 ) ); 
+    this->hechizos.push_back( Spell( "Ataque basico!", "", this->attackPoints, 0 ) );
+    this->hechizos.push_back( Spell( "Bola de fuego", "Lanza una bola de fuego", (2 * this->lvl), this->lvl ) );
+    this->hechizos.push_back( Spell( "Impak-trueno", "Pikazhu time", (4 * this->lvl), this->mana ) );
+    this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 0 ) ); 
 
-     //Prueba combate
-     setSpriteCombate(133, 6, 1, Vector2i(0,0));
+     //Prueba combate - Pendiente actualizar
+    setSpriteCombate(133, 6, 1, Vector2i(0,0));
+
+
+    
+    //Prueba item
+    Item* item1;
+    item1 = new Item(true, 0);
+    addItem(item1);
+    
      
 }
 
@@ -211,5 +219,16 @@ void Player::procesarEventos(){
 
     // Si esta caminando selecciona la velocidad dependiend ode la direccion que quiere porque dependiendo de la posicion, la posicion en x y y debe cambiar y el frame tambien y entonces vos encontras un if que si esta caminando  
 }
+
+
+
+void Player::addItem( Item* item){
+    inventory.addItem(*item);
+}
+
+void Player::deleteItem(int op){
+    inventory.removeItemByPosition(op);
+}
+
 
 
