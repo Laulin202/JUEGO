@@ -20,15 +20,13 @@ class Item
     public:
         //prueba
         Item();
+        virtual ~Item();
         Item( bool isPotion, int numTexture );
         void setItem(int numTexture);
         void setPotion(int numTexture);
         bool getIsPotion(){ return this->isPotion; }
         string getName(){ return this->name; }
         Texture* getTexture(){ return textureItem; }
-
-       
-
 };
 
 #endif

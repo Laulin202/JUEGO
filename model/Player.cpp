@@ -19,6 +19,8 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      */
      this->name = "Hertz";
      this->maxHealthPoints = 100;
+     this->increaseAttackPoints = 0;
+     this->increaseMagicAttackPoints = 0;
      this->healthPoints = maxHealthPoints;
      this->attackPoints = 20;
      this->lvl = 1;
@@ -231,5 +233,26 @@ void Player::deleteItem(int op){
     inventory.removeItemByPosition(op);
 }
 
+//Restore mana and restore health
+void Player::restoreHealthPoints( int health ){
+  if( this->healthPoints + health > this->maxHealthPoints ){
+    this->healthPoints = maxHealthPoints;
+  }else{
+    this->healthPoints += health;
+  }
+}
+void Player::restoreMana( int mana ){
+  if( this->mana + mana > this->maxMana ){
+    this->mana = maxMana;
+  }else{
+    this->mana += mana;
+  }
+}
 
+Potion& Player::getPotion(int op){
+  Potion *potion = dynamic_cast<Potion*>( inventory.getItemByPosition(op) );
+  if( potion != 0 ){
+    return *potion;
+  } 
+}
 

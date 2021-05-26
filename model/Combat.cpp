@@ -267,8 +267,9 @@ void Combat::procesarEventosCombate()
                             String path;
                             path = "src/images/textureItems/Predefinido.png";
                             estadosBotones = estadosB::menu;
-                            player->deleteItem(0);
-                            player->getPotion(0).getTexture()->loadFromFile(path);
+                            player->deleteItem( 0 );
+                            player->getPotion( 0 ).getTexture()->loadFromFile(path);
+                            usePotionCombat( this->player->getPotion( 0 ).getEffectValue(), this->player->getPotion( 0 ).getEffectType() );
                             cout << "Usaste posion 1 " << endl;
                             usePotion = true;
                             
@@ -284,6 +285,21 @@ void Combat::procesarEventosCombate()
             break;
         }
     }
+}
+//Function usePotion
+//Uses potion
+void Combat::usePotionCombat( int effectValue, int effectType ){
+
+  if( effectType == increaseAttackPoints ){
+    this->player->setIncreaseAttackPoints( effectValue );
+  }else if( effectType == increaseMagicAttackPoints ){
+    this->player->setIncreaseMagicAttackPoints( effectValue );
+  }else if( effectType == restoreHealthPoints ){
+    this->player->restoreHealthPoints( effectValue );
+  }else if( effectType == restoreMana ){
+    this->player->restoreMana( effectValue );
+  }
+  cout << "Effect applied" << endl;
 }
 
 //Function tryEscape
