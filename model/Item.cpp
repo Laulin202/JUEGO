@@ -6,6 +6,7 @@ Item::Item(){
 
 
 Item::Item( bool isPotion, int numTexture ){
+    this->isPotion = isPotion;
     if(!isPotion){
         setItem( numTexture );
     }
@@ -14,6 +15,10 @@ Item::Item( bool isPotion, int numTexture ){
     }
 
     this->name = "Paint";
+
+}
+
+Item::~Item(){
 
 }
 

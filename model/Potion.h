@@ -6,16 +6,16 @@ enum effectType{ increaseAttackPoints, increaseMagicAttackPoints, restoreHealthP
 
 class Potion : public Item
 {
-public:
   private:
-  int effectValue;
-  int effectType;
+    int effectValue;
+    int effectType;
   //Constructors / Destructors
   public:
-  Potion( string name, string description, int numTexture );
-  ~Potion();
-  int getEffectValue(){ return this->effectValue; }
-  int getEffectType(){ return this->effectType; }
+    Potion( string name, string description, int numTexture );
+    ~Potion();
+    bool getIsPotion(){ return true; }
+    int getEffectValue(){ return this->effectValue; }
+    int getEffectType(){ return this->effectType; }
 };
 
 

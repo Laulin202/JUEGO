@@ -106,6 +106,7 @@ void Combat::iniciarRectangulos()
             break;
         }
         listaOpciones.push_back(Button(id, *r, i));
+        cout << "uwu estoy sirviendo" << endl;
     }
 }
 
@@ -268,10 +269,10 @@ void Combat::procesarEventosCombate()
                             String path;
                             path = "src/images/textureItems/Predefinido.png";
                             estadosBotones = estadosB::menu;
-                            player->deleteItem( 0 );
-                            player->getPotion( 0 ).getTexture()->loadFromFile(path);
                             usePotionCombat( this->player->getPotion( 0 ).getEffectValue(), this->player->getPotion( 0 ).getEffectType() );
                             cout << "Usaste posion 1 " << endl;
+                            player->getPotion( 0 ).getTexture()->loadFromFile(path);
+                            player->deleteItem( 0 );
                             usePotion = true;
                             
                             

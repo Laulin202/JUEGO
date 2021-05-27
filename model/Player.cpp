@@ -51,9 +51,11 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
 
     
     //Prueba item
-    Item* item1;
-    item1 = new Item(true, 0);
-    addItem(item1);
+    string potionName = "Castlevania";
+    string potionDesc = "Cura para el insomnio";
+    Potion* potion1;
+    potion1 = new Potion(potionName, potionDesc, 0);
+    addItem(potion1);
     
      
 }
@@ -226,7 +228,7 @@ void Player::procesarEventos(){
 
 
 void Player::addItem( Item* item){
-    inventory.addItem(*item);
+    inventory.addItem(item);
 }
 
 void Player::deleteItem(int op){
@@ -249,14 +251,15 @@ void Player::restoreMana( int mana ){
   }
 }
 
-<<<<<<< HEAD
 Potion& Player::getPotion(int op){
-  Potion *potion = dynamic_cast<Potion*>( inventory.getItemByPosition(op) );
-  if( potion != 0 ){
-    return *potion;
-  } 
+    Potion *potion = dynamic_cast<Potion*>( inventory.getItemByPosition(op) );
+    Potion *noPotion = NULL;
+    if(potion->getIsPotion()){
+        return *potion;
+    }
+    return *noPotion;
 }
-=======
+
 void Player::loadAttributesCombat(){
 
 
@@ -307,5 +310,4 @@ void Player::renderAttributes(){
 
 
 
->>>>>>> 5d2009d66a1e40297eb24ce915d1a58cb7e67a9f
 
