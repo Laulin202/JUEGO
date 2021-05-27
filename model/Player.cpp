@@ -20,7 +20,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->name = "Hertz";
      this->maxHealthPoints = 100;
      this->increaseAttackPoints = 0;
-     this->increaseMagicAttackPoints = 0;
+     this->increaseAttackPointsDuration = 0;
      this->healthPoints = maxHealthPoints;
      this->attackPoints = 10;
      this->lvl = 1;
@@ -53,8 +53,11 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
     //Prueba item
     string potionName = "Castlevania";
     string potionDesc = "Cura para el insomnio";
+    int potionType = restoreHealthPointsE;
+    int potionValue = 200;
+    int potionDuration = 5;
     Potion* potion1;
-    potion1 = new Potion(potionName, potionDesc, 0);
+    potion1 = new Potion(potionName, potionDesc, 0, potionValue, potionType, potionDuration);
     addItem(potion1);
     
      

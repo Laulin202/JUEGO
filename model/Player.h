@@ -22,8 +22,8 @@ enum direcciones{ arriba , arribaIzquierda, arribaDerecha, abajo, abajoIzquierda
 class Player : public Entity{
     private:
         //For potion effects
-        int increaseAttackPoints; //For basic attacks
-        int increaseMagicAttackPoints; //For spells
+        int increaseAttackPoints; //For basic attacks and spells
+        int increaseAttackPointsDuration;
 
         int maxMana;
         int hearts;
@@ -102,7 +102,11 @@ class Player : public Entity{
         void restoreHealthPoints( int health );
         void restoreMana( int mana );
         void setIncreaseAttackPoints( int increaseAttackPoints ){ this->increaseAttackPoints = increaseAttackPoints; }
-        void setIncreaseMagicAttackPoints( int increaseMagicAttackPoints ){ this->increaseMagicAttackPoints = increaseMagicAttackPoints; }
+        void setIncreaseAttackPointsDuration( int duration ){ this->increaseAttackPointsDuration = duration; }
+        //Getters for combat potions / Increase damage / Restore health - mana
+        int getIncreaseAttackPoints( ){ return this->increaseAttackPoints; }
+        int getIncreaseAttackPointsDuration( ){ return this->increaseAttackPointsDuration; }
+
         //prueba
         Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; }
         void setHealthPoints( int newHealthPoints ){ this->healthPoints = newHealthPoints; }

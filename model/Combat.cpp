@@ -266,14 +266,18 @@ void Combat::procesarEventosCombate()
                             }
                         }
                         if (boton.getId() == "Casilla 1"){
-                            String path;
-                            path = "src/images/textureItems/Predefinido.png";
-                            estadosBotones = estadosB::menu;
-                            usePotionCombat( this->player->getPotion( 0 ).getEffectValue(), this->player->getPotion( 0 ).getEffectType() );
-                            cout << "Usaste posion 1 " << endl;
-                            player->getPotion( 0 ).getTexture()->loadFromFile(path);
-                            player->deleteItem( 0 );
-                            usePotion = true;
+                            if( this->usedPotion[0] == false ){
+                              String path;
+                              path = "src/images/textureItems/Predefinido.png";
+                              estadosBotones = estadosB::menu;
+                              usePotionCombat( this->player->getPotion( 0 ).getEffectValue(), this->player->getPotion( 0 ).getEffectType(), this->player->getPotion( 0 ).getDuration() );
+                              cout << "Usaste posion 1 " << endl;
+                              player->getPotion( 0 ).getTexture()->loadFromFile(path);
+                              player->deleteItem( 0 );
+                              this->usedPotion[0] = true;
+                              usePotion = true;
+                            }
+                            
                             
                             
                         }
@@ -290,15 +294,14 @@ void Combat::procesarEventosCombate()
 }
 //Function usePotion
 //Uses potion
-void Combat::usePotionCombat( int effectValue, int effectType ){
+void Combat::usePotionCombat( int effectValue, int effectType, int duration ){
 
-  if( effectType == increaseAttackPoints ){
+  if( effectType == increaseAttackPointsE ){
     this->player->setIncreaseAttackPoints( effectValue );
-  }else if( effectType == increaseMagicAttackPoints ){
-    this->player->setIncreaseMagicAttackPoints( effectValue );
-  }else if( effectType == restoreHealthPoints ){
+    this->player->setIncreaseAttackPointsDuration( duration );
+  }else if( effectType == restoreHealthPointsE ){
     this->player->restoreHealthPoints( effectValue );
-  }else if( effectType == restoreMana ){
+  }else if( effectType == restoreManaE ){
     this->player->restoreMana( effectValue );
   }
   cout << "Effect applied" << endl;
@@ -326,6 +329,15 @@ void Combat::useAttackSpell(Spell &hechizoUsado)
     string spellName = hechizoUsado.getName();
     int enemyHealth = this->enemy->getHealthPoints();//Enemy health
     int spellDamage = hechizoUsado.getDamage(); //Spell damage of player
+    int spellDamageNoPotion = spellDamage;
+    //Applies extra damage from potions
+    int potionDuration = this->player->getIncreaseAttackPointsDuration();
+    if( potionDuration > 0 ){
+      spellDamage += this->player->getIncreaseAttackPoints();
+      this->player->setIncreaseAttackPointsDuration( this->player->getIncreaseAttackPointsDuration() - 1 );
+      cout << "+" << spellDamage - spellDamageNoPotion << endl;
+    } 
+
     int critNum = rand() % 10;
     bool didCrit = false;
     //Checks for crit;
@@ -356,6 +368,15 @@ void Combat::useSpecialAttackSpell(Spell &hechizoUsado)
     int minDamageToEnemy = maxEnemyHealth * 0.1;
     int spellDamage = rand() % hechizoUsado.getDamage() + minDamageToEnemy; //% health damage
     int enemyHealth = this->enemy->getHealthPoints();
+
+    int spellDamageNoPotion = spellDamage;
+    //Applies extra damage from potions
+    int potionDuration = this->player->getIncreaseAttackPointsDuration();
+    if( potionDuration > 0 ){
+      spellDamage += this->player->getIncreaseAttackPoints();
+      this->player->setIncreaseAttackPointsDuration( this->player->getIncreaseAttackPointsDuration() - 1 );
+      cout << "+" << spellDamage - spellDamageNoPotion << endl;
+    }
 
     int critNum = rand() % 10;
     bool didCrit = false;
@@ -421,7 +442,7 @@ void Combat::attackPlayer()
 bool Combat::checkVictory()
 {
     if (this->enemy->getHealthPoints() <= 0)
-    {
+    {   
         return true;
     }
     return false;
@@ -443,8 +464,11 @@ void Combat::procesarLogicaCombate()
     procesarEventosCombate();
     //Here we attack the player on even turns
     if (turn % 2 != 0)
-    {
-        attackPlayer();
+    {   
+        if( !checkDefeat() && !checkVictory() ){
+          attackPlayer();
+        }
+        
     }
     //If enemies health is 0 or less then is victory
     if (checkVictory())

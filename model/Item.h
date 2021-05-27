@@ -21,7 +21,7 @@ class Item
         //prueba
         Item();
         ~Item();
-        Item( bool isPotion, int numTexture );
+        Item( string name, string description, int numTexture, bool isPotion );
         void setItem(int numTexture);
         void setPotion(int numTexture);
         virtual bool getIsPotion(){ return isPotion; }
