@@ -43,6 +43,7 @@ void Juego::gameLoop(){
                 
                 }else{ //paused update
                     gameState = updateState(pMenu->update());
+                    cout << Mouse::getPosition().x << " . " << Mouse::getPosition().y << endl;
                 }
                 renderizar();
                 reloj1->restart();
@@ -152,9 +153,9 @@ void Juego::updateView(){
 }
 
 void Juego::iniciar(){
-    j1 = new Player(*ventana,12, 4, 4, Vector2i(2,1), Vector2f(ventana->getSize().x, ventana->getSize().y));
     loadMap();
-    fps = 5; // 60 Frames x Seconds
+    j1 = new Player(*ventana,12, 4, 4, Vector2i(2,1), Vector2f(mapBox.width / 2, mapBox.height / 2));
+    fps = 2; // 60 Frames x Seconds
     reloj1 = new Clock();
     cronometro1 = new Time();
     combatePlayer = new Combat();
@@ -167,7 +168,7 @@ void Juego::iniciar(){
 void Juego::loadMap(){ // se carga el mapa
     tileset = new Texture();
     tileset->loadFromFile("src/images/tileset/tileset.png");
-    map = new TileMap(tileset, 20, 20, 48.0f, 50.0f); 
+    map = new TileMap(tileset, 122, 78, 24.0f, 24.0f); 
     mapBox = map->getArray()->getBounds();
     tilesArray = map->getTilesArray();
 }

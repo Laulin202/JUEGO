@@ -35,7 +35,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
 
     this->posicionJugador = originPos;
     setSprite(claseSprite, cantX, cantY, frameActual, originPos);
-    this->velCaminar = 10;
+    this->velCaminar = 5;
     this->velCorrer = 64;
     this->ventana = &ventana;
 

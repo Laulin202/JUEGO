@@ -23,7 +23,6 @@ Combat::Combat(RenderWindow &ventana, Player &player, Enemy &enemy)
 
 void Combat::iniciarRectangulos() 
 {
-    cout << "Hola" << endl;
     for (int i = 0; i < 13; i++) 
     {
 
@@ -106,7 +105,6 @@ void Combat::iniciarRectangulos()
             break;
         }
         listaOpciones.push_back(Button(id, *r, i));
-        cout << "uwu estoy sirviendo" << endl;
     }
 }
 
