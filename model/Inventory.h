@@ -5,6 +5,7 @@
 #include <vector>
 #include <string.h>
 #include <iostream>
+#include "Potion.h"
 
 using std::string;
 using std::vector;
@@ -19,11 +20,11 @@ private:
 
     //Vector del inventario general (item y pociones).
 
-    vector<Item> inventoryVector;
+    vector<Item*> inventoryVector;
 
     //Vector del sub-inventario de pociones.
 
-    vector<Item> inventoryPotionVector;
+    vector<Item*> inventoryPotionVector;
 
     // Número de items del inventario general.
 
@@ -42,7 +43,7 @@ public:
 
     /* Añade items al inventario general y al inventario de pociones, esto antes revisando el item dado corresponda a una poción. Revisar los comentarios dentro de la función para más detalles.*/
 
-    void addItem(Item itemToBeAdded);
+    void addItem(Item* itemToBeAdded);
 
     /* Elimina items al inventario general y al inventario de pociones dada una posición, esto antes revisando el item dado corresponda a una poción. Revisar los comentarios dentro de la función para más detalles.*/
 
@@ -59,7 +60,8 @@ public:
 
     /* Retorna un item, incluyendo pociones dada una posición dentro del inventario. Revisar los comentarios dentro de la función para más detalles*/ 
 
-    Item getItemByPosition(int itemPosition);
+    Item* getItemByPosition(int itemPosition);
+    //Potion getPotionByPosition( int potionPosition ){ return inventoryPotionVector[potionPosition]; }
 
     /* Constructor y destructor*/ 
 

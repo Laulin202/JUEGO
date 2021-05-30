@@ -14,21 +14,19 @@ class Item
 
         Texture* textureItem;
         string name;
-        String description;
+        string description;
         bool isPotion;
 
     public:
         //prueba
         Item();
-        Item( bool isPotion, int numTexture );
+        ~Item();
+        Item( string name, string description, int numTexture, bool isPotion );
         void setItem(int numTexture);
         void setPotion(int numTexture);
-        bool getIsPotion(){ return this->isPotion; }
+        virtual bool getIsPotion(){ return isPotion; }
         string getName(){ return this->name; }
         Texture* getTexture(){ return textureItem; }
-
-       
-
 };
 
 #endif

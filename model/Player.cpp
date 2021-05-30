@@ -19,6 +19,8 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      */
      this->name = "Hertz";
      this->maxHealthPoints = 100;
+     this->increaseAttackPoints = 0;
+     this->increaseAttackPointsDuration = 0;
      this->healthPoints = maxHealthPoints;
      this->attackPoints = 10;
      this->lvl = 1;
@@ -33,7 +35,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
 
     this->posicionJugador = originPos;
     setSprite(claseSprite, cantX, cantY, frameActual, originPos);
-    this->velCaminar = 10;
+    this->velCaminar = 5;
     this->velCorrer = 64;
     this->ventana = &ventana;
 
@@ -49,9 +51,14 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
 
     
     //Prueba item
-    Item* item1;
-    item1 = new Item(true, 0);
-    addItem(item1);
+    string potionName = "Castlevania";
+    string potionDesc = "Cura para el insomnio";
+    int potionType = restoreHealthPointsE;
+    int potionValue = 200;
+    int potionDuration = 5;
+    Potion* potion1;
+    potion1 = new Potion(potionName, potionDesc, 0, potionValue, potionType, potionDuration);
+    addItem(potion1);
     
      
 }
@@ -224,13 +231,37 @@ void Player::procesarEventos(){
 
 
 void Player::addItem( Item* item){
-    inventory.addItem(*item);
+    inventory.addItem(item);
 }
 
 void Player::deleteItem(int op){
     inventory.removeItemByPosition(op);
 }
 
+//Restore mana and restore health
+void Player::restoreHealthPoints( int health ){
+  if( this->healthPoints + health > this->maxHealthPoints ){
+    this->healthPoints = maxHealthPoints;
+  }else{
+    this->healthPoints += health;
+  }
+}
+void Player::restoreMana( int mana ){
+  if( this->mana + mana > this->maxMana ){
+    this->mana = maxMana;
+  }else{
+    this->mana += mana;
+  }
+}
+
+Potion& Player::getPotion(int op){
+    Potion *potion = dynamic_cast<Potion*>( inventory.getItemByPosition(op) );
+    Potion *noPotion = NULL;
+    if(potion->getIsPotion()){
+        return *potion;
+    }
+    return *noPotion;
+}
 
 void Player::loadAttributesCombat(){
 

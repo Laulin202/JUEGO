@@ -11,16 +11,13 @@ Inventory::Inventory(){
 
     numberItems = 0;
     numberPotions = 0;
-
-    cout << "Entre Constructor" << endl;
-
 }
 
 Inventory::~Inventory(){
 
 }
 
-void Inventory::addItem(Item itemToBeAdded){
+void Inventory::addItem(Item* itemToBeAdded){
 
     // Se verifica que el número de items no supere el máximo permitido.
 
@@ -28,7 +25,7 @@ void Inventory::addItem(Item itemToBeAdded){
 
         // Se verifica que el item seleccionado sea una poción, dado el caso de que no lo sea se prosigue con otro proceso.
 
-        if(itemToBeAdded.getIsPotion()){
+        if(itemToBeAdded->getIsPotion()){
 
             // Se verifica que el número de items del tipo poción no supere el máximo permitido.
 
@@ -91,27 +88,25 @@ void Inventory::removeItemByPosition(int itemPosition){
 
         // Se verifica que el elemento en la posición dada se trate de una poción.
 
-        if(getItemByPosition(itemPosition).getIsPotion() == true){
+        if(getItemByPosition(itemPosition)->getIsPotion() == true){
 
             // En caso de serlo, se procede a iterar comparando el elemento en la posición i del vector del inventario principal con todos los elementos en el sub-inventario de pociones para corroborar que se trate del mismo elemento, esto haciendo uso de String con S mayúscula porque es mejor que string con s minúscula.
 
             for(int i = 0; i < inventoryPotionVector.size(); i++){
 
-                if(inventoryPotionVector[i].getName() == inventoryVector[itemPosition].getName()){
+                if(inventoryPotionVector[i]->getName() == inventoryVector[itemPosition]->getName()){
 
                     // Comprobando que los elementos en esa posición correspondan se procede con su eliminación.
 
                     inventoryVector.erase((inventoryVector.begin() + itemPosition));
 
-                    inventoryPotionVector.erase(inventoryVector.begin() + i);
+                    inventoryPotionVector.erase(inventoryPotionVector.begin() + i);
 
                     // Se resta 1 al contador de elementos de ambos vectores.
 
                     this->numberItems--;
 
                     this->numberPotions--;
-
-                    cout << "Holi" << endl;
 
                 } 
 
@@ -141,7 +136,7 @@ int Inventory::getNumberItems(){
 
 }
 
-Item Inventory::getItemByPosition(int itemPosition){
+Item* Inventory::getItemByPosition(int itemPosition){
 
     // Se retorna el item dada una posición.
 

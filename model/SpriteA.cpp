@@ -100,6 +100,8 @@ void SpriteA::createHitBox( Vector2f originPos ){
     spritesPlayer->setOrigin(Vector2f(hitBox.width/2, hitBox.height/2));
     spritesPlayer->setPosition(originPos);
     hitBox = spritesPlayer->getGlobalBounds();
+    hitBox.width -= 20.f;
+    hitBox.height -= 20.f;
 }
 
 void SpriteA::createRectangle( Vector2f originPos ){

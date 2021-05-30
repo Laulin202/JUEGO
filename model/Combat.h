@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Boss.h"
 #include "Spell.h"
+#include "Potion.h"
 #include <time.h>
 #include <stdlib.h>
 
@@ -21,11 +22,14 @@ using std::cin;
 using std::endl;
 using std::list;
 
+const int MAX_POTIONS = 4;
+
 enum estadosB{ atacar, escapar, inventario, menu };
 
 enum{
     PLAYERWON = true, ENEMYWON = false
 };
+
 
 class Combat
 {
@@ -34,8 +38,9 @@ class Combat
         Enemy * enemy;
         int turn;
 
+        //Pociones
+        bool usedPotion[ MAX_POTIONS ] = {false};
         //FASE PRUEBA
-
         list<Button> listaOpciones; //prueba
         bool enCombate = false;
         bool turnoJugador = true;
@@ -61,6 +66,8 @@ class Combat
         void startCombat(){ enCombate = true; };
         bool whoWon();
 
+        //Use of potions
+        void usePotionCombat( int effectValue, int effectType, int duration );
 
         //Fase Prueba
         //TODO: Acomodar y Actualizar: 

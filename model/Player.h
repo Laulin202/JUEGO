@@ -6,6 +6,7 @@
 
 #include "Item.h"
 #include "Inventory.h"
+#include "Potion.h"
 
 
 //fase prueba
@@ -20,6 +21,10 @@ enum direcciones{ arriba , arribaIzquierda, arribaDerecha, abajo, abajoIzquierda
 
 class Player : public Entity{
     private:
+        //For potion effects
+        int increaseAttackPoints; //For basic attacks and spells
+        int increaseAttackPointsDuration;
+
         int maxMana;
         int hearts;
         Vector2f posicionJugador; //Es la posicion del jugador, no del sprite
@@ -93,6 +98,15 @@ class Player : public Entity{
         void setCLeft(bool value){ cLeft = value;}
         void setCRight(bool value){ cRight = value;}
 
+        //Setters for combat potions / Increase damage / Restore health - mana
+        void restoreHealthPoints( int health );
+        void restoreMana( int mana );
+        void setIncreaseAttackPoints( int increaseAttackPoints ){ this->increaseAttackPoints = increaseAttackPoints; }
+        void setIncreaseAttackPointsDuration( int duration ){ this->increaseAttackPointsDuration = duration; }
+        //Getters for combat potions / Increase damage / Restore health - mana
+        int getIncreaseAttackPoints( ){ return this->increaseAttackPoints; }
+        int getIncreaseAttackPointsDuration( ){ return this->increaseAttackPointsDuration; }
+
         //prueba
         Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; }
         void setHealthPoints( int newHealthPoints ){ this->healthPoints = newHealthPoints; }
@@ -104,7 +118,7 @@ class Player : public Entity{
 
 
         void addItem( Item* item );
-        Item getPotion(int op){ return inventory.getItemByPosition(op); }
+        Potion& getPotion(int op);
         void deleteItem(int op);
 
 

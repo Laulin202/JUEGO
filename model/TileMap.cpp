@@ -10,6 +10,7 @@ TileMap::TileMap(Texture* tileSet, int w, int h, float tileTexDim, float tileWor
     tileSize = Vector2f(tileWorldDim, tileWorldDim);
     vector<vector<int>> tiles;
     tiles = loadTiles();
+    Color color;
     /*
     Tile floor = Tile(1, 1, Color::White);
     Tile path = Tile(7, 0, Color::Black);
@@ -24,7 +25,12 @@ TileMap::TileMap(Texture* tileSet, int w, int h, float tileTexDim, float tileWor
     */
     for(int y = 0; y < height; y++){
         for(int x = 0; x < width; x++){
-            Tile tile = Tile((int)(fmod(tiles[y][x], (tileSet->getSize().x / tileWorldDimension))), (int)(tiles[y][x] / (tileSet->getSize().x / tileWorldDimension)), Color::White);
+            if(tiles[y][x] == 20 || tiles[y][x] == 34 || tiles[y][x] == 48 || tiles[y][x] == 62 || tiles[y][x] == 76 || tiles[y][x] == 77 || tiles[y][x] == 78 || tiles[y][x] == 79 || tiles[y][x] == 80 || tiles[y][x] == 81 || tiles[y][x] == 67 || tiles[y][x] == 53 || tiles[y][x] == 39 || tiles[y][x] == 25 || tiles[y][x] == 0 || tiles[y][x] == 1 || tiles[y][x] == 2 || tiles[y][x] == 3 || tiles[y][x] == 4 || tiles[y][x] == 5 || tiles[y][x] == 14 || tiles[y][x] == 28 || tiles[y][x] == 42 || tiles[y][x] == 56 || tiles[y][x] == 70 || tiles[y][x] == 71 || tiles[y][x] == 72 || tiles[y][x] == 73 || tiles[y][x] == 75 || tiles[y][x] == 74 || tiles[y][x] == 47 || tiles[y][x] == 33 ){
+                color = Color::Black;
+            }else{
+                color = Color::White;
+            }
+            Tile tile = Tile((int)(fmod(tiles[y][x], (tileSet->getSize().x / tileWorldDimension))), (int)(tiles[y][x] / (tileSet->getSize().x / tileWorldDimension)), color);
             addTileVertices(tile, Vector2f((float)x, (float)y));
             /*
             addTileVertices(floor, Vector2f((float)x, (float)y));
