@@ -8,7 +8,7 @@ class Weapon : public Equipment
         int bonusAttackPoints;
     public:
         Weapon(string name, string description, int numWeapon, int bonusAttack, Vector2f position);
-        void setTexture(int numWeapon);
+        void setTexture(int numWeapon); // Se coloca la textura
 };
 
 #endif

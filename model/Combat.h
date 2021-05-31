@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Enemy.h"
-#include "Boss.h"
 #include "Spell.h"
 #include "Potion.h"
 #include <time.h>

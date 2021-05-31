@@ -8,7 +8,7 @@ class Helmet : public Equipment
         int bonusResistancePoints;
     public:
         Helmet(string name, string description, int numHelmet, int bonusResistance, Vector2f position);
-        void setTexture(int numHelmet);
+        void setTexture(int numHelmet); // Coloca la textura
 };
 
 #endif

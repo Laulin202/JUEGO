@@ -14,6 +14,7 @@ class Item
 
         Texture* textureItem;
         Sprite* spriteItem;
+        FloatRect itemHitBox;
         string name;
         string description;
         bool isPotion = false;
@@ -23,13 +24,15 @@ class Item
         Item();
         ~Item();
         Item( string name, string description, int numTexture, bool isPotion, Vector2f position );
-        void setSprite(Vector2f position);
-        void setItem(int numTexture);
-        void setPotion(int numTexture);
-        virtual bool getIsPotion(){ return isPotion; }
-        string getName(){ return this->name; }
-        Texture* getTexture(){ return textureItem; }
-        Sprite* getSprite(){ return spriteItem; }
+        void setSprite(Vector2f position); // Se crea el sprite
+        void setHitBox(Vector2f position); // Se crea la hitbox
+        void setItem(int numTexture); // Se coloca la textura si no es pocion
+        void setPotion(int numTexture); // Se coloca la textura si es pocion
+        virtual bool getIsPotion(){ return isPotion; } // Retorna si es pocion o no
+        string getName(){ return this->name; } // Retorna el nombre
+        Texture* getTexture(){ return textureItem; } // Retorna la textura
+        Sprite* getSprite(){ return spriteItem; } // Retorna el sprite
+        FloatRect getHitBox(){ return itemHitBox; } // Retorna la hitbox
 };
 
 #endif

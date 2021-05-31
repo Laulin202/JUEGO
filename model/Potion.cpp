@@ -7,6 +7,7 @@ Potion::Potion( string name, string description, int numTexture, int effectValue
   this->duration = duration;
 
   setPotion( numTexture );
+  setSprite(position);
 }
 
 Potion::~Potion(){
