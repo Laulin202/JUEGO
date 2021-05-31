@@ -42,8 +42,6 @@ void Juego::gameLoop(){
 
                 }else if( gameState == paused ){ //paused update
                     gameState = updateState(pMenu->update());
-                }else if( gameState == inventory ){
-                    gameState = updateState(iMenu->update());
                 }
                 renderizar();
                 reloj1->restart();
@@ -138,8 +136,6 @@ void Juego::renderizar(){
     //ventana->draw(j1->getRectangle());
     if(gameState == paused){
         pMenu->render( ventana );
-    }else if(gameState == inventory){
-        iMenu->render( ventana );
     }
     ventana->display();
 }
@@ -149,18 +145,11 @@ void Juego::pause(){
     pMenu = new PauseMenu( view, font );
 }
 
-void Juego::openInventory(){
-    gameState = inventory;
-    iMenu = new InventoryMenu( view, font );
-}
-
 game_states Juego::updateState( int state ){
     if(state == 2){
         return unpaused;
     }else if(state == 0){
         return gameOver;
-    }else if(state == 3){
-        return inventory;
     }
     return paused;
 }

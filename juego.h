@@ -10,7 +10,6 @@
 #include "model/Player.h"
 #include "model/Enemy.h"
 #include "model/TileMap.h"
-#include "model/InventoryMenu.h"
 #include "model/Item.h"
 #include "model/Potion.h"
 #include "model/Weapon.h"
@@ -36,7 +35,7 @@ using std::map;
 
 
 //FASE PRUEBA
-enum game_states{ gameOver = 0, paused = 1, unpaused = 2, inventory = 3 };
+enum game_states{ gameOver = 0, paused = 1, unpaused = 2 };
 
 class Juego{
 
@@ -44,7 +43,6 @@ class Juego{
         
         RenderWindow* ventana;
         PauseMenu* pMenu;
-        InventoryMenu* iMenu;
         game_states gameState = unpaused;
         Font font;
         View view;
@@ -127,14 +125,6 @@ class Juego{
         Funcion: Coloca el estado del juego en pausado y crea el menu de pausa.
         */
         void pause();
-        
-        /*
-        Nombre: openInventory
-        Output: N/A
-        Input: N/A
-        Funcion: Coloca el estado del juego en inventario, y crea el menu del inventario.
-        */
-        void openInventory();
         
         /*
         Nombre: randomItemPos
