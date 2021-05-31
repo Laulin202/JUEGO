@@ -12,7 +12,7 @@ class Potion : public Item
     int duration;
   //Constructors / Destructors
   public:
-    Potion( string name, string description, int numTexture, int effectValue, int effectType, int duration );
+    Potion( string name, string description, int numTexture, int effectValue, int effectType, int duration, Vector2f position );
     ~Potion();
     bool getIsPotion(){ return true; } 
     int getEffectValue(){ return this->effectValue; }

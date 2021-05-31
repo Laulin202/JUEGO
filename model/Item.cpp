@@ -5,7 +5,7 @@ Item::Item(){
 }
 
 
-Item::Item( string name, string description, int numTexture, bool isPotion ){
+Item::Item( string name, string description, int numTexture, bool isPotion, Vector2f position ){
     this->name = name;
     this->description = description;
     this->isPotion = isPotion;
@@ -15,9 +15,7 @@ Item::Item( string name, string description, int numTexture, bool isPotion ){
     else{
         setPotion( numTexture );
     }
-
-    this->name = "Paint";
-
+    setSprite(position);
 }
 
 Item::~Item(){
@@ -41,9 +39,15 @@ void Item::setPotion( int numTexture){
     String path;
     textureItem = new Texture();
     
-    path = "src/images/textureItems/Pocion" + to_string(numTexture) + ".png" ;
+    path = "src/images/textureItems/Potions/Potion (" + to_string(numTexture) + ").png" ;
     if(!textureItem->loadFromFile(path)){
         cout << "ERROR: IMG NO ENCONTRADA" << endl;
     }
 
+}
+
+void Item::setSprite( Vector2f position ){
+    spriteItem = new Sprite();
+    spriteItem->setTexture(*textureItem);
+    spriteItem->setPosition(position);
 }

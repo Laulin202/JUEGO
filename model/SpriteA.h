@@ -59,7 +59,7 @@ class SpriteA{
         Vector2f getFrameSize(){ return this->frameSize; }
 
         //Funciones
-        void setSpriteCombate(int claseSprite, int cantX, int cantY, Vector2i frameActual);
+        void setSpriteCombate(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f scale = Vector2f(2.5,2.5));
         void setPosSpriteCombate( Vector2f pos ){ this->spritePlayerCombat->setPosition(pos); }
         void setScaleSpriteCombate( Vector2f scale){ this->spritePlayerCombat->setScale(scale); }
         Sprite getSpriteCombat(){ return *spritePlayerCombat; }

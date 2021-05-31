@@ -95,3 +95,9 @@ void Teclado::procesarEventos(){
     }
 
 }
+
+void Teclado::updateKeys(){
+        for(int i = 0; i < 4; i++){
+                teclasJugador[i] = false;
+        }
+}
