@@ -91,7 +91,22 @@ class Player : public Entity{
         */
         bool checkGameOver( );
         
+
+        /*
+        Nombre: updateFisicaJ1
+        Output: N/A
+        Input: N/A
+        Funcion: evalua si el player esta caminando para saber si actualiza o no su movimiento
+        */
         void updateFisicaJ1();  
+
+
+        /*
+        Nombre:seleccionarVelocidad
+        Output: N/A
+        Input: N/A
+        Funcion: dependiendo la direccion del jugador ajusta el vector velocida en las posiciones x, y correspondientes
+        */
         void selecionarVelocidad();
 
         /*

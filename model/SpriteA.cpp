@@ -45,7 +45,7 @@ void SpriteA::setSpriteCombate(int claseSprite, int cantX, int cantY, Vector2i f
 
 }
 
-//Me permite cambiar el rectagulo para que agarre el frame correspondiente
+
 void SpriteA::selectFrame(int opcion){
 
     if (opcion == 1){
