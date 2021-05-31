@@ -53,7 +53,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
     int potionValue = 200;
     int potionDuration = 5;
     Potion* potion1;
-    potion1 = new Potion(potionName, potionDesc, 0, potionValue, potionType, potionDuration);
+    potion1 = new Potion(potionName, potionDesc, 1, potionValue, potionType, potionDuration, Vector2f(100,100));
     addItem(potion1);
      
 }

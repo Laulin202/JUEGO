@@ -4,8 +4,8 @@ MODEL := model
 debug := -ggdb3
 
 all: link clean
-link: SpriteA Teclado TileMap Tile Entity Item Potion Player Enemy Boton Spell Combate JuegoMain  Inventory PauseMenu InventoryMenu
-	g++ -o main SpriteA.o Teclado.o TileMap.o Tile.o Entity.o Player.o Enemy.o Button.o Spell.o Combat.o Item.o Potion.o Inventory.o PauseMenu.o InventoryMenu.o juego.o main.o -L src/lib -l sfml-graphics -l sfml-window -l sfml-system 
+link: SpriteA Teclado TileMap Tile Entity Item Potion Weapon Player Enemy Boton Spell Combate JuegoMain  Inventory PauseMenu InventoryMenu
+	g++ -o main SpriteA.o Teclado.o TileMap.o Tile.o Entity.o Player.o Enemy.o Button.o Spell.o Combat.o Item.o Potion.o Weapon.o Inventory.o PauseMenu.o InventoryMenu.o juego.o main.o -L src/lib -l sfml-graphics -l sfml-window -l sfml-system 
 Player:${MODEL}/Player.cpp ${MODEL}/Player.h
 	g++ -I src/include -c ${debug} ${MODEL}/Player.cpp
 Enemy:${MODEL}/Enemy.cpp ${MODEL}/Enemy.h
@@ -28,6 +28,12 @@ Item:${MODEL}/Item.cpp ${MODEL}/Item.h
 	g++ -I src/include -c ${debug} ${MODEL}/Item.cpp
 Potion:${MODEL}/Potion.cpp ${MODEL}/Potion.h
 	g++ -I src/include -c ${debug} ${MODEL}/Potion.cpp
+Weapon:${MODEL}/Weapon.cpp ${MODEL}/Weapon.h
+	g++ -I src/include -c ${debug} ${MODEL}/Weapon.cpp
+Chestplate:${MODEL}/Chestplate.cpp ${MODEL}/Chestplate.h
+	g++ -I src/include -c ${debug} ${MODEL}/Chestplate.cpp
+Helmet:${MODEL}/Helmet.cpp ${MODEL}/Helmet.h
+	g++ -I src/include -c ${debug} ${MODEL}/Helmet.cpp
 Inventory:${MODEL}/Inventory.cpp ${MODEL}/Inventory.h
 	g++ -I src/include -c ${debug} ${MODEL}/Inventory.cpp
 PauseMenu:${MODEL}/PauseMenu.cpp ${MODEL}/PauseMenu.h

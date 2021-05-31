@@ -298,6 +298,8 @@ void Juego::initializeBasicItems(){
     itemsPositions.push_back(Vector2f(864, 1512));
     itemsPositions.push_back(Vector2f(624, 1968));
     itemsPositions.push_back(Vector2f(1656, 936));
+
+    item1 = new Weapon("Arma comun", "Vieja arma dejada atras por los ahora convertidos en criaturas de otra realidad", 1, 5, itemsPositions[1]);
 }
 
 

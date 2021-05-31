@@ -11,6 +11,11 @@
 #include "model/Enemy.h"
 #include "model/TileMap.h"
 #include "model/InventoryMenu.h"
+#include "model/Item.h"
+#include "model/Potion.h"
+#include "model/Weapon.h"
+#include "model/Chestplate.h"
+#include "model/Helmet.h"
 
 //Fase prueba
 #include "model/Button.h"
@@ -47,6 +52,7 @@ class Juego{
         multimap<int, FloatRect> puertasMap;
         Texture* tileset;
         vector<Vector2f> itemsPositions;
+        Item* item1;
         Player* j1;
         Enemy* e1;
         std::map<int, Enemy*> enemies;

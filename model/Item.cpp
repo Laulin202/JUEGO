@@ -5,7 +5,7 @@ Item::Item(){
 }
 
 
-Item::Item( string name, string description, int numTexture, bool isPotion ){
+Item::Item( string name, string description, int numTexture, bool isPotion, Vector2f position ){
     this->name = name;
     this->description = description;
     this->isPotion = isPotion;
@@ -15,6 +15,7 @@ Item::Item( string name, string description, int numTexture, bool isPotion ){
     else{
         setPotion( numTexture );
     }
+    setSprite(position);
 }
 
 Item::~Item(){

@@ -16,13 +16,13 @@ class Item
         Sprite* spriteItem;
         string name;
         string description;
-        bool isPotion;
+        bool isPotion = false;
 
     public:
         //prueba
         Item();
         ~Item();
-        Item( string name, string description, int numTexture, bool isPotion );
+        Item( string name, string description, int numTexture, bool isPotion, Vector2f position );
         void setSprite(Vector2f position);
         void setItem(int numTexture);
         void setPotion(int numTexture);

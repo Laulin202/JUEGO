@@ -6,6 +6,9 @@ class Weapon : public Equipment
 {
     private:
         int bonusAttackPoints;
+    public:
+        Weapon(string name, string description, int numWeapon, int bonusAttack, Vector2f position);
+        void setTexture(int numWeapon);
 };
 
 #endif
