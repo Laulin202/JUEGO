@@ -69,59 +69,59 @@ class Player : public Entity{
         
 
         
-        Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del jugador 
+        Sprite getSprite(){ return *spritesPlayer; } 
 
 
-        Vector2f getPos(){ return posicionJugador; } //Me va a devolver la posicion del jugador
-        void updateFisicaJ1();  //Actualiza el movimiento "fisicas" del jugador
+        Vector2f getPos(){ return posicionJugador; } 
+        void updateFisicaJ1();  
         void selecionarVelocidad();
         void procesarEventos();
+        void checkCollisionDirection();
+
+        
+        //Setters for combat potions / Increase damage / Restore health - mana
+        void restoreHealthPoints( int health );
+        void restoreMana( int mana );
+        
+        //Getters for combat potions / Increase damage / Restore health - mana
+        void addItem( Item* item );
+        void deleteItem(int op);
+        //FASE PRUEBA, PENDIENTE REVISAR
+        void renderAttributes();
+        void loadAttributesCombat();
+
+
+        //Setters
 
         void setPos(Vector2f posicion){ posicionJugador = posicion; spritesPlayer->setPosition(posicionJugador); hitBox = spritesPlayer->getGlobalBounds(); } //SpriteJugador va a buscar a SpritePlayer, y ese sera el que se actualice con la nueva posicicon
         void setTraslation( Vector2f traslation ){ previousPosition = posicionJugador; posicionJugador += traslation; spritesPlayer->setPosition(posicionJugador); hitBox = spritesPlayer->getGlobalBounds(); rectangle->setPosition(posicionJugador); } //el setPosition del sprite necesita un vector2
         void setVelocidad( Vector2f vel ){ velocidad = vel; }
-        Vector2f getPreviousPosition(){ return previousPosition; }
-
-        //propias
-        void setVelCaminar( float celCaminar){  this->velCaminar = celCaminar; }
-        float getVelCaminar(){ return velCaminar; }
-        void setVelCorrer(float velCorrer ){  this->velCorrer = velCorrer; }
-        float getVelCorrer(){  return velCorrer; }
-        void setDireccion(direcciones direccionJ1){ this->direccionJ1 = direccionJ1;}
-        void checkCollisionDirection();
-
+        void setHealthPoints( int newHealthPoints ){ this->healthPoints = newHealthPoints; }
+        void setMana( int newMana ){ this->mana = newMana; }
         void setCTop(bool value){ cTop = value;}
         void setCBot(bool value){ cBot = value;}
         void setCLeft(bool value){ cLeft = value;}
         void setCRight(bool value){ cRight = value;}
-
-        //Setters for combat potions / Increase damage / Restore health - mana
-        void restoreHealthPoints( int health );
-        void restoreMana( int mana );
         void setIncreaseAttackPoints( int increaseAttackPoints ){ this->increaseAttackPoints = increaseAttackPoints; }
         void setIncreaseAttackPointsDuration( int duration ){ this->increaseAttackPointsDuration = duration; }
-        //Getters for combat potions / Increase damage / Restore health - mana
-        int getIncreaseAttackPoints( ){ return this->increaseAttackPoints; }
-        int getIncreaseAttackPointsDuration( ){ return this->increaseAttackPointsDuration; }
+        void setVelCaminar( float celCaminar){  this->velCaminar = celCaminar; }
+        void setVelCorrer(float velCorrer ){  this->velCorrer = velCorrer; }
+        void setDireccion(direcciones direccionJ1){ this->direccionJ1 = direccionJ1;}
 
-        //prueba
-        Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; }
-        void setHealthPoints( int newHealthPoints ){ this->healthPoints = newHealthPoints; }
-        void setMana( int newMana ){ this->mana = newMana; }
+        //Getters
+        Vector2f getPreviousPosition(){ return previousPosition; }
+        float getVelCaminar(){ return velCaminar; }
+        float getVelCorrer(){  return velCorrer; }
         int getAttackDamage(){ return this->attackPoints; }
         int getMaxMana(){ return this->maxMana; }
         int getHealthPoints(){ return this->healthPoints; }
         int getMana(){ return this->mana; }
-
-
-        void addItem( Item* item );
+        int getIncreaseAttackPoints( ){ return this->increaseAttackPoints; }
+        int getIncreaseAttackPointsDuration( ){ return this->increaseAttackPointsDuration; }
         Potion& getPotion(int op);
-        void deleteItem(int op);
+        Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; }
+        
 
-
-        //FASE PRUEBA, PENDIENTE REVISAR
-        void renderAttributes();
-        void loadAttributesCombat();
 
         void resetMovement(){ keyboard->updateKeys(); };
 

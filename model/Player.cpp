@@ -10,13 +10,8 @@ const int ABAJO =3;
 
 Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f originPos)
 {
-     /*
-        Initialize the player
-        Name : Hertz
-        health points = 10
-        attack points = 3
-        Level 1 / Xp 0
-     */
+
+    //iniciamos atributos basicos de Herz
      this->name = "Hertz";
      this->maxHealthPoints = 100;
      this->increaseAttackPoints = 0;
@@ -26,7 +21,6 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->lvl = 1;
      this->xp = 0;
      this->mana = 10;
-     //Fase prueba
 
     this->posicionJugador = originPos;
     setSprite(claseSprite, cantX, cantY, frameActual, originPos);

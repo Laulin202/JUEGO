@@ -23,7 +23,3 @@ void Button::cargarTextura(){
     rect.setTexture(textureButton);
 }
 
-void Button::reiniciarTextura(){
-    rect.setTexture(NULL);
-    cout << "Entre" << endl;
-}
