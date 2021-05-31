@@ -28,17 +28,26 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
     this->velCorrer = 64;
     this->ventana = &ventana;
 
-     //prueba 
     this->hechizos.push_back( Spell( "Ataque basico!", "", this->attackPoints, 0 ) );
     this->hechizos.push_back( Spell( "Bola de fuego", "Lanza una bola de fuego", (10 * this->lvl), this->lvl ) );
     this->hechizos.push_back( Spell( "Impak-trueno", "Pikazhu time", (15 * this->lvl), (int)this->mana/2 ) );
     this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 1 ) ); 
 
-     //recibir parametros
     setSpriteCombate(133, 6, 1, Vector2i(0,0));
 
     //Inventario
     inventory = new Inventory();
+    
+    /*
+    string potionName = "Castlevania";
+    string potionDesc = "Cura para el insomnio";
+    int potionType = restoreHealthPointsE;
+    int potionValue = 200;
+    int potionDuration = 5;
+    Potion* potion1;
+    potion1 = new Potion(potionName, potionDesc, 1, potionValue, potionType, potionDuration, Vector2f(100,100));
+    addItem(potion1);
+    */
      
 }
 
@@ -245,7 +254,7 @@ Potion& Player::getPotion(int op){
 void Player::loadAttributesCombat(){
 
 
-    //Se inicializa todo lo relociano al mensaje
+    //Se inicializa todo lo relacionado al mensaje
 
     fontMensaje = new Font();
     if(!fontMensaje->loadFromFile("src/fonts/Lomanos.ttf")){
