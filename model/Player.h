@@ -21,7 +21,6 @@ enum direcciones{ arriba , arribaIzquierda, arribaDerecha, abajo, abajoIzquierda
 
 class Player : public Entity{
     private:
-        //For potion effects
         int increaseAttackPoints; //For basic attacks and spells
         int increaseAttackPointsDuration;
 
@@ -61,12 +60,42 @@ class Player : public Entity{
 
         //atributo de prueba en publico(pendiente optimizar)
         bool walking = false;
-        
+        /*
+        * updateHealthPoints
+        * 
+        * sets the healthPoints to newHealthPoints value
+        * 
+        * @param newHealthPoints : new value for attribute healthPoints
+        */
         void updateHealthPoints( int newHealthPoints );
-        void updateAttackPoints( int newAttackPoints );
-        bool checkDead( );
-        bool checkGameOver( );
 
+        /*
+        * updateAttackPoints
+        *
+        * sets the attackPoints to newAttackPoints value
+        * 
+        * @param newAttackPoints : new value of attribute attackPoints
+        */
+        void updateAttackPoints( int newAttackPoints );
+
+        /*
+        * checkDead
+        *
+        * checks if the player's health is below or equal to 0.
+        * 
+        * @return true if health is below or equal to 0, false otherwise.
+        */
+        bool checkDead( );
+
+        /*
+        * checkGameOver
+        *
+        * checks if the game is over (player is dead).
+        * 
+        * @return true is player died, false otherwise.
+        */
+        bool checkGameOver( );
+        
         void updateFisicaJ1();  
         void selecionarVelocidad();
         void procesarEventos();
