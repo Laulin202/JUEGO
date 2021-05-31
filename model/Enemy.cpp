@@ -10,7 +10,7 @@ Enemy::Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector
         Level 1 / Xp 0
      */
      this->posicionEnemigo = pos;
-     this->name = "El Diavlo";
+     this->name = "Nombre Enemigo";
      this->maxHealthPoints = 50;
      this->healthPoints = maxHealthPoints;
      this->attackPoints = 10;
@@ -18,7 +18,7 @@ Enemy::Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector
      this->spell1 = spell1;
      this->spell2 = spell2;
 
-     //Fase prueba UwU
+     
      setSprite(claseSprite, cantX, cantY, frameActual, pos);
      setSpriteCombate(470,8,1,Vector2i(0,0));
 }
