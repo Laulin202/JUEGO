@@ -66,13 +66,7 @@ class Player : public Entity{
         void updateAttackPoints( int newAttackPoints );
         bool checkDead( );
         bool checkGameOver( );
-        
 
-        
-        Sprite getSprite(){ return *spritesPlayer; } 
-
-
-        Vector2f getPos(){ return posicionJugador; } 
         void updateFisicaJ1();  
         void selecionarVelocidad();
         void procesarEventos();
@@ -120,8 +114,8 @@ class Player : public Entity{
         int getIncreaseAttackPointsDuration( ){ return this->increaseAttackPointsDuration; }
         Potion& getPotion(int op);
         Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; }
-        
-
+        Sprite getSprite(){ return *spritesPlayer; }
+        Vector2f getPos(){ return posicionJugador; } 
 
         void resetMovement(){ keyboard->updateKeys(); };
 
