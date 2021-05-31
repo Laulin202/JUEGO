@@ -36,8 +36,10 @@ class Combat
     private:
         Player* player;
         Enemy * enemy;
+        Clock* clock;
         int turn;
-
+        bool win = false;
+        
         //Pociones
         bool usedPotion[ MAX_POTIONS ] = {false};
         //FASE PRUEBA
@@ -63,8 +65,8 @@ class Combat
         Combat( RenderWindow& ventana, Player& player, Enemy& enemy );
 
         bool isOver( ){ return enCombate; }
-        void startCombat(){ enCombate = true; };
-        bool whoWon();
+        void startCombat(){ enCombate = true; }
+        //bool win(){ return win; }
 
         //Use of potions
         void usePotionCombat( int effectValue, int effectType, int duration );

@@ -7,12 +7,13 @@
 class Enemy : public Entity{
     protected:
         //Item drop;
+        bool protector;
         Vector2f posicionEnemigo;
         int damageInCombat;
         string spell1;
         string spell2;
     public:
-      Enemy(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f pos, string spell1, string spell2);
+      Enemy(string name, int health, int attack, int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f pos, string spell1, string spell2, Vector2f scale, bool protector = false);
       ~Enemy();
       Sprite getSprite(){ return *spritesPlayer; } //Me va a retornar el sprite del enemiwo
       Vector2f getPos(){ return posicionEnemigo; } //Me va a devolver la posicion del enemiwowo
@@ -24,6 +25,7 @@ class Enemy : public Entity{
       int getDamageinCombat(){ return this->damageInCombat; }
       string getSpell1(){ return this->spell1; }
       string getSpell2(){ return this->spell2; }
+      bool getProtector(){ return this->protector; }
 
 };
 

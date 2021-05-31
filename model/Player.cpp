@@ -28,11 +28,6 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
      this->mana = 10;
      //Fase prueba
 
-    this->nextPosition.left = getHitBox().left;
-    this->nextPosition.top = getHitBox().top;
-    this->nextPosition.width = getHitBox().width;
-    this->nextPosition.height = getHitBox().height;
-
     this->posicionJugador = originPos;
     setSprite(claseSprite, cantX, cantY, frameActual, originPos);
     this->velCaminar = 5;
@@ -45,10 +40,11 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
     this->hechizos.push_back( Spell( "Impak-trueno", "Pikazhu time", (15 * this->lvl), (int)this->mana/2 ) );
     this->hechizos.push_back( Spell( "Cum de Yummi", "UwU", this->lvl, 1 ) ); 
 
-     //Prueba combate - Pendiente actualizar
+     //recibir parametros
     setSpriteCombate(133, 6, 1, Vector2i(0,0));
 
-
+    //Inventario
+    inventory = new Inventory();
     
     //Prueba item
     string potionName = "Castlevania";
@@ -59,7 +55,6 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
     Potion* potion1;
     potion1 = new Potion(potionName, potionDesc, 0, potionValue, potionType, potionDuration);
     addItem(potion1);
-    
      
 }
 
@@ -231,11 +226,11 @@ void Player::procesarEventos(){
 
 
 void Player::addItem( Item* item){
-    inventory.addItem(item);
+    inventory->addItem(item);
 }
 
 void Player::deleteItem(int op){
-    inventory.removeItemByPosition(op);
+    inventory->removeItemByPosition(op);
 }
 
 //Restore mana and restore health
@@ -255,7 +250,7 @@ void Player::restoreMana( int mana ){
 }
 
 Potion& Player::getPotion(int op){
-    Potion *potion = dynamic_cast<Potion*>( inventory.getItemByPosition(op) );
+    Potion *potion = dynamic_cast<Potion*>( inventory->getItemByPosition(op) );
     Potion *noPotion = NULL;
     if(potion->getIsPotion()){
         return *potion;
@@ -298,10 +293,8 @@ void Player::loadAttributesCombat(){
 }
 
 void Player::renderAttributes(){
-
     mensajeVida.setString( " " + to_string(getHealthPoints()));
     mensajeMana.setString( " "+ to_string( getMana()));
-
 
     ventana->draw(corazonImg);
     ventana->draw(manaImg);

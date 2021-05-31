@@ -25,7 +25,7 @@ void SpriteA::setSprite(int claseSprite, int cantX, int cantY, Vector2i frameAct
     createRectangle( originPos );
 }
 
-void SpriteA::setSpriteCombate(int claseSprite, int cantX, int cantY, Vector2i frameActual){
+void SpriteA::setSpriteCombate(int claseSprite, int cantX, int cantY, Vector2i frameActual, Vector2f scale){
     
     String path = "src/images/entities/" + to_string(claseSprite) + ".png";
     cantFramesCombatX = cantX;
@@ -41,7 +41,7 @@ void SpriteA::setSpriteCombate(int claseSprite, int cantX, int cantY, Vector2i f
     numFrameCombat = frameActual;
     selectFrame(2);
     spritePlayerCombat->setPosition(Vector2f(110,180));
-    spritePlayerCombat->setScale(Vector2f(2.5,2.5));
+    spritePlayerCombat->setScale(scale);
 
 }
 

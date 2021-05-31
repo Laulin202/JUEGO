@@ -13,6 +13,7 @@ class Item
     protected:
 
         Texture* textureItem;
+        Sprite* spriteItem;
         string name;
         string description;
         bool isPotion;
@@ -22,11 +23,13 @@ class Item
         Item();
         ~Item();
         Item( string name, string description, int numTexture, bool isPotion );
+        void setSprite(Vector2f position);
         void setItem(int numTexture);
         void setPotion(int numTexture);
         virtual bool getIsPotion(){ return isPotion; }
         string getName(){ return this->name; }
         Texture* getTexture(){ return textureItem; }
+        Sprite* getSprite(){ return spriteItem; }
 };
 
 #endif

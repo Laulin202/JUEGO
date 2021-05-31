@@ -17,13 +17,9 @@ class Teclado{
 
 
         void procesarEventos();
-        static Teclado* getTeclado(); 
+        static Teclado* getTeclado();
+        void updateKeys(); 
         
-
-
-
-
-
 };
 
 

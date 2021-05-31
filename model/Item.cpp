@@ -15,9 +15,6 @@ Item::Item( string name, string description, int numTexture, bool isPotion ){
     else{
         setPotion( numTexture );
     }
-
-    this->name = "Paint";
-
 }
 
 Item::~Item(){
@@ -46,4 +43,10 @@ void Item::setPotion( int numTexture){
         cout << "ERROR: IMG NO ENCONTRADA" << endl;
     }
 
+}
+
+void Item::setSprite( Vector2f position ){
+    spriteItem = new Sprite();
+    spriteItem->setTexture(*textureItem);
+    spriteItem->setPosition(position);
 }

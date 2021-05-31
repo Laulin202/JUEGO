@@ -313,7 +313,7 @@ bool Combat::tryEscape()
     int esc = rand() % 10;
     if (esc % 2 == 0)
     {
-        return false; //true
+        return true; //true
     }
     return false; 
 }
@@ -567,6 +567,7 @@ void Combat::iniciarComponentesCombate()
     iniciarRectangulos();
     evento1 = new Event();
     opcion = 1;
+    clock = new Clock();
 
     //CARGAMOS LA FUENTE DE LOS MENSAJES QUE SE USARAN EN COMBATE
     fontMensaje = new Font();
@@ -658,11 +659,16 @@ void Combat::dibujarMensaje(int personaje){
 void Combat::renderPlayer(){
 
     player->renderAttributes();
-    player->animarFrame(2);
+    if(clock->getElapsedTime().asSeconds() > 0.16f){
+        player->animarFrame(2);
+    }
     ventana->draw(player->getSpriteCombat());
 }
 
 void Combat::renderEnemy(){
-    enemy->animarFrame(2);
+    if(clock->getElapsedTime().asSeconds() > 0.16f){
+        enemy->animarFrame(2);
+        clock->restart();
+    }
     ventana->draw(enemy->getSpriteCombat());
 }

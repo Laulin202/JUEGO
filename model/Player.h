@@ -28,8 +28,8 @@ class Player : public Entity{
         int maxMana;
         int hearts;
         Vector2f posicionJugador; //Es la posicion del jugador, no del sprite
-        FloatRect nextPosition;
-        Inventory inventory;
+        Vector2f previousPosition;
+        Inventory* inventory;
         //map<string, Equipment> equipment;
         int mana;
         int xp;
@@ -38,7 +38,7 @@ class Player : public Entity{
         float velCaminar; //velocidad al caminar
         float velCorrer; //velocidad al correr
         direcciones direccionJ1 = abajo; //direccion a la que mira el player
-        Teclado* keyboard = Teclado::getTeclado();  //este onjeto me permite manejar en su mayoria lo que suceda con el teclado
+        Teclado* keyboard = Teclado::getTeclado();  //este onjeto me permite manejar en su mayoria lo que suceda con el teclado (privado)
         RenderWindow* ventana;   //Basicamente el jugador con la ventana podra mostrarse sin depender estrictamente de que lo llamen en juego
         bool cTop = false, cBot = false, cLeft = false, cRight = false;
 
@@ -77,13 +77,10 @@ class Player : public Entity{
         void selecionarVelocidad();
         void procesarEventos();
 
-        
-
-
-        void setPos(Vector2f posicion){ posicionJugador = posicion; spritesPlayer->setPosition(posicionJugador); } //SpriteJugador va a buscar a SpritePlayer, y ese sera el que se actualice con la nueva posicicon
-        void setTraslation( Vector2f traslation ){ posicionJugador += traslation; spritesPlayer->setPosition(posicionJugador); hitBox = spritesPlayer->getGlobalBounds(); rectangle->setPosition(posicionJugador); } //el setPosition del sprite necesita un vector2
+        void setPos(Vector2f posicion){ posicionJugador = posicion; spritesPlayer->setPosition(posicionJugador); hitBox = spritesPlayer->getGlobalBounds(); } //SpriteJugador va a buscar a SpritePlayer, y ese sera el que se actualice con la nueva posicicon
+        void setTraslation( Vector2f traslation ){ previousPosition = posicionJugador; posicionJugador += traslation; spritesPlayer->setPosition(posicionJugador); hitBox = spritesPlayer->getGlobalBounds(); rectangle->setPosition(posicionJugador); } //el setPosition del sprite necesita un vector2
         void setVelocidad( Vector2f vel ){ velocidad = vel; }
-        FloatRect getNextPosition(){ nextPosition.left = getHitBox().left + velCaminar; nextPosition.top = getHitBox().top + velCaminar; return nextPosition; }
+        Vector2f getPreviousPosition(){ return previousPosition; }
 
         //propias
         void setVelCaminar( float celCaminar){  this->velCaminar = celCaminar; }
@@ -125,6 +122,8 @@ class Player : public Entity{
         //FASE PRUEBA, PENDIENTE REVISAR
         void renderAttributes();
         void loadAttributesCombat();
+
+        void resetMovement(){ keyboard->updateKeys(); };
 
         
 };
