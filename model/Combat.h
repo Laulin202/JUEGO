@@ -59,24 +59,38 @@ class Combat
         Combat();
         Combat( RenderWindow& ventana, Player& player, Enemy& enemy );
 
-        bool isOver( ){ return enCombate; } //
-        void startCombat(){ enCombate = true; } //
-        void usePotionCombat( int effectValue, int effectType, int duration ); //
-
         /*
-        Nombre: iniciarRectangulos
-        Output: N/A
-        Input: N/A
-        Funcion: Incializa todo el contenido de los botones (rectangulo, id, position, textura) de la escena de combate
+        * isOver
+        * 
+        * It checks if the combat is over
+        * 
+        * @returns enCombate : attribute that is set to false when player or enemy dies
         */
-        void iniciarRectangulos();  
+        bool isOver( ){ return enCombate; }
 
         /*
-        Nombre: renderPanelOpciones
-        Output: N/A
-        Input: N/A
-        Funcion: renderiza los botones y mensajes correspondientes dependiendo la accion que desee hacer el jugador
-        */ 
+        * startCombat
+        * Sets the attribute in enCombate to true
+        */
+        void startCombat(){ enCombate = true; }
+        //bool win(){ return win; }
+
+        //Use of potions
+        /*
+        * usePotionCombat
+        * 
+        * Applies the effects of the selected potion to the player
+        * 
+        * @param effectValue : how much the attribute will increase.
+        * @param effectType : the attribute to be affected. (this is an enum)
+        * @param duration : the duration in turns the effect will affect the player
+        * 
+        */
+        void usePotionCombat( int effectValue, int effectType, int duration );
+
+        //Fase Prueba
+        //TODO: Acomodar y Actualizar: 
+        void iniciarRectangulos();   
         void renderPanelOpciones(); 
 
         /*
@@ -151,11 +165,57 @@ class Combat
         */
         void dibujarMensaje( int personaje, int opcion);
 
+        /*
+        * useAttackSpell
+        * 
+        * Attacks the enemy with the selected spell
+        * 
+        * @param hechizoUsado is the spell selected by the player
+        */
         void useAttackSpell( Spell &hechizoUsado );
+
+        /*
+        * useAttackSpell
+        * 
+        * Attacks the enemy with the selected spell (in this case the special spell)
+        * 
+        * @param hechizoUsado is the spell selected by the player
+        */
         void useSpecialAttackSpell( Spell &hechizoUsado );
+
+        /*
+        * attackPlayer
+        * 
+        * Attacks the player with a random selected spell from the enemy
+        * 
+        */
         void attackPlayer();
+
+        /*
+        * checkVictory
+        * 
+        * Checks if the enemy is dead.
+        * 
+        * @return true if enemy is dead, false otherwise.
+        */
         bool checkVictory();
+
+        /*
+        * checkDefeat
+        *
+        *  Checks if the player is dead.
+        * 
+        * @return true is player is dead, false otherwise.
+        */
         bool checkDefeat();
+
+        /*
+        * truEscape
+        *
+        * The player tries to escape (depends of random numbers)
+        * 
+        * @return true if player is able to escape, false otherwise.
+        */
         bool tryEscape();
 
         /*

@@ -21,7 +21,6 @@ enum direcciones{ arriba , arribaIzquierda, arribaDerecha, abajo, abajoIzquierda
 
 class Player : public Entity{
     private:
-        //For potion effects
         int increaseAttackPoints; //For basic attacks and spells
         int increaseAttackPointsDuration;
         int maxMana;
@@ -56,53 +55,43 @@ class Player : public Entity{
 
         //Atributo
         bool walking = false;
-        
         /*
-        Nombre: updateHealthPoints
-        Output:
-        Input:
-        Funcion:
+        * updateHealthPoints
+        * 
+        * sets the healthPoints to newHealthPoints value
+        * 
+        * @param newHealthPoints : new value for attribute healthPoints
         */
         void updateHealthPoints( int newHealthPoints );
 
         /*
-        Nombre:
-        Output:
-        Input:
-        Funcion:
+        * updateAttackPoints
+        *
+        * sets the attackPoints to newAttackPoints value
+        * 
+        * @param newAttackPoints : new value of attribute attackPoints
         */
         void updateAttackPoints( int newAttackPoints );
 
         /*
-        Nombre:
-        Output:
-        Input:
-        Funcion:
+        * checkDead
+        *
+        * checks if the player's health is below or equal to 0.
+        * 
+        * @return true if health is below or equal to 0, false otherwise.
         */
         bool checkDead( );
 
         /*
-        Nombre:
-        Output:
-        Input:
-        Funcion:
+        * checkGameOver
+        *
+        * checks if the game is over (player is dead).
+        * 
+        * @return true is player died, false otherwise.
         */
         bool checkGameOver( );
-
-        /*
-        Nombre: updateFisicaJ1
-        Output: N/A
-        Input: N/A
-        Funcion: me evalua si el jugador esta caminando o no para saber si se debe atualizar su movimiento
-        */
-        void updateFisicaJ1(); 
-
-        /*
-        Nombre: seleccionarVelocidad
-        Output: N/A
-        Input: N/A
-        Funcion: dependiendo a que direccion este mirando el jugador, me seleccionara el vector con valores x,y correspondiente
-        */ 
+        
+        void updateFisicaJ1();  
         void selecionarVelocidad();
 
         /*
@@ -203,8 +192,8 @@ class Player : public Entity{
         int getMaxMana(){ return this->maxMana; } //retorna el mana maximo
         int getHealthPoints(){ return this->healthPoints; } //retorna los puntos de vida
         int getMana(){ return this->mana; } //retorna el mana
-        int getIncreaseAttackPoints( ){ return this->increaseAttackPoints; } //retorna 
-        int getIncreaseAttackPointsDuration( ){ return this->increaseAttackPointsDuration; } //retorna
+        int getIncreaseAttackPoints( ){ return this->increaseAttackPoints; } 
+        int getIncreaseAttackPointsDuration( ){ return this->increaseAttackPointsDuration; } 
         Potion& getPotion(int op); //retorna la pocion correspondiente al indice recibido
         Spell getSpell( int spellIndex ){ return this->hechizos[ spellIndex ]; } //retorna la habilidad dependiendo el indice
         Sprite getSprite(){ return *spritesPlayer; } //retorna el sprite del jugador
