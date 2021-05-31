@@ -38,7 +38,7 @@ void Item::setPotion( int numTexture){
     String path;
     textureItem = new Texture();
     
-    path = "src/images/textureItems/Pocion" + to_string(numTexture) + ".png" ;
+    path = "src/images/textureItems/Potions/Potion (" + to_string(numTexture) + ").png" ;
     if(!textureItem->loadFromFile(path)){
         cout << "ERROR: IMG NO ENCONTRADA" << endl;
     }

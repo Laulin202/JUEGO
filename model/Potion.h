@@ -14,7 +14,7 @@ class Potion : public Item
   public:
     Potion( string name, string description, int numTexture, int effectValue, int effectType, int duration );
     ~Potion();
-    bool getIsPotion(){ return true; }
+    bool getIsPotion(){ return true; } 
     int getEffectValue(){ return this->effectValue; }
     int getEffectType(){ return this->effectType; }
     int getDuration(){ return this->duration; }

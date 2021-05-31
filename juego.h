@@ -75,7 +75,7 @@ class Juego{
         void renderizar(); //Dibujando en pantalla los elementos del juego
         void renderizarPauseMenu();
         void procesarLogica(); // Procesa Logica del juego
-        void procesarEventos(); // Procesa logica del juego
+        void procesarEventos(); // Procesa eventos del juego
         void procesarNetworking(); //Procesa, teclado, mouse etc
         void updateBorderCollision();
         bool updateTileCollision();
