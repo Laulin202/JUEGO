@@ -16,6 +16,7 @@ Item::Item( string name, string description, int numTexture, bool isPotion, Vect
         setPotion( numTexture );
     }
     setSprite(position);
+    setHitBox(position);
 }
 
 Item::~Item(){
@@ -50,4 +51,8 @@ void Item::setSprite( Vector2f position ){
     spriteItem = new Sprite();
     spriteItem->setTexture(*textureItem);
     spriteItem->setPosition(position);
+}
+
+void Item::setHitBox( Vector2f position ){
+    itemHitBox = spriteItem->getGlobalBounds();
 }

@@ -38,7 +38,7 @@ Player::Player(RenderWindow& ventana, int claseSprite, int cantX, int cantY, Vec
     //Inventario
     inventory = new Inventory();
     
-    //
+    //Pocion inicial
     string potionName = "Castlevania";
     string potionDesc = "Cura para el insomnio";
     int potionType = restoreHealthPointsE;

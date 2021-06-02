@@ -6,10 +6,7 @@ Crear Combate.cpp
 Mover por completo todo lo que tienes en Combat.cpp
 Ajustar Combat.h
 Ajustar la condicion isOver() (no olvides el !)
-
-
 */
-
 
 const int ATTACK_DISTANCE = 15;
 
@@ -18,6 +15,8 @@ Juego::Juego(Vector2u resolucion){
     iniciar();
     iniciarView();
     initializeEnemiesNormal();
+    initializeBasicItems();
+    initializeArtifact();
 
     //Me permitira entrar a un Loop hasta que no termine el juego 
     gameLoop();
@@ -43,8 +42,6 @@ void Juego::gameLoop(){
 
                 }else if( gameState == paused ){ //paused update
                     gameState = updateState(pMenu->update());
-                }else if( gameState == inventory ){
-                    gameState = updateState(iMenu->update());
                 }
                 renderizar();
                 reloj1->restart();
@@ -81,6 +78,7 @@ void Juego::gameLoop(){
 void Juego::procesarLogica(){
     j1->procesarEventos();
     updateBorderCollision();
+    updateItemsCollision();
     if(updateTileCollision()){
         j1->checkCollisionDirection();
     }
@@ -100,6 +98,9 @@ void Juego::procesarLogica(){
                 enemieInCombat = itr->first;
             }
         }
+    }
+    if(j1->getHitBox().intersects(artifact->getHitBox())){
+        gameState = updateState(0);
     }
 }
 
@@ -122,15 +123,19 @@ void Juego::renderizar(){
                 itr->second->animarFrame(1);
             }
             ventana->draw(itr->second->getSprite());
-            ventana->draw(itr->second->getRectangle());
+            //ventana->draw(itr->second->getRectangle());
         }
     }
+    if(!mapItems.empty()){
+        for(int i = 0; i < mapItems.size(); i++){
+            ventana->draw(*mapItems[i]->getSprite());
+        }
+    }
+    ventana->draw(*artifact->getSprite());
     ventana->draw(j1->getSprite());
-    ventana->draw(j1->getRectangle());
+    //ventana->draw(j1->getRectangle());
     if(gameState == paused){
         pMenu->render( ventana );
-    }else if(gameState == inventory){
-        iMenu->render( ventana );
     }
     ventana->display();
 }
@@ -140,18 +145,11 @@ void Juego::pause(){
     pMenu = new PauseMenu( view, font );
 }
 
-void Juego::openInventory(){
-    gameState = inventory;
-    iMenu = new InventoryMenu( view, font );
-}
-
 game_states Juego::updateState( int state ){
     if(state == 2){
         return unpaused;
     }else if(state == 0){
         return gameOver;
-    }else if(state == 3){
-        return inventory;
     }
     return paused;
 }
@@ -189,6 +187,17 @@ bool Juego::updateTileCollision(){
         }
     }
     return collision;
+}
+
+void Juego::updateItemsCollision(){
+    if(!mapItems.empty()){
+        for(int i = 0; i < mapItems.size(); i++){
+            if(j1->getHitBox().intersects(mapItems[i]->getHitBox())){
+                j1->addItem(mapItems[i]);
+                mapItems.erase(mapItems.begin() + i);
+            }
+        }
+    }
 }
 
 void Juego::updateView(){
@@ -280,6 +289,8 @@ void Juego::initializeEnemiesNormal(){
 // FUNCIONES FASE PRUEBA, FALTA PASARLOS A UNA CLASE COMBATE Y AJUSTARLOS AHI
 
 void Juego::initializeBasicItems(){
+    srand(time(NULL));
+    int pos;
     itemsPositions.push_back(Vector2f(48, 1824));
     itemsPositions.push_back(Vector2f(48, 1464));
     itemsPositions.push_back(Vector2f(1512, 1848));
@@ -298,8 +309,144 @@ void Juego::initializeBasicItems(){
     itemsPositions.push_back(Vector2f(864, 1512));
     itemsPositions.push_back(Vector2f(624, 1968));
     itemsPositions.push_back(Vector2f(1656, 936));
+    itemsPositions.push_back(Vector2f(1320, 1368));
+    itemsPositions.push_back(Vector2f(1224, 936));
+    itemsPositions.push_back(Vector2f(864, 2184));
+    itemsPositions.push_back(Vector2f(576, 1344));
 
-    item1 = new Weapon("Arma comun", "Vieja arma dejada atras por los ahora convertidos en criaturas de otra realidad", 1, 5, itemsPositions[1]);
+    pos = randomItemPos();
+    item1 = new Weapon("Arma comun", "Vieja arma dejada atras por los ahora convertidos en criaturas de otra realidad", 1+rand()%15, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma comun", "Vieja arma dejada atras por los ahora convertidos en criaturas de otra realidad", 1+rand()%15, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma comun", "Vieja arma dejada atras por los ahora convertidos en criaturas de otra realidad", 1+rand()%15, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma comun", "Vieja arma dejada atras por los ahora convertidos en criaturas de otra realidad", 1+rand()%15, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma poco comun", "Otorgadas por el rey en persona para su proteccion y la de su familia", 20+rand()%11, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma poco comun", "Otorgadas por el rey en persona para su proteccion y la de su familia", 20+rand()%11, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma poco comun", "Otorgadas por el rey en persona para su proteccion y la de su familia", 20+rand()%11, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma poco comun", "Otorgadas por el rey en persona para su proteccion y la de su familia", 20+rand()%11, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma rara", "Armas forgadas con base en acero de damasco para la mayor resistencia y corte", 39+rand()%6, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma rara", "Armas forgadas con base en acero de damasco para la mayor resistencia y corte", 39+rand()%6, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Arma rara", "Armas forgadas con base en acero de damasco para la mayor resistencia y corte", 39+rand()%6, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Weapon("Hacha del Verdugo", "Utilizadas para la decapitacion de aquellos que iban en contra de la ley divina del reino de Cyradil", 33+rand()%5, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Chestplate("Pechera del rey", "Vieja pechera utilizada por el rey Jarvan III en la guerra de los Mil Dias", 3, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Chestplate("Pechera Ornstein", "Una de las pecheras mas resistentes del mundo, la cual ha resistido millones de batallas", 5, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Helmet("Casco de toro", "Los cuernos en verdad no son de toro, nadie sabe de que son pero si se sabe que han atravesado a miles de enemigos", 1, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Helmet("Corona de la reina", "Utilizada por la reina Isabel", 3, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Leggings("Perneras de lava", "Perneras construidas con el fin de atravesar las zonas mas calientes del submundo", 3, 5, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Potion("Agua Bendecida", "Otorga puntos de vida a todo aquel que la ingiera", 1, 50, restoreHealthPointsE, 3, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Potion("Berserk", "Otorga puntos de ataque a todo aquel que la ingiera", 2, 80, increaseAttackPointsE, 2, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Potion("Nigromancia", "Otorga puntos de vida y ataque a costa de tu moralidad", 3, 200, restoreHealthPointsE, 3, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+    srand(time(NULL));
+    pos = randomItemPos();
+    item1 = new Potion("Masoquismo", "Reduce tu salud al mínimo a la vez que te otorga puntos de ataque", 4, 50, increaseAttackPointsE, 3, itemsPositions[pos]);
+    itemsPositions.erase(itemsPositions.begin() + pos);
+    mapItems.push_back(item1);
+
+
 }
 
+void Juego::initializeArtifact(){
+    artifact = new Weapon("Bendición de los caídos", "௯ ௮ ி ஞ ஜ ಋ   ಱ ಯ ಮ ಭ ಬ", 19, 100, Vector2f(768, 504));
+}
 
+int Juego::randomItemPos(){
+    srand(time(NULL));
+    return rand()%(itemsPositions.size() - 1);
+}
